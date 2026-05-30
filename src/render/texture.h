@@ -13,7 +13,7 @@
 
 class S2DTexture {
 public:
-    S2DTexture();
+    S2DTexture(SDL_Renderer *renderer);
 
     ~S2DTexture();
 
@@ -30,6 +30,7 @@ public:
     bool isLoaded();
 
 private:
+    SDL_Renderer *renderer;
     SDL_Texture *texture;
 
     int tWidth;
