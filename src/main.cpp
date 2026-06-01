@@ -18,10 +18,11 @@ constexpr int screenHeight = 480;
 SDL_Window* window = nullptr;
 SDL_Renderer *renderer = nullptr;
 
-constexpr int NUM_POINTS = 500;
-SDL_FPoint *points = new SDL_FPoint[NUM_POINTS];
-const SDL_FRect *fillRect;
-const SDL_FRect *hollowRect;
+const SDL_FPoint *leaves = new SDL_FPoint[9]{
+    { 100, 354 }, { 220, 230 }, { 140, 230 }, { 320, 100 }, { 500, 230 },
+    { 420, 230 }, { 540, 354 }, { 400, 354 }, { 100, 354 }
+};
+SDL_FPoint *trunk = new SDL_FPoint[4];
 
 S2DTexture *pngTexture;
 
@@ -40,13 +41,6 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
     SDL_SetRenderLogicalPresentation(renderer, screenWidth, screenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
-    fillRect = new SDL_FRect{screenWidth * 0.15, screenHeight * 0.15, screenWidth * 0.7, screenHeight * 0.7};
-    hollowRect = new SDL_FRect{screenWidth * 0.2, screenHeight * 0.2, screenWidth * 0.6, screenHeight * 0.6};
-    for (int i = 0; i < 500; i++) {
-        points[i].x = (SDL_randf() * fillRect->w) + fillRect->x;
-        points[i].y = (SDL_randf() * fillRect->h) + fillRect->y;
-    }
-
     return SDL_APP_CONTINUE;
 }
 
@@ -58,26 +52,27 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 }
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
-    // Do things here
 
-    SDL_SetRenderDrawColor(renderer, 33, 33, 33, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
 
-    // Render blue filled rectangle
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
-    SDL_RenderFillRect(renderer, fillRect);
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderLines(renderer, leaves, 9);
 
-    // Render random dots in this rectangle
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderPoints(renderer, points, NUM_POINTS);
+    SDL_SetRenderDrawColor(renderer, 127, 49, 32, SDL_ALPHA_OPAQUE);
+    SDL_RenderLine(renderer, 240, 450, 400, 450);
+    SDL_RenderLine(renderer, 240, 356, 400, 356);
+    SDL_RenderLine(renderer, 240, 356, 240, 450);
+    SDL_RenderLine(renderer, 400, 356, 400, 450);
 
-    // Render green hollow rectangle
-    SDL_SetRenderDrawColor(renderer, 0, 255, 255, SDL_ALPHA_OPAQUE);
-    SDL_RenderRect(renderer, hollowRect);
-
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderLine(renderer, 0, 0, screenWidth, screenHeight);
-    SDL_RenderLine(renderer, screenWidth, 0, 0, screenHeight);
+    for (int i = 0; i < 360; i++) {
+        const float size = 30.0f;
+        const float x = 320.0f;
+        const float y = 95.0f - (size / 2.0f);
+        const float r = (float) i * (SDL_PI_F / 180.0f);
+        SDL_SetRenderDrawColor(renderer, SDL_rand(256), SDL_rand(256), SDL_rand(256), SDL_ALPHA_OPAQUE);
+        SDL_RenderLine(renderer, x, y, x + SDL_cosf(r) * size, y + SDL_sinf(r) * size);
+    }
 
     SDL_RenderPresent(renderer);
 
