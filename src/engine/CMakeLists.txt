@@ -3,7 +3,7 @@ project(Engine VERSION 0.0.1)
 
 add_library(
         Engine STATIC
-        main_app.cpp
+        src/Engine/main_app.cpp
 )
 target_include_directories(
         Engine PUBLIC
