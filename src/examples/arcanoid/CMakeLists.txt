@@ -10,16 +10,6 @@ set(SDL3IMAGE_STATIC ON)
 set(SDL3IMAGE_SHARED OFF)
 set(BUILD_SHARED_LIBS OFF)
 
-# Build third party libraries
-add_subdirectory(
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/third_party/SDL
-        ${CMAKE_CURRENT_BINARY_DIR}/third_party/SDL
-)
-add_subdirectory(
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/third_party/SDL_image
-        ${CMAKE_CURRENT_BINARY_DIR}/third_party/SDL_image
-)
-
 # Build source libs
 add_subdirectory(
         ${CMAKE_CURRENT_SOURCE_DIR}/../../engine
