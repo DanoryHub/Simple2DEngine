@@ -3,9 +3,17 @@
 #include "SDL3/SDL.h"
 #include "SDL3/SDL_main.h"
 
-#include "Engine/main_app.h"
+#include "Engine/S2DMainApp.hpp"
+#include "Engine/S2DGameSettings.hpp"
 
-MainApp *mainApp = new MainApp{"Arcanoid", "0.0.1", "arcanoid", "Arcanoid"};
+
+S2DGameSettings* gameSettings = CreateGameSettings();
+
+MainApp *mainApp = new MainApp{
+    gameSettings->GetName().c_str(), gameSettings->GetVersion().c_str(),
+    gameSettings->GetVersion().c_str(), gameSettings->GetIdentifier().c_str(),
+    gameSettings->GetInitialSceneName(), gameSettings->GetAllScenes()
+};
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     if (!mainApp) {

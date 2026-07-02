@@ -3,21 +3,29 @@
 //
 #include <string>
 #include <iostream>
+#include <utility>
 
-#include "../../include/Engine/main_app.h"
+#include "../../include/Engine/S2DMainApp.hpp"
+
+#include "Engine/S2DGameScene.hpp"
 
 
 MainApp::MainApp(
     const char *name, const char *version,
-    const char *identifier, const char *title,
+    const char *identifier, const char *title, std::string mainSceeneName,
+    std::unordered_map<std::string, S2DGameScene*> newScenes,
     int screenWidth, int screenHeight):
     appName(name),
     appVersion(version),
     appIdentifier(identifier),
     windowTitle(title),
+    startSceneName(std::move(mainSceeneName)),
+    scenes(std::move(newScenes)),
     appScreenWidth(screenWidth),
-    appScreenHeight(screenHeight)
-{}
+    appScreenHeight(screenHeight) {
+
+    currSceneName = startSceneName;
+}
 
 MainApp::~MainApp() = default;
 
@@ -48,7 +56,15 @@ SDL_AppResult MainApp::ProcessEvent(void *appstate, SDL_Event *event) {
 
 SDL_AppResult MainApp::Iterate(void *appstate) {
 
+    S2DGameScene *scene = scenes[currSceneName];
+
+    scene->Iterate(0.1);
+
     return SDL_APP_CONTINUE;
 }
 
-void MainApp::Quit(void *appstate, SDL_AppResult result) {}
+void MainApp::Quit(void *appstate, SDL_AppResult result) {
+    for (auto& [name, scene]: scenes) {
+        delete scene;
+    }
+}

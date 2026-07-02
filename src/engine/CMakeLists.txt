@@ -21,7 +21,9 @@ FetchContent_MakeAvailable(SDL3_image)
 
 add_library(
         Engine STATIC
-        src/Engine/main_app.cpp
+        src/Engine/S2DMainApp.cpp
+        src/Engine/S2DGameObject.cpp
+        src/Engine/S2DGameScene.cpp
 )
 target_include_directories(
         Engine PUBLIC

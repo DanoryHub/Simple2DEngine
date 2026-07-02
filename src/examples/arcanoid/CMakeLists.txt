@@ -15,6 +15,10 @@ add_subdirectory(
         ${CMAKE_CURRENT_SOURCE_DIR}/../../engine
         ${CMAKE_CURRENT_BINARY_DIR}/Engine
 )
+add_subdirectory(
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib
+        ${CMAKE_CURRENT_BINARY_DIR}/ArcanoidSrc
+)
 
 # Build executable
 add_executable(Arcanoid ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/main.cpp)
@@ -22,6 +26,7 @@ add_executable(Arcanoid ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/main.cpp)
 target_link_libraries(
         Arcanoid PRIVATE
         Engine
+        ArcanoidSrc
 )
 
 # Custom target to copy media directory to the output directory of the executable
