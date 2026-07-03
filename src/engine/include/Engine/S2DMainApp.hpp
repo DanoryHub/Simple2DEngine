@@ -15,8 +15,8 @@ class S2DGameScene;
 class MainApp {
 public:
         MainApp(
-                const char* name, const char* version,
-                const char* identifier, const char* title, std::string mainSceeneName,
+                std::string name, std::string version,
+                std::string identifier, std::string title, std::string mainSceeneName,
                 std::unordered_map<std::string, S2DGameScene*> newScenes,
                 int screenWidth = 1920, int screenHeight = 1080
                 );
@@ -37,8 +37,8 @@ private:
         std::string currSceneName;
         std::unordered_map<std::string, S2DGameScene*> scenes;
 
-        const char *appVersion, *appName, *appIdentifier;
-        const char *windowTitle;
+        std::string appVersion, appName, appIdentifier;
+        std::string windowTitle;
 };
 
 #endif //SIMPLE2DENGINE_MAIN_APP_H

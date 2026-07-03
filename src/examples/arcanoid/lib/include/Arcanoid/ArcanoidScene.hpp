@@ -11,7 +11,7 @@ class ArcanoidScene: public S2DGameScene {
 public:
     ArcanoidScene();
 
-    void Iterate(float deltaTime);
+    void Iterate(float deltaTime) override;
 };
 
 

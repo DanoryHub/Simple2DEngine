@@ -9,7 +9,7 @@
 
 class ArcanoidObject: public S2DGameObject {
 public:
-    void Iterate(float deltaTime);
+    void Iterate(float deltaTime) override;
 };
 
 

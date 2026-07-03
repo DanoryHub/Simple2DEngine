@@ -10,9 +10,10 @@ class S2DGameObject {
 protected:
     std::string objectName;
 public:
+    virtual ~S2DGameObject() = default;
     std::string getName() const;
     void setName(const std::string name);
-    void Iterate(float deltaTime);
+    virtual void Iterate(float deltaTime);
 };
 
 

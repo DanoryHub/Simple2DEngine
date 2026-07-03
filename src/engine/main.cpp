@@ -7,19 +7,23 @@
 #include "Engine/S2DGameSettings.hpp"
 
 
-S2DGameSettings* gameSettings = CreateGameSettings();
-
-MainApp *mainApp = new MainApp{
-    gameSettings->GetName().c_str(), gameSettings->GetVersion().c_str(),
-    gameSettings->GetVersion().c_str(), gameSettings->GetIdentifier().c_str(),
-    gameSettings->GetInitialSceneName(), gameSettings->GetAllScenes()
-};
+S2DGameSettings* gameSettings;
+MainApp *mainApp;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
+    gameSettings = CreateGameSettings();
+
+    mainApp = new MainApp{
+        gameSettings->GetName(), gameSettings->GetVersion(),
+        gameSettings->GetVersion(), gameSettings->GetIdentifier(),
+        gameSettings->GetInitialSceneName(), gameSettings->GetAllScenes()
+    };
+
     if (!mainApp) {
         SDL_Log("mainApp is not valid");
         return SDL_APP_FAILURE;
     }
+
     return mainApp->Init(appstate, argc, argv);
 }
 

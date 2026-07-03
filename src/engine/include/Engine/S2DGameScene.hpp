@@ -12,9 +12,9 @@ class S2DGameScene {
 protected:
     std::vector<S2DGameObject*> gameObjects;
 public:
-    ~S2DGameScene();
+    virtual ~S2DGameScene();
     void registerGameObject(S2DGameObject* gameObject);
-    void Iterate(float deltaTime);
+    virtual void Iterate(float deltaTime);
 };
 
 

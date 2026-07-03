@@ -11,18 +11,18 @@
 
 
 MainApp::MainApp(
-    const char *name, const char *version,
-    const char *identifier, const char *title, std::string mainSceeneName,
+    std::string name, std::string version,
+    std::string identifier, std::string title, std::string mainSceeneName,
     std::unordered_map<std::string, S2DGameScene*> newScenes,
     int screenWidth, int screenHeight):
-    appName(name),
-    appVersion(version),
-    appIdentifier(identifier),
-    windowTitle(title),
+    appScreenWidth(screenWidth),
+    appScreenHeight(screenHeight),
     startSceneName(std::move(mainSceeneName)),
     scenes(std::move(newScenes)),
-    appScreenWidth(screenWidth),
-    appScreenHeight(screenHeight) {
+    appVersion(std::move(version)),
+    appName(std::move(name)),
+    appIdentifier(std::move(identifier)),
+    windowTitle(std::move(title)) {
 
     currSceneName = startSceneName;
 }
@@ -30,14 +30,14 @@ MainApp::MainApp(
 MainApp::~MainApp() = default;
 
 SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
-    SDL_SetAppMetadata(appName, appVersion, appIdentifier);
+    SDL_SetAppMetadata(appName.c_str(), appVersion.c_str(), appIdentifier.c_str());
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("SDL: Cant initialize video subsystem with error: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 
-    if (!SDL_CreateWindowAndRenderer(windowTitle, appScreenWidth, appScreenHeight, SDL_WINDOW_RESIZABLE, &mainWindow, &renderer)) {
+    if (!SDL_CreateWindowAndRenderer(windowTitle.c_str(), appScreenWidth, appScreenHeight, SDL_WINDOW_RESIZABLE, &mainWindow, &renderer)) {
         SDL_Log("SDL: Cant create window or renderer with error: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
