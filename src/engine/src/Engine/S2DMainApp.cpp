@@ -1,10 +1,11 @@
 ﻿//
 // Created by IvanMiatselski on 02.06.2026.
 //
-#include <string>
 #include <iostream>
 #include <utility>
 
+
+#include "SDL3/SDL.h"
 #include "../../include/Engine/S2DMainApp.hpp"
 
 #include "Engine/S2DGameScene.hpp"
@@ -25,9 +26,12 @@ MainApp::MainApp(
     windowTitle(std::move(title)) {
 
     currSceneName = startSceneName;
+    UpdateCurrScene(currSceneName);
 }
 
-MainApp::~MainApp() = default;
+void MainApp::UpdateCurrScene(const std::string &nextSceneName) {
+    currScene = scenes[nextSceneName];
+}
 
 SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
     SDL_SetAppMetadata(appName.c_str(), appVersion.c_str(), appIdentifier.c_str());
@@ -43,6 +47,7 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
     }
 
     SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    currentTime = std::chrono::high_resolution_clock::now();
 
     return SDL_APP_CONTINUE;
 }
@@ -55,10 +60,11 @@ SDL_AppResult MainApp::ProcessEvent(void *appstate, SDL_Event *event) {
 }
 
 SDL_AppResult MainApp::Iterate(void *appstate) {
+    auto newTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> deltaTime = newTime - currentTime;
+    currentTime = newTime;
 
-    S2DGameScene *scene = scenes[currSceneName];
-
-    scene->Iterate(0.1);
+    currScene->Iterate(deltaTime.count());
 
     return SDL_APP_CONTINUE;
 }

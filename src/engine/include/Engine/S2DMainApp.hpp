@@ -5,12 +5,12 @@
 #ifndef SIMPLE2DENGINE_MAIN_APP_H
 #define SIMPLE2DENGINE_MAIN_APP_H
 
-#include "SDL3/SDL.h"
-
 #include <unordered_map>
 #include <string>
+#include <chrono>
 
 class S2DGameScene;
+enum SDL_AppResult;
 
 class MainApp {
 public:
@@ -20,18 +20,22 @@ public:
                 std::unordered_map<std::string, S2DGameScene*> newScenes,
                 int screenWidth = 1920, int screenHeight = 1080
                 );
-        ~MainApp();
+        ~MainApp() = default;
         SDL_AppResult Init(void **appstate, int argc, char *argv[]);
         SDL_AppResult ProcessEvent(void *appstate, SDL_Event *event);
         SDL_AppResult Iterate(void *appstate);
         void Quit(void* appstate, SDL_AppResult result);
 
+        void UpdateCurrScene(const std::string &nextSceneName);
 private:
+        // Init variables
         int appScreenWidth;
         int appScreenHeight;
 
         SDL_Window *mainWindow = nullptr;
         SDL_Renderer *renderer = nullptr;
+
+        S2DGameScene *currScene = nullptr;
 
         std::string startSceneName;
         std::string currSceneName;
@@ -39,6 +43,11 @@ private:
 
         std::string appVersion, appName, appIdentifier;
         std::string windowTitle;
+
+        // Main loop persistent variables
+        std::chrono::time_point<std::chrono::steady_clock> currentTime;
+        double physSimDeltaTime = .01;
+
 };
 
 #endif //SIMPLE2DENGINE_MAIN_APP_H
