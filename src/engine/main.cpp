@@ -15,7 +15,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
     mainApp = new MainApp{
         gameSettings->GetName(), gameSettings->GetVersion(),
-        gameSettings->GetVersion(), gameSettings->GetIdentifier(),
+        gameSettings->GetIdentifier(), gameSettings->GetTitle(),
         gameSettings->GetInitialSceneName(), gameSettings->GetAllScenes()
     };
 
