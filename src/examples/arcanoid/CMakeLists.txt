@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(Arcanoid VERSION 0.0.1)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 # Setup project build options
 set(SDL_STATIC ON)

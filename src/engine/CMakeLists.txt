@@ -24,6 +24,9 @@ add_library(
         src/Engine/S2DMainApp.cpp
         src/Engine/S2DGameObject.cpp
         src/Engine/S2DGameScene.cpp
+        src/Engine/S2DPlaceable.cpp
+        src/Engine/S2DTexture.cpp
+        src/Engine/S2DVector2.cpp
 )
 target_include_directories(
         Engine PUBLIC

@@ -4,7 +4,7 @@
 
 #include "../../include/Engine/S2DPlaceable.hpp"
 
-#include "../include/Engine/S2DTexture.hpp"
+#include "Engine/S2DTexture.hpp"
 
 
 S2DPlaceable::S2DPlaceable(S2DTexture *newTexture):
@@ -16,5 +16,7 @@ S2DPlaceable::S2DPlaceable(SDL_Renderer *currRenderer, const std::string& textur
 }
 
 void S2DPlaceable::Iterate(float deltaTime) {
-
+    if (texture != nullptr) {
+        texture->Draw(position->x, position->y);
+    }
 }

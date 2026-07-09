@@ -5,7 +5,6 @@
 #ifndef ARCANOID_S2DGAMESETTINGS_HPP
 #define ARCANOID_S2DGAMESETTINGS_HPP
 #include <string>
-#include <iostream>
 #include <unordered_map>
 
 

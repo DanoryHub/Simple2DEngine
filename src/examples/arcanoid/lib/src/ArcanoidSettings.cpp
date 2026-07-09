@@ -16,13 +16,10 @@ std::unordered_map<std::string, S2DGameScene*> ArcanoidSettings::GetAllScenes() 
     scenes["MainScene"] = new ArcanoidScene();
 
     ArcanoidObject *obj1 = new ArcanoidObject();
-    ArcanoidObject *obj2 = new ArcanoidObject();
 
     obj1->setName("obj1");
-    obj2->setName("obj2");
 
     scenes["MainScene"]->registerGameObject(obj1);
-    scenes["MainScene"]->registerGameObject(obj2);
 
     return scenes;
 }

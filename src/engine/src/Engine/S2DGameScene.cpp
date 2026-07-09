@@ -3,7 +3,7 @@
 //
 
 #include "../include/Engine/S2DGameScene.hpp"
-#include "../include/Engine/S2DGameObject.hpp"
+#include "Engine/S2DGameObject.hpp"
 
 void S2DGameScene::registerGameObject(S2DGameObject *gameObject) {
     gameObjects.push_back(gameObject);
