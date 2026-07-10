@@ -13,11 +13,13 @@ MainApp *mainApp;
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     gameSettings = CreateGameSettings();
 
-    mainApp = new MainApp{
+    mainApp = MainApp::GetInstance(
         gameSettings->GetName(), gameSettings->GetVersion(),
         gameSettings->GetIdentifier(), gameSettings->GetTitle(),
-        gameSettings->GetInitialSceneName(), gameSettings->GetAllScenes()
-    };
+        gameSettings->GetInitialSceneName()
+    );
+
+    mainApp->SetScenes(gameSettings->GetAllScenes());
 
     if (!mainApp) {
         SDL_Log("mainApp is not valid");

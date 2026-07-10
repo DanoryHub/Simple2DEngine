@@ -6,12 +6,17 @@
 #define ARCANOID_ARCANOIDPLACEABLE_HPP
 #include "Engine/S2DPlaceable.hpp"
 
+#include <string>
+
 
 class ArcanoidPlaceable: public S2DPlaceable {
 protected:
-    int speed = 1;
-public:
+    float speed = 1.f;
 
+public:
+    using S2DPlaceable::S2DPlaceable;
+
+    void Iterate(float deltaTime) override;
 };
 
 

@@ -2,20 +2,29 @@
 // Created by IvanMiatselski on 30.06.2026.
 //
 
-#include "../include/Arcanoid/ArcanoidSettings.hpp"
-#include "../include/Arcanoid/ArcanoidObject.hpp"
-#include "../include/Arcanoid/ArcanoidScene.hpp"
+#include "Arcanoid/ArcanoidSettings.hpp"
+#include "Arcanoid/ArcanoidScene.hpp"
+#include "Arcanoid/ArcanoidPlaceable.hpp"
+
 #include "Engine/S2DGameScene.hpp"
+#include "Engine/S2DMainApp.hpp"
+
+#include <iostream>
+#include <string>
 
 S2DGameSettings* CreateGameSettings() {
     return new ArcanoidSettings();
 }
 
 std::unordered_map<std::string, S2DGameScene*> ArcanoidSettings::GetAllScenes() {
+
     std::unordered_map<std::string, S2DGameScene*> scenes;
     scenes["MainScene"] = new ArcanoidScene();
 
-    ArcanoidObject *obj1 = new ArcanoidObject();
+    ArcanoidPlaceable *obj1 = new ArcanoidPlaceable(
+        MainApp::GetInstance()->GetRenderer(),
+        std::string("./assets/bug.png")
+        );
 
     obj1->setName("obj1");
 

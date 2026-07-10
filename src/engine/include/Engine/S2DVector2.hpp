@@ -21,6 +21,30 @@ struct S2DVector2 {
     template <VectorType otherType>
     S2DVector2(const S2DVector2<otherType>& other) :
         x(static_cast<targetType>(other.x)), y(static_cast<targetType>(other.y)){}
+
+    S2DVector2<targetType>& operator+=(targetType right) {
+        x += right;
+        y += right;
+        return *this;
+    }
+
+    S2DVector2<targetType>& operator+=(const S2DVector2<targetType>& other) {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+
+    S2DVector2<targetType> operator+(targetType right) const {
+        S2DVector2<targetType> result = *this;
+        result += right;
+        return result;
+    }
+
+    S2DVector2<targetType> operator+(const S2DVector2<targetType>& other) const {
+        S2DVector2<targetType> result = *this;
+        result += other;
+        return result;
+    }
 };
 
 

@@ -6,6 +6,7 @@ add_library(
         src/ArcanoidObject.cpp
         src/ArcanoidScene.cpp
         src/ArcanoidSettings.cpp
+        src/ArcanoidPlaceable.cpp
 )
 target_include_directories(
         ArcanoidSrc PUBLIC

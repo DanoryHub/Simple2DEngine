@@ -10,27 +10,49 @@
 
 #include "Engine/S2DGameScene.hpp"
 
+MainApp* MainApp::mainApp = nullptr;
+
+MainApp* MainApp::GetInstance(
+            const std::string &name, const std::string &version,
+            const std::string &identifier, const std::string &title, const std::string &mainSceneName,
+            const int screenWidth, const int screenHeight) {
+    if (mainApp == nullptr) {
+        mainApp = new MainApp(name, version, identifier, title, mainSceneName,screenWidth, screenHeight);
+    }
+    return mainApp;
+}
+
+MainApp* MainApp::GetInstance() {
+    return mainApp;
+}
+
+void MainApp::SetScenes(const std::unordered_map<std::string, S2DGameScene*> &newScenes) {
+    scenes = std::move(newScenes);
+}
+
+SDL_Renderer* MainApp::GetRenderer() const {
+    return renderer;
+}
 
 MainApp::MainApp(
     std::string name, std::string version,
-    std::string identifier, std::string title, std::string mainSceeneName,
-    std::unordered_map<std::string, S2DGameScene*> newScenes,
+    std::string identifier, std::string title, std::string mainSceneName,
     int screenWidth, int screenHeight):
     appScreenWidth(screenWidth),
     appScreenHeight(screenHeight),
-    startSceneName(std::move(mainSceeneName)),
-    scenes(std::move(newScenes)),
+    startSceneName(std::move(mainSceneName)),
     appVersion(std::move(version)),
     appName(std::move(name)),
     appIdentifier(std::move(identifier)),
     windowTitle(std::move(title)) {
-
     currSceneName = startSceneName;
     UpdateCurrScene(currSceneName);
 }
 
 void MainApp::UpdateCurrScene(const std::string &nextSceneName) {
-    currScene = scenes[nextSceneName];
+    if (!scenes.empty()) {
+        currScene = scenes[nextSceneName];
+    }
 }
 
 SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
