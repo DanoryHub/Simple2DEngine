@@ -12,7 +12,6 @@
 #include <chrono>
 
 class S2DGameScene;
-enum SDL_AppResult;
 
 class MainApp {
 public:

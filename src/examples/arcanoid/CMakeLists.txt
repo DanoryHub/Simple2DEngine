@@ -25,7 +25,6 @@ add_executable(Arcanoid ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/main.cpp)
 
 target_link_libraries(
         Arcanoid PRIVATE
-        Engine
         ArcanoidSrc
 )
 

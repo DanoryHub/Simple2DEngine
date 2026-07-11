@@ -27,7 +27,10 @@ MainApp* MainApp::GetInstance() {
 }
 
 void MainApp::SetScenes(const std::unordered_map<std::string, S2DGameScene*> &newScenes) {
-    scenes = std::move(newScenes);
+    scenes = newScenes;
+    if (!scenes.empty()) {
+        currScene = scenes[currSceneName];
+    }
 }
 
 SDL_Renderer* MainApp::GetRenderer() const {
@@ -85,9 +88,11 @@ SDL_AppResult MainApp::Iterate(void *appstate) {
     auto newTime = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> deltaTime = newTime - currentTime;
     currentTime = newTime;
+    SDL_RenderClear(renderer);
 
     currScene->Iterate(deltaTime.count());
 
+    SDL_RenderPresent(renderer);
     return SDL_APP_CONTINUE;
 }
 

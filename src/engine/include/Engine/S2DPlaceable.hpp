@@ -10,7 +10,7 @@
 #include "Engine/S2DVector2.hpp"
 #include "Engine/S2DGameObject.hpp"
 
-class SDL_Renderer;
+struct SDL_Renderer;
 
 class S2DTexture;
 

@@ -12,6 +12,8 @@
 #include <iostream>
 #include <string>
 
+#include "SDL3/SDL.h"
+
 S2DGameSettings* CreateGameSettings() {
     return new ArcanoidSettings();
 }
@@ -21,8 +23,10 @@ std::unordered_map<std::string, S2DGameScene*> ArcanoidSettings::GetAllScenes() 
     std::unordered_map<std::string, S2DGameScene*> scenes;
     scenes["MainScene"] = new ArcanoidScene();
 
-    ArcanoidPlaceable *obj1 = new ArcanoidPlaceable(
-        MainApp::GetInstance()->GetRenderer(),
+    SDL_Renderer* renderer = MainApp::GetInstance()->GetRenderer();
+
+    auto *obj1 = new ArcanoidPlaceable(
+        renderer,
         std::string("./assets/bug.png")
         );
 

@@ -6,8 +6,8 @@
 
 
 S2DTexture::S2DTexture(SDL_Renderer* currRenderer, const std::string &tPath):
-    texturePath(tPath),
-    renderer(currRenderer)
+    renderer(currRenderer),
+    texturePath(tPath)
 {
     SDL_Surface* surface = SDL_LoadPNG(texturePath.c_str());
 

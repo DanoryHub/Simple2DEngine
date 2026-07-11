@@ -9,6 +9,4 @@ ArcanoidScene::ArcanoidScene() {}
 
 void ArcanoidScene::Iterate(float deltaTime) {
     S2DGameScene::Iterate(deltaTime);
-
-    std::cout << "ArcanoidScene Iterate" << std::endl;
 }

@@ -19,14 +19,16 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         gameSettings->GetInitialSceneName()
     );
 
-    mainApp->SetScenes(gameSettings->GetAllScenes());
-
     if (!mainApp) {
         SDL_Log("mainApp is not valid");
         return SDL_APP_FAILURE;
     }
 
-    return mainApp->Init(appstate, argc, argv);
+    SDL_AppResult res = mainApp->Init(appstate, argc, argv);
+
+    mainApp->SetScenes(gameSettings->GetAllScenes());
+
+    return res;
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
