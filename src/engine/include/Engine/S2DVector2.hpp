@@ -22,9 +22,9 @@ struct S2DVector2 {
     S2DVector2(const S2DVector2<otherType>& other) :
         x(static_cast<targetType>(other.x)), y(static_cast<targetType>(other.y)){}
 
-    S2DVector2<targetType>& operator+=(targetType right) {
-        x += right;
-        y += right;
+    S2DVector2<targetType>& operator+=(targetType scalar) {
+        x += scalar;
+        y += scalar;
         return *this;
     }
 
@@ -34,9 +34,9 @@ struct S2DVector2 {
         return *this;
     }
 
-    S2DVector2<targetType> operator+(targetType right) const {
+    S2DVector2<targetType> operator+(targetType scalar) const {
         S2DVector2<targetType> result = *this;
-        result += right;
+        result += scalar;
         return result;
     }
 
@@ -44,6 +44,94 @@ struct S2DVector2 {
         S2DVector2<targetType> result = *this;
         result += other;
         return result;
+    }
+
+    S2DVector2<targetType>& operator-=(targetType scalar) {
+        x -= scalar;
+        y -= scalar;
+        return *this;
+    }
+
+    S2DVector2<targetType>& operator-=(const S2DVector2<targetType>& other) {
+        x -= other.x;
+        y -= other.y;
+        return *this;
+    }
+
+    S2DVector2<targetType> operator-(targetType scalar) const {
+        S2DVector2<targetType> result = *this;
+        result -= scalar;
+        return result;
+    }
+
+    S2DVector2<targetType> operator-(const S2DVector2<targetType>& other) const {
+        S2DVector2<targetType> result = *this;
+        result -= other;
+        return result;
+    }
+
+    S2DVector2<targetType> operator*(targetType scalar) const {
+        S2DVector2<targetType> result = *this;
+        result *= scalar;
+        return result;
+    }
+
+    S2DVector2<targetType> operator*(S2DVector2<targetType>& other) const {
+        S2DVector2<targetType> result = *this;
+        result *= other;
+        return result;
+    }
+
+    S2DVector2<targetType>& operator*=(targetType scalar) {
+        x *= scalar;
+        y *= scalar;
+        return *this;
+    }
+
+    S2DVector2<targetType>& operator*=(const S2DVector2<targetType>& other) {
+        x *= other.x;
+        y *= other.y;
+        return *this;
+    }
+
+    S2DVector2<targetType> operator/(targetType scalar) const {
+        S2DVector2<targetType> result = *this;
+        result /= scalar;
+        return result;
+    }
+
+    S2DVector2<targetType> operator/(S2DVector2<targetType>& other) const {
+        S2DVector2<targetType> result = *this;
+        result /= other;
+        return result;
+    }
+
+    S2DVector2<targetType>& operator/=(targetType scalar) {
+        x /= scalar;
+        y /= scalar;
+        return *this;
+    }
+
+    S2DVector2<targetType>& operator/=(const S2DVector2<targetType>& other) {
+        x /= other.x;
+        y /= other.y;
+        return *this;
+    }
+
+    targetType Length() const {
+        return static_cast<targetType>(sqrt(x * x + y * y));
+    }
+
+    S2DVector2<targetType> Normalize() const {
+        float length = Length();
+        if (length > 0) {
+            return *this / length;
+        }
+        return *this;
+    }
+
+    targetType DotProduct(const S2DVector2<targetType>& other) const {
+        return x * other.x + y * other.y;
     }
 };
 

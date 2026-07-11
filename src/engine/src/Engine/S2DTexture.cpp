@@ -3,13 +3,14 @@
 //
 
 #include "../../include/Engine/S2DTexture.hpp"
+#include "SDL3_image/SDL_image.h"
 
 
 S2DTexture::S2DTexture(SDL_Renderer* currRenderer, const std::string &tPath):
     renderer(currRenderer),
     texturePath(tPath)
 {
-    SDL_Surface* surface = SDL_LoadPNG(texturePath.c_str());
+    SDL_Surface* surface = IMG_Load(texturePath.c_str());
 
     if (surface == nullptr) {
         SDL_Log("Cant load png with path %s", texturePath.c_str());
