@@ -11,7 +11,7 @@
 
 class ArcanoidPlaceable: public S2DPlaceable {
 protected:
-    float speed = 30.f;
+    float speed = 90.f;
 
 public:
     using S2DPlaceable::S2DPlaceable;

@@ -14,7 +14,9 @@
 void ArcanoidPlaceable::Iterate(float deltaTime) {
     S2DPlaceable::Iterate(deltaTime);
 
-    position += speed * deltaTime;
+    S2DVector2<float> direction = S2DVector2<float>(1920.f, 1080.f) - position;
+
+    position +=  direction.Normalize() * speed * deltaTime;
 
     constexpr float PI = 3.14;
     using namespace std::chrono;
@@ -25,5 +27,4 @@ void ArcanoidPlaceable::Iterate(float deltaTime) {
     float scaleFactor = sinX * .5f + 1.f;
     scale = baseScale * scaleFactor;
     rotation = 360.f * scaleFactor;
-    std::cout << scaleFactor << " " << deltaTime << std::endl;
 }
