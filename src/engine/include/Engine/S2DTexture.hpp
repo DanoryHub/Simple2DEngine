@@ -21,7 +21,9 @@ public:
     S2DTexture(SDL_Renderer* currRenderer, const std::string& tPath);
     ~S2DTexture();
 
-    void Draw(const float x, const float y) const;
+    void Draw(float x, float y,
+        float scaleX = 1, float scaleY = 1,
+        float rotation = 0) const;
 };
 
 

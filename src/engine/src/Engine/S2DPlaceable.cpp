@@ -21,6 +21,6 @@ S2DPlaceable::S2DPlaceable(SDL_Renderer* newRenderer, const std::string& texture
 
 void S2DPlaceable::Iterate(float deltaTime) {
     if (texture != nullptr) {
-        texture->Draw(position.x, position.y);
+        texture->Draw(position.x, position.y, scale.x, scale.y, rotation);
     }
 }

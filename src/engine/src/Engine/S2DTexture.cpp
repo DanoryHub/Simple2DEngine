@@ -28,13 +28,17 @@ S2DTexture::~S2DTexture() {
     SDL_DestroyTexture(texture);
 }
 
-void S2DTexture::Draw(const float x, const float y) const {
+void S2DTexture::Draw(const float x, const float y,
+    const float scaleX, const float scaleY,
+    const float rotation) const {
+    float newWidth = (float)textureWidth * scaleY;
+    float newHeight = (float)textureHeight * scaleX;
     SDL_FRect dstRect;
+    dstRect.x = x - newWidth / 2.f;
+    dstRect.y = y - newHeight / 2.f;
+    dstRect.w = newWidth;
+    dstRect.h = newHeight;
 
-    dstRect.x = x;
-    dstRect.y = y;
-    dstRect.w = static_cast<float>(textureWidth);
-    dstRect.h = static_cast<float>(textureHeight);
-
-    SDL_RenderTexture(renderer, texture, nullptr, &dstRect);
+    SDL_FPoint center{dstRect.w / 2.f, dstRect.h / 2.f};
+    SDL_RenderTextureRotated(renderer, texture, nullptr, &dstRect, rotation, &center, SDL_FLIP_NONE);
 }

@@ -18,6 +18,12 @@ class S2DPlaceable: public S2DGameObject{
 protected:
     S2DTexture* texture;
     S2DVector2<float> position = S2DVector2<float>(0.f, 0.f);
+
+    S2DVector2<float> scale = S2DVector2<float>(1.f, 1.f);
+    S2DVector2<float> baseScale = S2DVector2<float>(1.f, 1.f);
+
+    float rotation = 0.f;
+
 public:
     S2DPlaceable();
     S2DPlaceable(SDL_Renderer* newRenderer, const std::string& texturePath);
