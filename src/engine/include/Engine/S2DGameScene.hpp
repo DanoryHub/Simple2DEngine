@@ -2,8 +2,8 @@
 // Created by IvanMiatselski on 02.07.2026.
 //
 
-#ifndef ARCANOID_S2DGAMESCENE_HPP
-#define ARCANOID_S2DGAMESCENE_HPP
+#ifndef ENGINE_S2DGAMESCENE_HPP
+#define ENGINE_S2DGAMESCENE_HPP
 #include <vector>
 
 class S2DGameObject;
@@ -18,4 +18,4 @@ public:
 };
 
 
-#endif //ARCANOID_S2DGAMESCENE_HPP
+#endif //ENGINE_S2DGAMESCENE_HPP

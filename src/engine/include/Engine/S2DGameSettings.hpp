@@ -2,8 +2,8 @@
 // Created by IvanMiatselski on 30.06.2026.
 //
 
-#ifndef ARCANOID_S2DGAMESETTINGS_HPP
-#define ARCANOID_S2DGAMESETTINGS_HPP
+#ifndef ENGINE_S2DGAMESETTINGS_HPP
+#define ENGINE_S2DGAMESETTINGS_HPP
 #include <string>
 #include <unordered_map>
 
@@ -25,4 +25,4 @@ public:
 
 extern S2DGameSettings* CreateGameSettings();
 
-#endif //ARCANOID_S2DGAMESETTINGS_HPP
+#endif //ENGINE_S2DGAMESETTINGS_HPP

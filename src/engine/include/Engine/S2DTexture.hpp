@@ -2,11 +2,11 @@
 // Created by IvanMiatselski on 08.07.2026.
 //
 
-#ifndef ARCANOID_S2DTEXTURE_HPP
-#define ARCANOID_S2DTEXTURE_HPP
+#ifndef ENGINE_S2DTEXTURE_HPP
+#define ENGINE_S2DTEXTURE_HPP
 
 #include "SDL3/SDL.h"
-#include "string"
+#include <string>
 
 class S2DTexture {
 protected:
@@ -27,4 +27,4 @@ public:
 };
 
 
-#endif //ARCANOID_S2DTEXTURE_HPP
+#endif //ENGINE_S2DTEXTURE_HPP

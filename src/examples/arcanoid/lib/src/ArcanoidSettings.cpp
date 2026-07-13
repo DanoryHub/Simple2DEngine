@@ -19,7 +19,7 @@ S2DGameSettings* CreateGameSettings() {
 }
 
 std::unordered_map<std::string, S2DGameScene*> ArcanoidSettings::GetAllScenes() {
-
+    // TODO: In future all this will be done as a json data file and will be read by engine itself
     std::unordered_map<std::string, S2DGameScene*> scenes;
     scenes["MainScene"] = new ArcanoidScene();
 

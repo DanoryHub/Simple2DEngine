@@ -2,7 +2,8 @@
 // Created by IvanMiatselski on 08.07.2026.
 //
 
-#include "../../include/Engine/S2DTexture.hpp"
+#include "Engine/S2DTexture.hpp"
+
 #include "SDL3_image/SDL_image.h"
 
 
@@ -14,6 +15,9 @@ S2DTexture::S2DTexture(SDL_Renderer* currRenderer, const std::string &tPath):
 
     if (surface == nullptr) {
         SDL_Log("Cant load png with path %s", texturePath.c_str());
+        textureWidth = 0;
+        textureHeight = 0;
+        texture = nullptr;
         return;
     }
 
@@ -31,8 +35,9 @@ S2DTexture::~S2DTexture() {
 void S2DTexture::Draw(const float x, const float y,
     const float scaleX, const float scaleY,
     const float rotation) const {
-    float newWidth = (float)textureWidth * scaleY;
-    float newHeight = (float)textureHeight * scaleX;
+
+    const float newWidth = static_cast<float>(textureWidth) * scaleX;
+    const float newHeight = static_cast<float>(textureHeight) * scaleY;
     SDL_FRect dstRect;
     dstRect.x = x - newWidth / 2.f;
     dstRect.y = y - newHeight / 2.f;

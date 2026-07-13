@@ -2,13 +2,13 @@
 // Created by IvanMiatselski on 02.07.2026.
 //
 
-#include "../include/Engine/S2DGameObject.hpp"
+#include "Engine/S2DGameObject.hpp"
 
-void S2DGameObject::setName(const std::string name) {
+void S2DGameObject::setName(const std::string& name) {
     objectName = name;
 }
 
-std::string S2DGameObject::getName() const {
+const std::string& S2DGameObject::getName() const {
     return objectName;
 }
 

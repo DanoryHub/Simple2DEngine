@@ -2,7 +2,7 @@
 // Created by IvanMiatselski on 02.07.2026.
 //
 
-#include "../include/Arcanoid/ArcanoidScene.hpp"
+#include "Arcanoid/ArcanoidScene.hpp"
 #include <iostream>
 
 ArcanoidScene::ArcanoidScene() {}

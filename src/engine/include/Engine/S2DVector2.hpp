@@ -2,8 +2,8 @@
 // Created by IvanMiatselski on 09.07.2026.
 //
 
-#ifndef ARCANOID_S2DVECTOR2_HPP
-#define ARCANOID_S2DVECTOR2_HPP
+#ifndef ENGINE_S2DVECTOR2_HPP
+#define ENGINE_S2DVECTOR2_HPP
 
 #include <concepts>
 
@@ -123,7 +123,7 @@ struct S2DVector2 {
     }
 
     S2DVector2<targetType> Normalize() const {
-        float length = Length();
+        targetType length = Length();
         if (length > 0) {
             return *this / length;
         }
@@ -136,4 +136,4 @@ struct S2DVector2 {
 };
 
 
-#endif //ARCANOID_S2DVECTOR2_HPP
+#endif //ENGINE_S2DVECTOR2_HPP

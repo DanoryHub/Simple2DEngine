@@ -6,8 +6,6 @@
 #define ARCANOID_ARCANOIDPLACEABLE_HPP
 #include "Engine/S2DPlaceable.hpp"
 
-#include <string>
-
 
 class ArcanoidPlaceable: public S2DPlaceable {
 protected:

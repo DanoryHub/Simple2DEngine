@@ -1,14 +1,15 @@
 ﻿//
 // Created by IvanMiatselski on 02.06.2026.
 //
+
+#include "Engine/S2DMainApp.hpp"
+#include "Engine/S2DGameScene.hpp"
+
 #include <iostream>
 #include <utility>
 
-
 #include "SDL3/SDL.h"
-#include "../../include/Engine/S2DMainApp.hpp"
 
-#include "Engine/S2DGameScene.hpp"
 
 MainApp* MainApp::mainApp = nullptr;
 
@@ -100,4 +101,6 @@ void MainApp::Quit(void *appstate, SDL_AppResult result) {
     for (auto& [name, scene]: scenes) {
         delete scene;
     }
+
+    delete MainApp::mainApp;
 }

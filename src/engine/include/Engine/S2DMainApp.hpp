@@ -2,8 +2,8 @@
 // Created by IvanMiatselski on 02.06.2026.
 //
 
-#ifndef SIMPLE2DENGINE_MAIN_APP_H
-#define SIMPLE2DENGINE_MAIN_APP_H
+#ifndef ENGINE_S2DMAINAPP_HPP
+#define ENGINE_S2DMAINAPP_HPP
 
 #include "SDL3/SDL.h"
 
@@ -64,4 +64,4 @@ private:
 
 };
 
-#endif //SIMPLE2DENGINE_MAIN_APP_H
+#endif //ENGINE_S2DMAINAPP_HPP
