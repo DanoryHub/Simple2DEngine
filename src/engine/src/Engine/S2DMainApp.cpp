@@ -75,6 +75,8 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
     SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
     currentTime = std::chrono::high_resolution_clock::now();
 
+    SetScenes(InitializeScenes());
+
     return SDL_APP_CONTINUE;
 }
 

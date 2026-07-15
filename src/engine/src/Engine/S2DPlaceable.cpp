@@ -40,8 +40,8 @@ void S2DPlaceable::SetRotation(const float newRotation) {
     rotation = newRotation;
 }
 
-S2DPlaceable::S2DPlaceable(SDL_Renderer* newRenderer, const std::string& texturePath) {
-    texture = new S2DTexture(newRenderer, texturePath);
+S2DPlaceable::S2DPlaceable(const std::string& texturePath) {
+    texture = new S2DTexture(texturePath);
 }
 
 void S2DPlaceable::Iterate(float deltaTime) {

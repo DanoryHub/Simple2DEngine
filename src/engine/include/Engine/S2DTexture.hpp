@@ -18,7 +18,7 @@ protected:
     int textureHeight;
 
 public:
-    S2DTexture(SDL_Renderer* currRenderer, const std::string& tPath);
+    S2DTexture(const std::string& tPath);
     ~S2DTexture();
 
     void Draw(float x, float y,

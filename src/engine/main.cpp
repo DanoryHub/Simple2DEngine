@@ -28,7 +28,6 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
     SDL_AppResult res = state->mainApp->Init(appstate, argc, argv);
 
-    state->mainApp->SetScenes(state->gameSettings->GetAllScenes());
     *appstate = state;
     return res;
 }

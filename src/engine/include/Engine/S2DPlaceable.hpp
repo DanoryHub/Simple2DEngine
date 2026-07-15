@@ -24,7 +24,7 @@ protected:
 
 public:
     S2DPlaceable();
-    S2DPlaceable(SDL_Renderer* newRenderer, const std::string& texturePath);
+    S2DPlaceable(const std::string& texturePath);
     S2DPlaceable(S2DTexture* newTexture);
 
     S2DVector2<float> GetPosition() const;

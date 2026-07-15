@@ -3,14 +3,22 @@
 //
 
 #include "Engine/S2DTexture.hpp"
+#include "Engine/S2DMainApp.hpp"
 
 #include "SDL3_image/SDL_image.h"
 
+#include <iostream>
 
-S2DTexture::S2DTexture(SDL_Renderer* currRenderer, const std::string &tPath):
-    renderer(currRenderer),
+
+S2DTexture::S2DTexture(const std::string &tPath):
     texturePath(tPath)
 {
+    renderer = MainApp::GetInstance()->GetRenderer();
+
+    if (renderer == nullptr) {
+        std::cout << "Renderer is not valid" << std::endl;
+    }
+
     SDL_Surface* surface = IMG_Load(texturePath.c_str());
 
     if (surface == nullptr) {

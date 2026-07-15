@@ -7,7 +7,12 @@
 
 #include "Engine/S2DGameScene.hpp"
 
+class ArcanoidPlaceable;
+
 class ArcanoidScene: public S2DGameScene {
+protected:
+    ArcanoidPlaceable *testPlaceable;
+
 public:
     ArcanoidScene();
 

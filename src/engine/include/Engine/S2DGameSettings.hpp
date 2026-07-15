@@ -20,7 +20,6 @@ public:
     virtual int GetWindowWidth() const = 0;
     virtual int GetWindowHeight() const = 0;
     virtual std::string GetInitialSceneName() const = 0;
-    virtual  std::unordered_map<std::string, S2DGameScene*> GetAllScenes() = 0;
 };
 
 extern S2DGameSettings* CreateGameSettings();

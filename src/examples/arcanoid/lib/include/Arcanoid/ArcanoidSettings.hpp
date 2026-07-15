@@ -20,7 +20,6 @@ class ArcanoidSettings: public S2DGameSettings{
     int GetWindowWidth() const override;
     int GetWindowHeight() const override;
     std::string GetInitialSceneName() const override;
-    std::unordered_map<std::string, S2DGameScene*> GetAllScenes() override;
 };
 
 #endif //ARCANOID_ARCANOIDSETTINGS_HPP
