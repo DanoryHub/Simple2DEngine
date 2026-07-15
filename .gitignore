@@ -1,3 +1,4 @@
 .idea/*
 cmake-build-debug/*
 src/engine/third_party/*
+*_gen.cpp

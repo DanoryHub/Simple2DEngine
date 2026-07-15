@@ -64,4 +64,6 @@ private:
 
 };
 
+extern std::unordered_map<std::string, S2DGameScene*> InitializeScenes();
+
 #endif //ENGINE_S2DMAINAPP_HPP

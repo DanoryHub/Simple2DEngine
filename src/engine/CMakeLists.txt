@@ -5,6 +5,14 @@ set(CMAKE_CXX_STANDARD 20)
 
 include(FetchContent)
 
+find_package(Python3 COMPONENTS Interpreter)
+if(Python3_FOUND)
+    execute_process(
+            COMMAND ${Python3_EXECUTABLE} -m pip install -r ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endif()
+
 FetchContent_Declare(
         SDL3
         GIT_REPOSITORY https://github.com/libsdl-org/SDL.git

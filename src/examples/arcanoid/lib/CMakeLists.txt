@@ -8,6 +8,13 @@ add_library(
         src/ArcanoidSettings.cpp
         src/ArcanoidPlaceable.cpp
 )
+
+# Add all generated cpp files to the library
+file(
+        GLOB GENERATED_FILES
+        src/*_gen.cpp
+)
+target_sources(ArcanoidSrc PUBLIC ${GENERATED_FILES})
 target_include_directories(
         ArcanoidSrc PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include

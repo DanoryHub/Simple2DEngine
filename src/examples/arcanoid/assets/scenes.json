@@ -1,0 +1,9 @@
+﻿{
+  "scenes": [
+    {
+      "id": "MainScene",
+      "className": "ArcanoidScene",
+      "includePath": "Arcanoid/ArcanoidScene.hpp"
+    }
+  ]
+}
