@@ -9,6 +9,11 @@
 struct AppState {
     S2DGameSettings* gameSettings;
     MainApp *mainApp;
+
+    ~AppState() {
+        delete mainApp;
+        delete gameSettings;
+    }
 };
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {

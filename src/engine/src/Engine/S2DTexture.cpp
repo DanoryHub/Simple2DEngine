@@ -3,17 +3,17 @@
 //
 
 #include "Engine/S2DTexture.hpp"
-#include "Engine/S2DMainApp.hpp"
 
+#include "SDL3/SDL.h"
 #include "SDL3_image/SDL_image.h"
 
 #include <iostream>
 
 
-S2DTexture::S2DTexture(const std::string &tPath):
+S2DTexture::S2DTexture(SDL_Renderer* newRenderer, const std::string &tPath):
     texturePath(tPath)
 {
-    renderer = MainApp::GetInstance()->GetRenderer();
+    renderer = newRenderer;
 
     if (renderer == nullptr) {
         std::cout << "Renderer is not valid" << std::endl;
@@ -39,6 +39,12 @@ S2DTexture::S2DTexture(const std::string &tPath):
 S2DTexture::~S2DTexture() {
     SDL_DestroyTexture(texture);
 }
+
+void S2DTexture::SetRenderer(SDL_Renderer *newRenderer) {
+    renderer = newRenderer;
+    SDL_SetRenderTarget(renderer, texture);
+}
+
 
 void S2DTexture::Draw(const float x, const float y,
     const float scaleX, const float scaleY,

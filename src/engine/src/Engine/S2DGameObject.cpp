@@ -4,6 +4,8 @@
 
 #include "Engine/S2DGameObject.hpp"
 
+#include "SDL3/SDL_render.h"
+
 void S2DGameObject::setName(const std::string& name) {
     objectName = name;
 }
@@ -13,5 +15,4 @@ const std::string& S2DGameObject::getName() const {
 }
 
 void S2DGameObject::Iterate(float deltaTime) {}
-
 

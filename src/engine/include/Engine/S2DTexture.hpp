@@ -5,8 +5,10 @@
 #ifndef ENGINE_S2DTEXTURE_HPP
 #define ENGINE_S2DTEXTURE_HPP
 
-#include "SDL3/SDL.h"
 #include <string>
+
+struct SDL_Texture;
+struct SDL_Renderer;
 
 class S2DTexture {
 protected:
@@ -18,8 +20,10 @@ protected:
     int textureHeight;
 
 public:
-    S2DTexture(const std::string& tPath);
+    S2DTexture(SDL_Renderer* newRenderer, const std::string& tPath);
     ~S2DTexture();
+
+    void SetRenderer(SDL_Renderer* newRenderer);
 
     void Draw(float x, float y,
         float scaleX = 1, float scaleY = 1,

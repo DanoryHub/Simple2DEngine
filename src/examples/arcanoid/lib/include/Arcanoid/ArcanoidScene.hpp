@@ -7,6 +7,7 @@
 
 #include "Engine/S2DGameScene.hpp"
 
+struct SDL_Renderer;
 class ArcanoidPlaceable;
 
 class ArcanoidScene: public S2DGameScene {
@@ -14,7 +15,7 @@ protected:
     ArcanoidPlaceable *testPlaceable;
 
 public:
-    ArcanoidScene();
+    ArcanoidScene(SDL_Renderer* renderer);
 
     void Iterate(float deltaTime) override;
 };

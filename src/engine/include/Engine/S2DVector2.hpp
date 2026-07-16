@@ -100,7 +100,7 @@ struct S2DVector2 {
         return result;
     }
 
-    S2DVector2<targetType> operator/(S2DVector2<targetType>& other) const {
+    S2DVector2<targetType> operator/(const S2DVector2<targetType>& other) const {
         S2DVector2<targetType> result = *this;
         result /= other;
         return result;

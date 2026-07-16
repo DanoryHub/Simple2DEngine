@@ -11,16 +11,14 @@ set(SDL3IMAGE_SHARED OFF)
 set(BUILD_SHARED_LIBS OFF)
 
 find_package(Python3 COMPONENTS Interpreter REQUIRED)
-if(Python3_FOUND)
-    execute_process(
-            COMMAND ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/tools/ScenesCreationGenerator.py
-            ${CMAKE_CURRENT_SOURCE_DIR}/assets/scenes.json
-            ${CMAKE_CURRENT_SOURCE_DIR}/lib/src/ArcanoidScenesInit_gen.cpp
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            COMMAND_ERROR_IS_FATAL ANY
-    )
-endif()
+execute_process(
+        COMMAND ${Python3_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/tools/ScenesCreationGenerator.py
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets/scenes.json
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/src/ArcanoidScenesInit_gen.cpp
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMAND_ERROR_IS_FATAL ANY
+)
 
 # Build source libs
 add_subdirectory(

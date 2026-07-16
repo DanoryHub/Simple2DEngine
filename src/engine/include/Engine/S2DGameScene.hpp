@@ -6,14 +6,20 @@
 #define ENGINE_S2DGAMESCENE_HPP
 #include <vector>
 
+struct SDL_Renderer;
 class S2DGameObject;
 
 class S2DGameScene {
 protected:
+    SDL_Renderer *renderer;
     std::vector<S2DGameObject*> gameObjects;
+
 public:
+    S2DGameScene();
+    S2DGameScene(SDL_Renderer* newRenderer);
     virtual ~S2DGameScene();
     void registerGameObject(S2DGameObject* gameObject);
+
     virtual void Iterate(float deltaTime);
 };
 

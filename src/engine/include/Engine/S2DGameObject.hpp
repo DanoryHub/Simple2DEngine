@@ -6,6 +6,8 @@
 #define ENGINE_S2DGAMEOBJECT_HPP
 #include <string>
 
+struct SDL_Renderer;
+
 class S2DGameObject {
 protected:
     std::string objectName;

@@ -59,6 +59,16 @@ void MainApp::UpdateCurrScene(const std::string &nextSceneName) {
     }
 }
 
+MainApp::~MainApp() {
+    if (renderer != nullptr) {
+        SDL_DestroyRenderer(renderer);
+    }
+    if (mainWindow != nullptr) {
+        SDL_DestroyWindow(mainWindow);
+    }
+    SDL_Quit();
+}
+
 SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
     SDL_SetAppMetadata(appName.c_str(), appVersion.c_str(), appIdentifier.c_str());
 
@@ -75,7 +85,7 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
     SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
     currentTime = std::chrono::high_resolution_clock::now();
 
-    SetScenes(InitializeScenes());
+    SetScenes(InitializeScenes(renderer));
 
     return SDL_APP_CONTINUE;
 }

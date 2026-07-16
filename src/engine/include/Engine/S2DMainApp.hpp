@@ -16,7 +16,7 @@ class S2DGameScene;
 class MainApp {
 public:
         MainApp(MainApp const&) = delete;
-        ~MainApp() = default;
+        ~MainApp();
         void operator=(MainApp const&) = delete;
 
         static MainApp* GetInstance(
@@ -64,6 +64,6 @@ private:
 
 };
 
-extern std::unordered_map<std::string, S2DGameScene*> InitializeScenes();
+extern std::unordered_map<std::string, S2DGameScene*> InitializeScenes(SDL_Renderer* renderer);
 
 #endif //ENGINE_S2DMAINAPP_HPP
