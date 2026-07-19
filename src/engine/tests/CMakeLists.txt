@@ -1,6 +1,9 @@
 ﻿add_executable(
         unit_tests
-        Vector/vector_test.cpp
+        Vector/Vector_test.cpp
+        GameObject/GameObject_test.cpp
+        GameScene/GameScene_test.cpp
+        Placeable/Placeable_test.cpp
 )
 
 target_link_libraries(

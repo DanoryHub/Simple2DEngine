@@ -5,6 +5,7 @@
 #ifndef ENGINE_S2DVECTOR2_HPP
 #define ENGINE_S2DVECTOR2_HPP
 
+#include <cmath>
 #include <concepts>
 
 template <typename targetType>
@@ -123,7 +124,7 @@ struct S2DVector2 {
     }
 
     targetType Length() const {
-        return static_cast<targetType>(sqrt(x * x + y * y));
+        return static_cast<targetType>(std::sqrt(x * x + y * y));
     }
 
     S2DVector2<targetType> Normalize() const {
