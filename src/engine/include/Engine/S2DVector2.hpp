@@ -118,6 +118,10 @@ struct S2DVector2 {
         return *this;
     }
 
+    bool operator==(const S2DVector2<targetType>& other) const{
+        return x == other.x && y == other.y;
+    }
+
     targetType Length() const {
         return static_cast<targetType>(sqrt(x * x + y * y));
     }
