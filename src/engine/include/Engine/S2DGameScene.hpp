@@ -7,6 +7,7 @@
 #include <vector>
 
 struct SDL_Renderer;
+struct S2DRenderContext;
 class S2DGameObject;
 
 class S2DGameScene {
@@ -20,6 +21,7 @@ public:
     virtual ~S2DGameScene();
     void registerGameObject(S2DGameObject* gameObject);
 
+    virtual void Render(S2DRenderContext* renderContext);
     virtual void Iterate(float deltaTime);
 };
 

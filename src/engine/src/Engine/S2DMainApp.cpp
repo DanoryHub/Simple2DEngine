@@ -4,6 +4,7 @@
 
 #include "Engine/S2DMainApp.hpp"
 #include "Engine/S2DGameScene.hpp"
+#include "Engine/S2DRenderContext.hpp"
 
 #include <iostream>
 #include <utility>
@@ -29,9 +30,7 @@ MainApp* MainApp::GetInstance() {
 
 void MainApp::SetScenes(const std::unordered_map<std::string, S2DGameScene*> &newScenes) {
     scenes = newScenes;
-    if (!scenes.empty()) {
-        currScene = scenes[currSceneName];
-    }
+    UpdateCurrScene(currSceneName);
 }
 
 SDL_Renderer* MainApp::GetRenderer() const {
@@ -82,6 +81,8 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
+    currentContext = new S2DRenderContext(renderer);
+
     SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
     currentTime = std::chrono::high_resolution_clock::now();
 
@@ -104,6 +105,7 @@ SDL_AppResult MainApp::Iterate(void *appstate) {
     SDL_RenderClear(renderer);
 
     currScene->Iterate(deltaTime.count());
+    currScene->Render(currentContext);
 
     SDL_RenderPresent(renderer);
     return SDL_APP_CONTINUE;
@@ -114,5 +116,6 @@ void MainApp::Quit(void *appstate, SDL_AppResult result) {
         delete scene;
     }
 
+    delete currentContext;
     delete MainApp::mainApp;
 }

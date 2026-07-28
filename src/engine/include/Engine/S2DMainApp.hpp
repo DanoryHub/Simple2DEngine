@@ -12,6 +12,7 @@
 #include <chrono>
 
 class S2DGameScene;
+struct S2DRenderContext;
 
 class MainApp {
 public:
@@ -61,6 +62,8 @@ private:
         // Main loop persistent variables
         std::chrono::time_point<std::chrono::steady_clock> currentTime;
         double physSimDeltaTime = .01;
+
+        S2DRenderContext *currentContext;
 
 };
 

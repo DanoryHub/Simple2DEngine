@@ -54,10 +54,10 @@ S2DPlaceable::S2DPlaceable(SDL_Renderer* renderer, const std::string& texturePat
     texture = new S2DTexture(renderer, texturePath);
 }
 
-void S2DPlaceable::Iterate(float deltaTime) {
+void S2DPlaceable::Render(S2DRenderContext* renderContext) {
     if (texture != nullptr) {
         texture->Draw(position.x, position.y, scale.x, scale.y, rotation);
     }
-}
 
+}
 

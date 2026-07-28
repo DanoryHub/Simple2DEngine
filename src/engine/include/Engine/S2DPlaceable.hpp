@@ -12,6 +12,7 @@
 #include "SDL3/SDL_render.h"
 
 struct SDL_Renderer;
+struct S2DRenderContext;
 class S2DTexture;
 
 class S2DPlaceable: public S2DGameObject{
@@ -38,7 +39,7 @@ public:
     float GetRotation() const;
     void SetRotation(const float newRotation);
 
-    void Iterate(float deltaTime) override;
+    virtual void Render(S2DRenderContext* renderContext);
 };
 
 

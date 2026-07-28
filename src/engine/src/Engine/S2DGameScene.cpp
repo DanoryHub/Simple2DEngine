@@ -4,6 +4,7 @@
 
 #include "Engine/S2DGameScene.hpp"
 #include "Engine/S2DGameObject.hpp"
+#include "Engine/S2DPlaceable.hpp"
 
 #include "SDL3/SDL_render.h"
 
@@ -22,6 +23,15 @@ void S2DGameScene::registerGameObject(S2DGameObject *gameObject) {
 void S2DGameScene::Iterate(float deltaTime) {
     for (auto gameObject: gameObjects) {
         gameObject->Iterate(deltaTime);
+    }
+}
+
+void S2DGameScene::Render(S2DRenderContext* renderContext) {
+    for (auto gameObject: gameObjects) {
+        S2DPlaceable* placeable = dynamic_cast<S2DPlaceable*>(gameObject);
+        if (placeable != nullptr) {
+            placeable->Render(renderContext);
+        }
     }
 }
 
