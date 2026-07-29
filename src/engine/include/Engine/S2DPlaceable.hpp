@@ -9,13 +9,14 @@
 
 #include "Engine/S2DVector2.hpp"
 #include "Engine/S2DGameObject.hpp"
+#include "Engine/S2DIRenderable.hpp"
 #include "SDL3/SDL_render.h"
 
 struct SDL_Renderer;
 struct S2DRenderContext;
 class S2DTexture;
 
-class S2DPlaceable: public S2DGameObject{
+class S2DPlaceable: public S2DGameObject, public S2DIRenderable{
 protected:
     S2DTexture* texture;
     S2DVector2<float> position = S2DVector2<float>(0.f, 0.f);
@@ -37,9 +38,9 @@ public:
     void SetScale(const S2DVector2<float>& newScale);
 
     float GetRotation() const;
-    void SetRotation(const float newRotation);
+    void SetRotation(float newRotation);
 
-    virtual void Render(S2DRenderContext* renderContext);
+    void Render(S2DRenderContext* renderContext) override;
 };
 
 

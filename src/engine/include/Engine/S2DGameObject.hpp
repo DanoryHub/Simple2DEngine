@@ -4,19 +4,20 @@
 
 #ifndef ENGINE_S2DGAMEOBJECT_HPP
 #define ENGINE_S2DGAMEOBJECT_HPP
+#include "Engine/S2DIIterable.hpp"
 #include <string>
 
-class S2DGameObject {
+class S2DGameObject: public S2DIIterable {
 protected:
     std::string objectName;
 
 public:
-    virtual ~S2DGameObject() = default;
+    ~S2DGameObject() override = default;
 
     const std::string& getName() const;
     void setName(const std::string& name);
 
-    virtual void Iterate(float deltaTime);
+    void Iterate(float deltaTime) override;
 };
 
 

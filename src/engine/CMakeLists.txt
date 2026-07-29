@@ -50,6 +50,7 @@ add_library(
         src/Engine/S2DGameScene.cpp
         src/Engine/S2DPlaceable.cpp
         src/Engine/S2DTexture.cpp
+        src/Engine/S2DCamera.cpp
 )
 target_include_directories(
         Engine PUBLIC
