@@ -10,11 +10,9 @@
 #include <iostream>
 
 
-S2DTexture::S2DTexture(SDL_Renderer* newRenderer, const std::string &tPath):
+S2DTexture::S2DTexture(SDL_Renderer* renderer, const std::string &tPath):
     texturePath(tPath)
 {
-    renderer = newRenderer;
-
     if (renderer == nullptr) {
         std::cout << "Renderer is not valid" << std::endl;
     }
@@ -36,17 +34,7 @@ S2DTexture::S2DTexture(SDL_Renderer* newRenderer, const std::string &tPath):
     SDL_DestroySurface(surface);
 }
 
-S2DTexture::~S2DTexture() {
-    SDL_DestroyTexture(texture);
-}
-
-void S2DTexture::SetRenderer(SDL_Renderer *newRenderer) {
-    renderer = newRenderer;
-    SDL_SetRenderTarget(renderer, texture);
-}
-
-
-void S2DTexture::Draw(const float x, const float y,
+void S2DTexture::Draw(SDL_Renderer* renderer, const float x, const float y,
     const float scaleX, const float scaleY,
     const float rotation) const {
 
@@ -60,4 +48,8 @@ void S2DTexture::Draw(const float x, const float y,
 
     SDL_FPoint center{dstRect.w / 2.f, dstRect.h / 2.f};
     SDL_RenderTextureRotated(renderer, texture, nullptr, &dstRect, rotation, &center, SDL_FLIP_NONE);
+}
+
+S2DTexture::~S2DTexture() {
+    SDL_DestroyTexture(texture);
 }

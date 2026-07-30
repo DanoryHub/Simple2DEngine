@@ -7,9 +7,8 @@
 
 #include "SDL3/SDL.h"
 
-ArcanoidScene::ArcanoidScene(SDL_Renderer* renderer): S2DGameScene(renderer) {
-
-    testPlaceable = new ArcanoidPlaceable(renderer, "./assets/Bug.png");
+ArcanoidScene::ArcanoidScene(): S2DGameScene() {
+    testPlaceable = new ArcanoidPlaceable("./assets/Bug.png");
     registerGameObject(testPlaceable);
 }
 

@@ -15,7 +15,7 @@ protected:
     ArcanoidPlaceable *testPlaceable;
 
 public:
-    ArcanoidScene(SDL_Renderer* renderer);
+    ArcanoidScene();
 
     void Iterate(float deltaTime) override;
 };

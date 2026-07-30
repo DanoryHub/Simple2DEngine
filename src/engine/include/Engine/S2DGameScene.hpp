@@ -9,7 +9,7 @@
 
 #include <vector>
 
-struct S2DRenderContext;
+class S2DRenderContext;
 class S2DGameObject;
 class S2DCamera;
 
@@ -20,7 +20,7 @@ protected:
 
 public:
     S2DGameScene();
-    virtual ~S2DGameScene();
+    ~S2DGameScene() override;
     void registerGameObject(S2DGameObject* gameObject);
 
     void Render(S2DRenderContext* renderContext) override;

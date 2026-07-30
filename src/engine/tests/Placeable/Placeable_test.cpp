@@ -13,4 +13,5 @@ TEST(PlaceableTest, TestDefaultConstructor) {
     EXPECT_EQ(testObj->GetPosition(), S2DVector2<float>(0.f, 0.f));
     EXPECT_EQ(testObj->GetScale(), S2DVector2<float>(1.f, 1.f));
     EXPECT_EQ(testObj->GetRotation(), 0.f);
+    delete testObj;
 }

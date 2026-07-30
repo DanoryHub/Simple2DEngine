@@ -7,21 +7,13 @@
 #include <iostream>
 
 #include "Engine/S2DMainApp.hpp"
+#include "Engine/S2DRenderContext.hpp"
 #include "Engine/S2DTexture.hpp"
 
 #include "SDL3/SDL.h"
 
-S2DPlaceable::S2DPlaceable() {
-    texture = nullptr;
-}
-
-S2DPlaceable::S2DPlaceable(S2DTexture *newTexture):
-    texture(newTexture)
-{}
-
-S2DPlaceable::~S2DPlaceable() {
-    delete texture;
-}
+S2DPlaceable::S2DPlaceable() = default;
+S2DPlaceable::~S2DPlaceable() = default;
 
 S2DVector2<float> S2DPlaceable::GetPosition() const {
     return position;
@@ -47,16 +39,11 @@ void S2DPlaceable::SetRotation(const float newRotation) {
     rotation = newRotation;
 }
 
-S2DPlaceable::S2DPlaceable(SDL_Renderer* renderer, const std::string& texturePath) {
-    if (renderer == nullptr) {
-        std::cout << "Renderer is not initialized for object" << objectName << std::endl;
-    }
-    texture = new S2DTexture(renderer, texturePath);
+S2DPlaceable::S2DPlaceable(const std::string& newTexturePath) {
+    texturePath = newTexturePath;
 }
 
 void S2DPlaceable::Render(S2DRenderContext* renderContext) {
-    if (texture != nullptr) {
-        texture->Draw(position.x, position.y, scale.x, scale.y, rotation);
-    }
+    renderContext->drawTexture(texturePath, position, scale, rotation);
 }
 

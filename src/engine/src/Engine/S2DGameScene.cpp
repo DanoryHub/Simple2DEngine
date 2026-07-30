@@ -17,6 +17,7 @@ void S2DGameScene::registerGameObject(S2DGameObject *gameObject) {
 }
 
 void S2DGameScene::setSceneCamera(S2DCamera* newCamera) {
+    delete mainSceneCamera;
     mainSceneCamera = newCamera;
 }
 
@@ -32,7 +33,7 @@ void S2DGameScene::Iterate(float deltaTime) {
 }
 
 void S2DGameScene::Render(S2DRenderContext* renderContext) {
-    renderContext->currCamera = mainSceneCamera;
+    renderContext->registerCamera(mainSceneCamera);
     for (auto gameObject: gameObjects) {
         auto renderableObject = dynamic_cast<S2DIRenderable*>(gameObject);
         if (renderableObject != nullptr) {
