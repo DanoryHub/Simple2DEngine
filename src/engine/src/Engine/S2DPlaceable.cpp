@@ -58,6 +58,5 @@ void S2DPlaceable::Render(S2DRenderContext* renderContext) {
     if (texture != nullptr) {
         texture->Draw(position.x, position.y, scale.x, scale.y, rotation);
     }
-
 }
 

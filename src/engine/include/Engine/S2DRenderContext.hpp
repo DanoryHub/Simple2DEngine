@@ -5,11 +5,12 @@
 #ifndef ARCANOID_S2DRENDERCONTEXT_HPP
 #define ARCANOID_S2DRENDERCONTEXT_HPP
 
+#include "Engine/S2DCamera.hpp"
 #include "SDL3/SDL.h"
 
 struct S2DRenderContext {
     SDL_Renderer* renderer;
-    // Insert current camera information here
+    S2DCamera* currCamera;
 };
 
 #endif //ARCANOID_S2DRENDERCONTEXT_HPP
