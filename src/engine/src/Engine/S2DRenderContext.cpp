@@ -19,19 +19,15 @@ S2DRenderContext::S2DRenderContext() {
 }
 
 S2DRenderContext::~S2DRenderContext() {
-    delete renderer;
-    delete currCamera;
     clearTextureCache();
 }
 
 void S2DRenderContext::registerRenderer(SDL_Renderer* newRenderer) {
-    delete renderer;
     renderer = newRenderer;
     clearTextureCache();
 }
 
 void S2DRenderContext::registerCamera(S2DCamera* newCamera) {
-    delete currCamera;
     currCamera = newCamera;
 }
 

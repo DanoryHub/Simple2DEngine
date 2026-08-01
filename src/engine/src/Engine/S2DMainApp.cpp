@@ -118,5 +118,4 @@ void MainApp::Quit(void *appstate, SDL_AppResult result) {
     }
 
     delete currentContext;
-    delete MainApp::mainApp;
 }
