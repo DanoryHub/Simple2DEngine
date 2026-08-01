@@ -8,9 +8,12 @@
 #include <cmath>
 
 #include "Engine/S2DVector2.hpp"
+#include "Engine/S2DMatrix.hpp"
 
 void ArcanoidPlaceable::Iterate(float deltaTime) {
     S2DPlaceable::Iterate(deltaTime);
+
+    auto matr = S2DMatrix<int>(3);
 
     // position = S2DVector2<float>(1920.f/2, 1080.f/2);
     S2DVector2<float> direction = S2DVector2<float>(1920.f, 1080.f) - position;
