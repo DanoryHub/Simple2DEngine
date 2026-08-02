@@ -5,6 +5,11 @@
 #ifndef ENGINE_S2DMATRIX_IPP
 #define ENGINE_S2DMATRIX_IPP
 
+#include <cmath>
+#include <stdexcept>
+#include <vector>
+#include <array>
+
 template<MatrixType targetType>
 S2DMatrix<targetType>::S2DMatrix(): matrixSize({0, 0}) {}
 
@@ -56,12 +61,20 @@ targetType& S2DMatrix<targetType>::operator()(const size_t x, const size_t y) {
 }
 
 template<MatrixType targetType>
+const targetType& S2DMatrix<targetType>::operator()(const size_t x, const size_t y) const {
+    if (x >= matrixSize[0] || y >= matrixSize[1]) {
+        throw std::out_of_range("Matrix index out of range.");
+    }
+    return data[x + y * rowLength];
+}
+
+template<MatrixType targetType>
 std::array<size_t, 2> S2DMatrix<targetType>::getSize() const {
     return matrixSize;
 }
 
 template<MatrixType targetType>
-S2DMatrix<targetType> S2DMatrix<targetType>::operator*(const S2DMatrix<targetType>& other) {
+S2DMatrix<targetType> S2DMatrix<targetType>::operator*(const S2DMatrix<targetType>& other) const {
     if (matrixSize[0] != other.getSize()[1]) {
         throw std::invalid_argument("Incompatible matrix dimensions for multiplication.");
     }
@@ -87,7 +100,7 @@ S2DMatrix<targetType> S2DMatrix<targetType>::operator*(const S2DMatrix<targetTyp
 }
 
 template<MatrixType targetType>
-S2DVector2<targetType> S2DMatrix<targetType>::operator*(const S2DVector2<targetType>& other) {
+S2DVector2<targetType> S2DMatrix<targetType>::operator*(const S2DVector2<targetType>& other) const {
     if (matrixSize[0] != 3 || matrixSize[1] != 3) {
         throw std::invalid_argument("Matrix must be 3x3 for 2D transformation.");
     }
@@ -133,13 +146,19 @@ S2DMatrix<targetType> S2DMatrix<targetType>::Scaling(targetType xScale, targetTy
 }
 
 template<MatrixType targetType>
-S2DMatrix<targetType> S2DMatrix<targetType>::Rotation(float radAngle) {
+S2DMatrix<targetType> S2DMatrix<targetType>::Rotation(float angle) {
     S2DMatrix<targetType> resMatrix = S2DMatrix<targetType>::Identity(3);
 
-    resMatrix(0, 0) = std::cos(radAngle);
-    resMatrix(0, 1) = -std::sin(radAngle);
-    resMatrix(1, 0) = std::sin(radAngle);
-    resMatrix(1, 1) = std::cos(radAngle);
+    constexpr float PI = 3.14159265f;
+    float radAngle = angle * (PI / 180.0f);
+
+    auto cosA = static_cast<targetType>(std::cos(radAngle));
+    auto sinA = static_cast<targetType>(std::sin(radAngle));
+
+    resMatrix(0, 0) = cosA;
+    resMatrix(1, 0) = -sinA;
+    resMatrix(0, 1) = sinA;
+    resMatrix(1, 1) = cosA;
 
     return resMatrix;
 }
@@ -155,4 +174,4 @@ bool S2DMatrix<targetType>::isSafeMatrixSize(const size_t x, const size_t y) {
     return (SIZE_MAX / x) >= y;
 }
 
-#endif ENGINE_S2DMATRIX_IPP
+#endif // ENGINE_S2DMATRIX_IPP

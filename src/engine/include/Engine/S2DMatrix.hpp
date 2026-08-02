@@ -22,8 +22,9 @@ public:
     S2DMatrix(size_t x, size_t y);
 
     targetType& operator()(size_t x, size_t y);
-    S2DMatrix<targetType> operator*(const S2DMatrix<targetType>& other);
-    S2DVector2<targetType> operator*(const S2DVector2<targetType>& other);
+    const targetType& operator()(size_t x, size_t y) const;
+    S2DMatrix<targetType> operator*(const S2DMatrix<targetType>& other) const;
+    S2DVector2<targetType> operator*(const S2DVector2<targetType>& other) const;
 
     void populate(const std::vector<targetType>& otherData);
     S2DMatrix<targetType> copySelf();
@@ -32,7 +33,7 @@ public:
     static S2DMatrix<targetType> Identity(size_t iSize);
     static S2DMatrix<targetType> Translation(targetType x, targetType y);
     static S2DMatrix<targetType> Scaling(targetType xScale, targetType yScale);
-    static S2DMatrix<targetType> Rotation(float radAngle);
+    static S2DMatrix<targetType> Rotation(float angle);
 
 protected:
     size_t rowLength = 0;
