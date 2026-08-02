@@ -13,23 +13,21 @@
 #include "SDL3/SDL_render.h"
 
 struct SDL_Renderer;
-struct S2DRenderContext;
+class S2DRenderContext;
 class S2DTexture;
 
 class S2DPlaceable: public S2DGameObject, public S2DIRenderable{
 protected:
-    S2DTexture* texture;
+    std::string texturePath;
     S2DVector2<float> position = S2DVector2<float>(0.f, 0.f);
     S2DVector2<float> scale = S2DVector2<float>(1.f, 1.f);
     S2DVector2<float> baseScale = S2DVector2<float>(1.f, 1.f);
     float rotation = 0.f;
 
-
 public:
     S2DPlaceable();
-    S2DPlaceable(SDL_Renderer *renderer, const std::string &texturePath);
-    S2DPlaceable(S2DTexture* newTexture);
-    ~S2DPlaceable();
+    explicit S2DPlaceable(const std::string &newTexturePath);
+    ~S2DPlaceable() override;
 
     S2DVector2<float> GetPosition() const;
     void SetPosition(const S2DVector2<float>& newPosition);

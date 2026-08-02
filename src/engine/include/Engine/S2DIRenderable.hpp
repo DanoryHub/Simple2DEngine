@@ -5,7 +5,7 @@
 #ifndef ARCANOID_S2DIRENDERABLE_HPP
 #define ARCANOID_S2DIRENDERABLE_HPP
 
-struct S2DRenderContext;
+class S2DRenderContext;
 
 class S2DIRenderable {
 public:

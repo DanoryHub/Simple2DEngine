@@ -18,7 +18,7 @@ class ScenesCreationGenerator:
 
 #include "SDL3/SDL.h"
 
-std::unordered_map<std::string, S2DGameScene*> InitializeScenes(SDL_Renderer* renderer) {
+std::unordered_map<std::string, S2DGameScene*> InitializeScenes() {
     std::unordered_map<std::string, S2DGameScene*> scenes;\n"""
     GENERATED_CODE_FOOTER = """
     return scenes;
@@ -60,7 +60,7 @@ std::unordered_map<std::string, S2DGameScene*> InitializeScenes(SDL_Renderer* re
             file.write(self.GENERATED_CODE_HEADER)
 
             for scene_info in self.scenes_info:
-                file.write(f'\tscenes["{scene_info.id}"] = new {scene_info.className}(renderer);\n')
+                file.write(f'\tscenes["{scene_info.id}"] = new {scene_info.className}();\n')
 
             file.write(self.GENERATED_CODE_FOOTER)
 

@@ -4,25 +4,30 @@
 
 #ifndef ENGINE_S2DGAMESCENE_HPP
 #define ENGINE_S2DGAMESCENE_HPP
+#include "Engine/S2DIRenderable.hpp"
+#include "Engine/S2DIIterable.hpp"
+
 #include <vector>
 
-struct SDL_Renderer;
-struct S2DRenderContext;
+class S2DRenderContext;
 class S2DGameObject;
+class S2DCamera;
 
-class S2DGameScene {
+class S2DGameScene: public S2DIRenderable, public S2DIIterable{
 protected:
-    SDL_Renderer *renderer;
+    S2DCamera *mainSceneCamera;
     std::vector<S2DGameObject*> gameObjects;
 
 public:
     S2DGameScene();
-    S2DGameScene(SDL_Renderer* newRenderer);
-    virtual ~S2DGameScene();
+    ~S2DGameScene() override;
     void registerGameObject(S2DGameObject* gameObject);
 
-    virtual void Render(S2DRenderContext* renderContext);
-    virtual void Iterate(float deltaTime);
+    void Render(S2DRenderContext* renderContext) override;
+    void Iterate(float deltaTime) override;
+
+    S2DCamera* getSceneCamera() const;
+    void setSceneCamera(S2DCamera* sceneCamera);
 };
 
 

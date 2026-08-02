@@ -19,4 +19,5 @@ TEST(GameObjectTest, IterateCallTest) {
     // Just check Iterate dont crash
     pGameObject->Iterate(0.f);
     EXPECT_TRUE(true);
+    delete pGameObject;
 }

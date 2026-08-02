@@ -4,21 +4,27 @@
 
 #include "Engine/S2DGameScene.hpp"
 #include "Engine/S2DGameObject.hpp"
-#include "Engine/S2DIRenderable.hpp"
+#include "Engine/S2DCamera.hpp"
+#include "Engine/S2DRenderContext.hpp"
 
-#include "SDL3/SDL_render.h"
 
 S2DGameScene::S2DGameScene() {
-    renderer = nullptr;
-}
-
-S2DGameScene::S2DGameScene(SDL_Renderer *newRenderer) {
-    renderer = newRenderer;
+    mainSceneCamera = new S2DCamera();
 }
 
 void S2DGameScene::registerGameObject(S2DGameObject *gameObject) {
     gameObjects.push_back(gameObject);
 }
+
+void S2DGameScene::setSceneCamera(S2DCamera* newCamera) {
+    delete mainSceneCamera;
+    mainSceneCamera = newCamera;
+}
+
+S2DCamera* S2DGameScene::getSceneCamera() const {
+    return mainSceneCamera;
+}
+
 
 void S2DGameScene::Iterate(float deltaTime) {
     for (auto gameObject: gameObjects) {
@@ -27,6 +33,7 @@ void S2DGameScene::Iterate(float deltaTime) {
 }
 
 void S2DGameScene::Render(S2DRenderContext* renderContext) {
+    renderContext->registerCamera(mainSceneCamera);
     for (auto gameObject: gameObjects) {
         auto renderableObject = dynamic_cast<S2DIRenderable*>(gameObject);
         if (renderableObject != nullptr) {
@@ -39,4 +46,5 @@ S2DGameScene::~S2DGameScene() {
     for (auto gameObject : gameObjects) {
         delete gameObject;
     }
+    delete mainSceneCamera;
 }

@@ -7,11 +7,10 @@
 
 #include <cmath>
 #include <concepts>
+#include <type_traits>
 
 template <typename targetType>
-concept VectorType = std::same_as<targetType, int> ||
-                        std::same_as<targetType, float> ||
-                        std::same_as<targetType, double>;
+concept VectorType = std::is_arithmetic_v<targetType>;
 template <VectorType targetType>
 struct S2DVector2 {
     targetType x, y;
