@@ -9,19 +9,18 @@
 
 
 S2DGameScene::S2DGameScene() {
-    mainSceneCamera = new S2DCamera();
+    mainSceneCamera = std::make_shared<S2DCamera>();
 }
 
-void S2DGameScene::registerGameObject(S2DGameObject *gameObject) {
+void S2DGameScene::registerGameObject(const std::shared_ptr<S2DGameObject>& gameObject) {
     gameObjects.push_back(gameObject);
 }
 
-void S2DGameScene::setSceneCamera(S2DCamera* newCamera) {
-    delete mainSceneCamera;
+void S2DGameScene::setSceneCamera(const std::shared_ptr<S2DCamera>& newCamera) {
     mainSceneCamera = newCamera;
 }
 
-S2DCamera* S2DGameScene::getSceneCamera() const {
+std::shared_ptr<S2DCamera> S2DGameScene::getSceneCamera() const {
     return mainSceneCamera;
 }
 
@@ -35,16 +34,11 @@ void S2DGameScene::Iterate(float deltaTime) {
 void S2DGameScene::Render(S2DRenderContext* renderContext) {
     renderContext->registerCamera(mainSceneCamera);
     for (auto gameObject: gameObjects) {
-        auto renderableObject = dynamic_cast<S2DIRenderable*>(gameObject);
+        auto renderableObject = std::dynamic_pointer_cast<S2DIRenderable>(gameObject);
         if (renderableObject != nullptr) {
             renderableObject->Render(renderContext);
         }
     }
 }
 
-S2DGameScene::~S2DGameScene() {
-    for (auto gameObject : gameObjects) {
-        delete gameObject;
-    }
-    delete mainSceneCamera;
-}
+S2DGameScene::~S2DGameScene() {}

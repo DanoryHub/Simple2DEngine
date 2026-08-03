@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <string>
 #include <chrono>
+#include <memory>
 
 class S2DGameScene;
 class S2DRenderContext;
@@ -26,9 +27,7 @@ public:
             const int screenWidth = 1920, const int screenHeight = 1080);
         static MainApp* GetInstance();
 
-        void SetScenes(const std::unordered_map<std::string, S2DGameScene*> &newScenes);
-
-        SDL_Renderer* GetRenderer() const;
+        void SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> &newScenes);
 
         SDL_AppResult Init(void **appstate, int argc, char *argv[]);
         SDL_AppResult ProcessEvent(void *appstate, SDL_Event *event);
@@ -50,11 +49,11 @@ private:
         SDL_Window *mainWindow = nullptr;
         SDL_Renderer *renderer = nullptr;
 
-        S2DGameScene *currScene = nullptr;
+        std::shared_ptr<S2DGameScene> currScene = nullptr;
 
         std::string startSceneName;
         std::string currSceneName;
-        std::unordered_map<std::string, S2DGameScene*> scenes;
+        std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> scenes;
 
         std::string appVersion, appName, appIdentifier;
         std::string windowTitle;
@@ -67,6 +66,6 @@ private:
 
 };
 
-extern std::unordered_map<std::string, S2DGameScene*> InitializeScenes();
+extern std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> InitializeScenes();
 
 #endif //ENGINE_S2DMAINAPP_HPP

@@ -16,7 +16,7 @@
 
 S2DRenderContext::S2DRenderContext() {
     renderer = nullptr;
-    currCamera = nullptr;
+    currCamera = std::shared_ptr<S2DCamera>();
 }
 
 S2DRenderContext::~S2DRenderContext() {
@@ -28,12 +28,12 @@ void S2DRenderContext::registerRenderer(SDL_Renderer* newRenderer) {
     clearTextureCache();
 }
 
-void S2DRenderContext::registerCamera(S2DCamera* newCamera) {
+void S2DRenderContext::registerCamera(const std::shared_ptr<S2DCamera>& newCamera) {
     currCamera = newCamera;
 }
 
 void S2DRenderContext::clearTextureCache() {
-    for (auto pair: textureCache) {
+    for (const auto& pair: textureCache) {
         delete pair.second;
     }
     textureCache.clear();
@@ -44,7 +44,7 @@ S2DTexture* S2DRenderContext::getTexture(const std::string &tPath) {
         return textureCache[tPath];
     }
 
-    S2DTexture *texture = new S2DTexture(renderer, tPath);
+    auto *texture = new S2DTexture(renderer, tPath);
     textureCache[tPath] = texture;
     return texture;
 }

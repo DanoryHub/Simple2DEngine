@@ -34,13 +34,13 @@ TEST_F(GameSceneTest, DefaultConstruction) {
 }
 
 TEST_F(GameSceneTest, ConstructorWithNullptrRenderer) {
-    S2DGameScene* nullRendererScene = new S2DGameScene(nullptr);
+    S2DGameScene* nullRendererScene = new S2DGameScene();
     EXPECT_NE(nullRendererScene, nullptr);
     delete nullRendererScene;
 }
 
 TEST_F(GameSceneTest, RegisterSingleObject) {
-    auto* obj = new IterateTracker();
+    auto obj = std::make_shared<IterateTracker>();
     scene->registerGameObject(obj);
 
     scene->Iterate(0.f);
@@ -48,9 +48,9 @@ TEST_F(GameSceneTest, RegisterSingleObject) {
 }
 
 TEST_F(GameSceneTest, RegisterMultipleObjects) {
-    auto* obj1 = new IterateTracker();
-    auto* obj2 = new IterateTracker();
-    auto* obj3 = new IterateTracker();
+    auto obj1 = std::make_shared<IterateTracker>();
+    auto obj2 = std::make_shared<IterateTracker>();
+    auto obj3 = std::make_shared<IterateTracker>();
 
     scene->registerGameObject(obj1);
     scene->registerGameObject(obj2);

@@ -10,10 +10,10 @@
 #include "SDL3/SDL.h"
 
 ArcanoidScene::ArcanoidScene(): S2DGameScene() {
-    testPlaceable = new ArcanoidPlaceable("./assets/Bug.png");
+    testPlaceable = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
     registerGameObject(testPlaceable);
 
-    mainSceneCamera = new S2DCamera();
+    mainSceneCamera = std::make_shared<S2DCamera>();
 }
 
 void ArcanoidScene::Iterate(float deltaTime) {

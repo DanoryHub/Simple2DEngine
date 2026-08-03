@@ -28,13 +28,9 @@ MainApp* MainApp::GetInstance() {
     return mainApp;
 }
 
-void MainApp::SetScenes(const std::unordered_map<std::string, S2DGameScene*> &newScenes) {
+void MainApp::SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> &newScenes) {
     scenes = newScenes;
     UpdateCurrScene(currSceneName);
-}
-
-SDL_Renderer* MainApp::GetRenderer() const {
-    return renderer;
 }
 
 MainApp::MainApp(
@@ -113,9 +109,5 @@ SDL_AppResult MainApp::Iterate(void *appstate) {
 }
 
 void MainApp::Quit(void *appstate, SDL_AppResult result) {
-    for (auto& [name, scene]: scenes) {
-        delete scene;
-    }
-
     delete currentContext;
 }

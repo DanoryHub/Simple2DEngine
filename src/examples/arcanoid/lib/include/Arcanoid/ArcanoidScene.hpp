@@ -7,12 +7,14 @@
 
 #include "Engine/S2DGameScene.hpp"
 
+#include <memory>
+
 struct SDL_Renderer;
 class ArcanoidPlaceable;
 
 class ArcanoidScene: public S2DGameScene {
 protected:
-    ArcanoidPlaceable *testPlaceable;
+    std::shared_ptr<ArcanoidPlaceable> testPlaceable;
 
 public:
     ArcanoidScene();
