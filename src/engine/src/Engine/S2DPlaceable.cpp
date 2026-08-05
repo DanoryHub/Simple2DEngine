@@ -43,7 +43,7 @@ S2DPlaceable::S2DPlaceable(const std::string& newTexturePath) {
     texturePath = newTexturePath;
 }
 
-void S2DPlaceable::Render(S2DRenderContext* renderContext) {
+void S2DPlaceable::Render(std::shared_ptr<S2DRenderContext> renderContext) {
     renderContext->drawTexture(texturePath, position, scale, rotation);
 }
 

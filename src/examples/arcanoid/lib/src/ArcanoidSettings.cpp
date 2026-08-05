@@ -4,18 +4,14 @@
 
 #include "Arcanoid/ArcanoidSettings.hpp"
 #include "Arcanoid/ArcanoidScene.hpp"
-#include "Arcanoid/ArcanoidPlaceable.hpp"
 
-#include "Engine/S2DGameScene.hpp"
 #include "Engine/S2DMainApp.hpp"
 
-#include <iostream>
 #include <string>
+#include <memory>
 
-#include "SDL3/SDL.h"
-
-S2DGameSettings* CreateGameSettings() {
-    return new ArcanoidSettings();
+std::shared_ptr<S2DGameSettings> CreateGameSettings() {
+    return std::make_shared<ArcanoidSettings>();
 }
 
 std::string ArcanoidSettings::GetName() const {

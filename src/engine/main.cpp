@@ -7,29 +7,19 @@
 #include "Engine/S2DGameSettings.hpp"
 
 struct AppState {
-    S2DGameSettings* gameSettings;
-    MainApp *mainApp;
-
-    ~AppState() {
-        delete mainApp;
-        delete gameSettings;
-    }
+    std::shared_ptr<S2DGameSettings> gameSettings;
+    std::shared_ptr<MainApp> mainApp;
 };
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     auto *state = new AppState();
     state->gameSettings = CreateGameSettings();
 
-    state->mainApp = MainApp::GetInstance(
+    state->mainApp = std::make_shared<MainApp>(
         state->gameSettings->GetName(), state->gameSettings->GetVersion(),
         state->gameSettings->GetIdentifier(), state->gameSettings->GetTitle(),
         state->gameSettings->GetInitialSceneName()
     );
-
-    if (!state->mainApp) {
-        SDL_Log("mainApp is not valid");
-        return SDL_APP_FAILURE;
-    }
 
     SDL_AppResult res = state->mainApp->Init(appstate, argc, argv);
 

@@ -17,8 +17,6 @@ class ScenesCreationGenerator:
 #include <memory>
 #include <unordered_map>
 
-#include "SDL3/SDL.h"
-
 std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> InitializeScenes() {
     std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> scenes;\n"""
     GENERATED_CODE_FOOTER = """

@@ -17,16 +17,13 @@ class S2DRenderContext;
 
 class MainApp {
 public:
-        MainApp(MainApp const&) = delete;
+        MainApp() = default;
+        MainApp(std::string name, std::string version,
+            std::string identifier, std::string title, std::string mainSceneName,
+            int screenWidth = 1920, int screenHeight = 1080);
+
         ~MainApp();
         void operator=(MainApp const&) = delete;
-
-        static MainApp* GetInstance(
-            const std::string &name, const std::string &version,
-            const std::string &identifier, const std::string &title, const std::string &mainSceneName,
-            const int screenWidth = 1920, const int screenHeight = 1080);
-        static MainApp* GetInstance();
-
         void SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> &newScenes);
 
         SDL_AppResult Init(void **appstate, int argc, char *argv[]);
@@ -36,13 +33,6 @@ public:
 
         void UpdateCurrScene(const std::string &nextSceneName);
 private:
-        MainApp(std::string name, std::string version,
-                std::string identifier, std::string title, std::string mainSceneName,
-                int screenWidth = 1920, int screenHeight = 1080);
-
-        static MainApp* mainApp;
-
-        // Init variables
         int appScreenWidth;
         int appScreenHeight;
 
@@ -62,7 +52,7 @@ private:
         std::chrono::time_point<std::chrono::steady_clock> currentTime;
         double physSimDeltaTime = .01;
 
-        S2DRenderContext *currentContext;
+        std::shared_ptr<S2DRenderContext> currentContext;
 
 };
 

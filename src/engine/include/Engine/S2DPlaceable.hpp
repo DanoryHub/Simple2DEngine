@@ -5,6 +5,7 @@
 #ifndef ENGINE_S2DPLACEABLE_HPP
 #define ENGINE_S2DPLACEABLE_HPP
 
+#include <memory>
 #include <string>
 
 #include "Engine/S2DVector2.hpp"
@@ -38,7 +39,7 @@ public:
     float GetRotation() const;
     void SetRotation(float newRotation);
 
-    void Render(S2DRenderContext* renderContext) override;
+    void Render(std::shared_ptr<S2DRenderContext> renderContext) override;
 };
 
 

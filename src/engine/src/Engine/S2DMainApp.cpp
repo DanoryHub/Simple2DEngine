@@ -12,27 +12,6 @@
 #include "SDL3/SDL.h"
 
 
-MainApp* MainApp::mainApp = nullptr;
-
-MainApp* MainApp::GetInstance(
-            const std::string &name, const std::string &version,
-            const std::string &identifier, const std::string &title, const std::string &mainSceneName,
-            const int screenWidth, const int screenHeight) {
-    if (mainApp == nullptr) {
-        mainApp = new MainApp(name, version, identifier, title, mainSceneName,screenWidth, screenHeight);
-    }
-    return mainApp;
-}
-
-MainApp* MainApp::GetInstance() {
-    return mainApp;
-}
-
-void MainApp::SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> &newScenes) {
-    scenes = newScenes;
-    UpdateCurrScene(currSceneName);
-}
-
 MainApp::MainApp(
     std::string name, std::string version,
     std::string identifier, std::string title, std::string mainSceneName,
@@ -45,6 +24,11 @@ MainApp::MainApp(
     appIdentifier(std::move(identifier)),
     windowTitle(std::move(title)) {
     currSceneName = startSceneName;
+    UpdateCurrScene(currSceneName);
+}
+
+void MainApp::SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> &newScenes) {
+    scenes = newScenes;
     UpdateCurrScene(currSceneName);
 }
 
@@ -77,7 +61,7 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
-    currentContext = new S2DRenderContext();
+    currentContext = std::make_shared<S2DRenderContext>();
     currentContext->registerRenderer(renderer);
 
     SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
@@ -108,6 +92,4 @@ SDL_AppResult MainApp::Iterate(void *appstate) {
     return SDL_APP_CONTINUE;
 }
 
-void MainApp::Quit(void *appstate, SDL_AppResult result) {
-    delete currentContext;
-}
+void MainApp::Quit(void *appstate, SDL_AppResult result) {}

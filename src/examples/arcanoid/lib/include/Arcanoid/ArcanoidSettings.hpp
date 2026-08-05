@@ -5,13 +5,13 @@
 #ifndef ARCANOID_ARCANOIDSETTINGS_HPP
 #define ARCANOID_ARCANOIDSETTINGS_HPP
 #include <string>
-#include <unordered_map>
 
 #include "Engine/S2DGameSettings.hpp"
 
 class S2DGameScene;
 
 class ArcanoidSettings: public S2DGameSettings{
+public:
     ~ArcanoidSettings() override {};
     std::string GetName() const override;
     std::string GetTitle() const override;

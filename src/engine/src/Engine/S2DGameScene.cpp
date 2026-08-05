@@ -7,10 +7,14 @@
 #include "Engine/S2DCamera.hpp"
 #include "Engine/S2DRenderContext.hpp"
 
-
 S2DGameScene::S2DGameScene() {
     mainSceneCamera = std::make_shared<S2DCamera>();
 }
+
+void S2DGameScene::registerMainApp(const std::shared_ptr<MainApp>& app) {
+    mainApp = app;
+}
+
 
 void S2DGameScene::registerGameObject(const std::shared_ptr<S2DGameObject>& gameObject) {
     gameObjects.push_back(gameObject);
@@ -31,7 +35,7 @@ void S2DGameScene::Iterate(float deltaTime) {
     }
 }
 
-void S2DGameScene::Render(S2DRenderContext* renderContext) {
+void S2DGameScene::Render(std::shared_ptr<S2DRenderContext> renderContext) {
     renderContext->registerCamera(mainSceneCamera);
     for (auto gameObject: gameObjects) {
         auto renderableObject = std::dynamic_pointer_cast<S2DIRenderable>(gameObject);

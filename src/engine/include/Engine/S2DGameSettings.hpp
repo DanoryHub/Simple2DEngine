@@ -5,7 +5,7 @@
 #ifndef ENGINE_S2DGAMESETTINGS_HPP
 #define ENGINE_S2DGAMESETTINGS_HPP
 #include <string>
-#include <unordered_map>
+#include <memory>
 
 
 class S2DGameScene;
@@ -22,6 +22,6 @@ public:
     virtual std::string GetInitialSceneName() const = 0;
 };
 
-extern S2DGameSettings* CreateGameSettings();
+extern std::shared_ptr<S2DGameSettings> CreateGameSettings();
 
 #endif //ENGINE_S2DGAMESETTINGS_HPP
