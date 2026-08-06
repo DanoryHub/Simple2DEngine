@@ -28,9 +28,9 @@ public:
 
 protected:
     SDL_Renderer* renderer;
-    std::shared_ptr<S2DCamera> currCamera;
+    std::weak_ptr<S2DCamera> currCamera;
 
-    std::unordered_map<std::string, S2DTexture*> textureCache;
+    std::unordered_map<std::string, std::unique_ptr<S2DTexture>> textureCache;
 };
 
 #endif //ARCANOID_S2DRENDERCONTEXT_HPP

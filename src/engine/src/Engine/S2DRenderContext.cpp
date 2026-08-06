@@ -16,7 +16,6 @@
 
 S2DRenderContext::S2DRenderContext() {
     renderer = nullptr;
-    currCamera = std::shared_ptr<S2DCamera>();
 }
 
 S2DRenderContext::~S2DRenderContext() {
@@ -33,20 +32,15 @@ void S2DRenderContext::registerCamera(const std::shared_ptr<S2DCamera>& newCamer
 }
 
 void S2DRenderContext::clearTextureCache() {
-    for (const auto& pair: textureCache) {
-        delete pair.second;
-    }
     textureCache.clear();
 }
 
 S2DTexture* S2DRenderContext::getTexture(const std::string &tPath) {
-    if (textureCache.find(tPath) != textureCache.end()) {
-        return textureCache[tPath];
+    if (!textureCache.contains(tPath)) {
+        textureCache[tPath] = std::move(std::make_unique<S2DTexture>(renderer, tPath));
     }
 
-    auto *texture = new S2DTexture(renderer, tPath);
-    textureCache[tPath] = texture;
-    return texture;
+    return textureCache[tPath].get();
 }
 
 void S2DRenderContext::drawTexture(const std::string &tPath,  const S2DVector2<float> &position, const S2DVector2<float> &scale, float rotation) {
@@ -55,14 +49,15 @@ void S2DRenderContext::drawTexture(const std::string &tPath,  const S2DVector2<f
         return;
     }
 
-    if (currCamera == nullptr) {
-        std::cerr << "No camera registered in renderContext" << std::endl;
+    auto cam = currCamera.lock();
+    if (!cam) {
+        std::cerr << "No camera registered/available in renderContext" << std::endl;
         return;
     }
 
-    S2DVector2<float> camPos = currCamera->getPosition();
-    S2DVector2<float> camScale = currCamera->getScale();
-    float camRot = currCamera->getRotation();
+    S2DVector2<float> camPos = cam->getPosition();
+    S2DVector2<float> camScale = cam->getScale();
+    float camRot = cam->getRotation();
 
     int windowWidth = 0;
     int windowHeight = 0;

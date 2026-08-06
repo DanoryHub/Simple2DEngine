@@ -18,10 +18,10 @@ public:
     ~S2DCamera();
 
     S2DVector2<float> getPosition() const;
-    void setPosition(const S2DVector2<float>* cameraPosition);
+    void setPosition(const S2DVector2<float>& value);
 
     S2DVector2<float> getScale() const;
-    void setScale(const S2DVector2<float>* cameraScale);
+    void setScale(const S2DVector2<float>& value);
 
     float getRotation() const;
     void setRotation(float cameraRotation);

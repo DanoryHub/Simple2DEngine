@@ -18,7 +18,7 @@ class S2DCamera;
 
 class S2DGameScene: public S2DIRenderable, public S2DIIterable{
 protected:
-    std::shared_ptr<MainApp> mainApp = nullptr;
+    std::weak_ptr<MainApp> mainApp;
     std::shared_ptr<S2DCamera> mainSceneCamera;
     std::vector<std::shared_ptr<S2DGameObject>> gameObjects;
 
@@ -28,7 +28,7 @@ public:
     void registerMainApp(const std::shared_ptr<MainApp>& app);
     void registerGameObject(const std::shared_ptr<S2DGameObject>& gameObject);
 
-    void Render(std::shared_ptr<S2DRenderContext> renderContext) override;
+    void Render(const std::shared_ptr<S2DRenderContext>& renderContext) override;
     void Iterate(float deltaTime) override;
 
     std::shared_ptr<S2DCamera> getSceneCamera() const;

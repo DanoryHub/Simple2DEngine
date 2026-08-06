@@ -35,7 +35,7 @@ void S2DGameScene::Iterate(float deltaTime) {
     }
 }
 
-void S2DGameScene::Render(std::shared_ptr<S2DRenderContext> renderContext) {
+void S2DGameScene::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     renderContext->registerCamera(mainSceneCamera);
     for (auto gameObject: gameObjects) {
         auto renderableObject = std::dynamic_pointer_cast<S2DIRenderable>(gameObject);

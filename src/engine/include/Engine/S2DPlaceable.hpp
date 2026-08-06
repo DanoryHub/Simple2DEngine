@@ -39,7 +39,7 @@ public:
     float GetRotation() const;
     void SetRotation(float newRotation);
 
-    void Render(std::shared_ptr<S2DRenderContext> renderContext) override;
+    void Render(const std::shared_ptr<S2DRenderContext>& renderContext) override;
 };
 
 
