@@ -7,7 +7,7 @@
 #include "Arcanoid/ArcanoidScene.hpp"
 #include "Arcanoid/ArcanoidPlaceable.hpp"
 
-#include "SDL3/SDL.h"
+#include "imgui.h"
 
 ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     testPlaceable = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
