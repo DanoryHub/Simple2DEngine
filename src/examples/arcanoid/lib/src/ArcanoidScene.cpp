@@ -2,16 +2,18 @@
 // Created by IvanMiatselski on 02.07.2026.
 //
 
+#include "Engine/S2DButton.hpp"
 #include "Engine/S2DCamera.hpp"
 
 #include "Arcanoid/ArcanoidScene.hpp"
 #include "Arcanoid/ArcanoidPlaceable.hpp"
 
-#include "imgui.h"
 
 ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     testPlaceable = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
+    testButton = std::make_shared<S2DButton>("Quit", S2DVector2<float>(1920/4, 1080/4));
     registerGameObject(testPlaceable);
+    registerGameObject(testButton);
 
     mainSceneCamera = std::make_shared<S2DCamera>();
 }

@@ -51,14 +51,25 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(imgui)
 
-file(GLOB IMGUI_SOURCES "${IMGUI_LOCAL_PATH}/*.cpp")
-set(IMGUI_SDL3_BACKENDS
+file(GLOB IMGUI_SOURCE
+        ${IMGUI_LOCAL_PATH}/*.cpp
+)
+set(IMGUI_SDL_BACKEND
         ${IMGUI_LOCAL_PATH}/backends/imgui_impl_sdl3.cpp
         ${IMGUI_LOCAL_PATH}/backends/imgui_impl_sdlrenderer3.cpp
 )
-add_library(imgui STATIC ${IMGUI_SOURCES} ${IMGUI_SDL3_BACKENDS})
-target_include_directories(imgui PUBLIC ${IMGUI_LOCAL_PATH} ${IMGUI_LOCAL_PATH}/backends)
-target_link_libraries(imgui PUBLIC SDL3::SDL3-static)
+
+add_library(
+        imgui STATIC
+        ${IMGUI_SOURCE} ${IMGUI_SDL_BACKEND}
+)
+target_include_directories(imgui PUBLIC
+        ${IMGUI_LOCAL_PATH}
+        ${IMGUI_LOCAL_PATH}/backends
+)
+target_link_libraries(imgui PUBLIC
+        SDL3::SDL3-static
+)
 
 add_library(
         Engine STATIC
@@ -69,6 +80,7 @@ add_library(
         src/Engine/S2DPlaceable.cpp
         src/Engine/S2DTexture.cpp
         src/Engine/S2DCamera.cpp
+        src/Engine/S2DButton.cpp
 )
 target_include_directories(
         Engine PUBLIC
