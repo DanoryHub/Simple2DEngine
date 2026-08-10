@@ -29,9 +29,13 @@ void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     ImGui::SetNextWindowPos(ImVec2(windowPos.x, windowPos.y));
     ImGui::Begin(buttonLabel.c_str(), nullptr, windowFlags);
 
-    if (ImGui::Button(buttonLabel.c_str())) {
-        // TODO: Call here event
+    if (ImGui::Button(buttonLabel.c_str()) && onClickCallback) {
+        onClickCallback();
     }
 
     ImGui::End();
+}
+
+void S2DButton::setOnClickCallback(const std::function<void()> &newCallback) {
+    onClickCallback = newCallback;
 }

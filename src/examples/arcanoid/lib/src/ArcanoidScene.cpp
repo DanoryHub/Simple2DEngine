@@ -8,10 +8,17 @@
 #include "Arcanoid/ArcanoidScene.hpp"
 #include "Arcanoid/ArcanoidPlaceable.hpp"
 
+#include <iostream>
+
+
+void ArcanoidScene::buttonCallback() {
+    std::cout << "Callback working" << std::endl;
+}
 
 ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     testPlaceable = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
     testButton = std::make_shared<S2DButton>("Quit", S2DVector2<float>(1920/4, 1080/4));
+    testButton->setOnClickCallback(methodCallback(buttonCallback));
     registerGameObject(testPlaceable);
     registerGameObject(testButton);
 

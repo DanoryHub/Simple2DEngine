@@ -21,6 +21,7 @@ protected:
 public:
     ArcanoidScene();
 
+    void buttonCallback();
     void Iterate(float deltaTime) override;
 };
 

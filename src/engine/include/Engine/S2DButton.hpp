@@ -11,7 +11,11 @@
 
 #include "imgui.h"
 
+#include <functional>
 #include <string>
+
+#define methodCallback(methodName) ([this]() { this->methodName(); })
+
 
 class S2DButton: public S2DGameObject, public S2DIRenderable{
 public:
@@ -22,6 +26,7 @@ public:
     ~S2DButton() override = default;
 
     void Render(const std::shared_ptr<S2DRenderContext> &renderContext) override;
+    void setOnClickCallback(const std::function<void()> &newCallback);
 
 protected:
     std::string buttonLabel;
@@ -32,6 +37,7 @@ protected:
                                 ImGuiWindowFlags_NoCollapse |
                                 ImGuiWindowFlags_NoBackground |
                                 ImGuiWindowFlags_NoScrollbar;
+    std::function<void()> onClickCallback;
 };
 
 
