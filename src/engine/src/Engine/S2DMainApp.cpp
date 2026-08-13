@@ -6,7 +6,6 @@
 #include "Engine/S2DGameScene.hpp"
 #include "Engine/S2DRenderContext.hpp"
 
-#include <iostream>
 #include <utility>
 
 #include "SDL3/SDL.h"
@@ -65,7 +64,7 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
     currentContext->registerRenderer(renderer);
 
     SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
-    currentTime = std::chrono::high_resolution_clock::now();
+    currentTime = std::chrono::steady_clock::now();
 
     SetScenes(InitializeScenes());
 
@@ -80,7 +79,7 @@ SDL_AppResult MainApp::ProcessEvent(void *appstate, SDL_Event *event) {
 }
 
 SDL_AppResult MainApp::Iterate(void *appstate) {
-    auto newTime = std::chrono::high_resolution_clock::now();
+    auto newTime = std::chrono::steady_clock::now();
     std::chrono::duration<double> deltaTime = newTime - currentTime;
     currentTime = newTime;
     SDL_RenderClear(renderer);

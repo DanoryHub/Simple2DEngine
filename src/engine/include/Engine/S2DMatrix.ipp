@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <stdexcept>
+#include <cstdint>
 #include <vector>
 #include <array>
 
