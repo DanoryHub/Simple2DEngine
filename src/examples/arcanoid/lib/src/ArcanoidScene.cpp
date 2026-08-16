@@ -18,11 +18,14 @@ void ArcanoidScene::buttonCallback() {
 
 ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     testPlaceable = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
+
     testButton = std::make_shared<S2DButton>("Quit", S2DVector2<float>(1920/4, 1080/4), S2DVector2<float>(100, 100));
     testButton->setButtonColorIdle(S2DVector4<float>(1, 0, 0, 1));
     testButton->setButtonColorHovered(S2DVector4<float>(0, 1, 0, 1));
     testButton->setButtonColorHovered(S2DVector4<float>(0, 0, 1, 1));
+    testButton->setButtonFont("./assets/chintzy.ttf", 24.f);
     testButton->setOnClickCallback(methodCallback(buttonCallback));
+
     registerGameObject(testPlaceable);
     registerGameObject(testButton);
 

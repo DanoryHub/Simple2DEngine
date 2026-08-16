@@ -40,9 +40,15 @@ void S2DButton::setButtonColorPressed(const S2DVector4<float> &newColor) {
     buttonColorPressed = newColor;
 }
 
+void S2DButton::setButtonFont(const std::string& fontPath, float fontSize) {
+    buttonFontPath = fontPath;
+    buttonFontSize = fontSize;
+}
+
 void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     auto convertedPos = renderContext->logicalToWindow(windowPos);
     auto convertedSize = renderContext->logicalToWindow(buttonSize);
+    float convertedFontSize = renderContext->logicalToWindow(S2DVector2<float>(0, buttonFontSize)).y;
 
     ImGui::SetNextWindowPos(ImVec2(convertedPos.x, convertedPos.y));
     ImGui::SetNextWindowSize(ImVec2(convertedSize.x, convertedSize.y));
@@ -52,6 +58,12 @@ void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(buttonColorHovered.x, buttonColorHovered.y, buttonColorHovered.z, buttonColorHovered.w));
     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(buttonColorPressed.x, buttonColorPressed.y, buttonColorPressed.z, buttonColorPressed.w));
 
+    ImFont* buttonFont = nullptr;
+    if (!buttonFontPath.empty() && convertedFontSize != 0) {
+        buttonFont = ImGui::GetIO().Fonts->AddFontFromFileTTF(buttonFontPath.c_str(), convertedFontSize);
+        ImGui::PushFont(buttonFont);
+    }
+
     ImGui::Begin(buttonLabel.c_str(), nullptr, windowFlags);
 
     if (ImGui::Button(buttonLabel.c_str(), ImVec2(convertedSize.x, convertedSize.y)) && onClickCallback) {
@@ -59,6 +71,9 @@ void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     }
 
     ImGui::End();
+    if (buttonFont != nullptr) {
+        ImGui::PopFont();
+    }
     ImGui::PopStyleColor(3);
     ImGui::PopStyleVar();
 }
