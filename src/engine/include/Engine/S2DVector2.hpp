@@ -6,7 +6,6 @@
 #define ENGINE_S2DVECTOR2_HPP
 
 #include <cmath>
-#include <concepts>
 #include <type_traits>
 
 template <typename targetType>
