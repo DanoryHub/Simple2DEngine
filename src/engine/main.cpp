@@ -18,7 +18,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     state->mainApp = std::make_shared<MainApp>(
         state->gameSettings->GetName(), state->gameSettings->GetVersion(),
         state->gameSettings->GetIdentifier(), state->gameSettings->GetTitle(),
-        state->gameSettings->GetInitialSceneName()
+        state->gameSettings->GetInitialSceneName(),
+        state->gameSettings->GetWindowWidth(), state->gameSettings->GetWindowHeight()
     );
 
     SDL_AppResult res = state->mainApp->Init(appstate, argc, argv);

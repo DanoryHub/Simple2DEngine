@@ -3,6 +3,7 @@
 //
 
 #include "Engine/S2DButton.hpp"
+#include "Engine/S2DRenderContext.hpp"
 
 #include "SDL3/SDL.h"
 
@@ -26,7 +27,8 @@ S2DButton::S2DButton(const std::string& newLabel, const S2DVector2<float> &newPo
 {}
 
 void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
-    ImGui::SetNextWindowPos(ImVec2(windowPos.x, windowPos.y));
+    auto convertedPos = renderContext->logicalToWindow(windowPos);
+    ImGui::SetNextWindowPos(ImVec2(convertedPos.x, convertedPos.y));
     ImGui::Begin(buttonLabel.c_str(), nullptr, windowFlags);
 
     if (ImGui::Button(buttonLabel.c_str()) && onClickCallback) {

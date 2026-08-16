@@ -69,14 +69,16 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
+    SDL_SetWindowMinimumSize(mainWindow, minAppScreenWidth, minAppScreenHeight);
+
     ImGui::StyleColorsLight();
     ImGui_ImplSDL3_InitForSDLRenderer(mainWindow, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
 
     currentContext = std::make_shared<S2DRenderContext>();
     currentContext->registerRenderer(renderer);
+    currentContext->setLogicalSize(appScreenWidth, appScreenHeight);
 
-    SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
     currentTime = std::chrono::steady_clock::now();
 
     SetScenes(InitializeScenes());

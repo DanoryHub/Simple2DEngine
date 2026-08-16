@@ -23,12 +23,16 @@ public:
     void clearTextureCache();
     void registerRenderer(SDL_Renderer* newRenderer);
     void registerCamera(const std::shared_ptr<S2DCamera>& newCamera);
+    void setLogicalSize(int width, int height);
+    S2DVector2<float> logicalToWindow(const S2DVector2<float>& logicalPos) const;
     void drawTexture(const std::string &tPath,  const S2DVector2<float> &position, const S2DVector2<float> &scale, float rotation);
     S2DTexture* getTexture(const std::string &tPath);
 
 protected:
     SDL_Renderer* renderer;
     std::weak_ptr<S2DCamera> currCamera;
+    int logicalWidth = 1920;
+    int logicalHeight = 1080;
 
     std::unordered_map<std::string, std::unique_ptr<S2DTexture>> textureCache;
 };

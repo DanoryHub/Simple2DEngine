@@ -31,6 +31,21 @@ void S2DRenderContext::registerCamera(const std::shared_ptr<S2DCamera>& newCamer
     currCamera = newCamera;
 }
 
+void S2DRenderContext::setLogicalSize(int width, int height) {
+    logicalWidth = width;
+    logicalHeight = height;
+}
+
+S2DVector2<float> S2DRenderContext::logicalToWindow(const S2DVector2<float>& logicalPos) const {
+    int outputW = 0;
+    int outputH = 0;
+    SDL_GetCurrentRenderOutputSize(renderer, &outputW, &outputH);
+    return S2DVector2<float>(
+        logicalPos.x * static_cast<float>(outputW) / static_cast<float>(logicalWidth),
+        logicalPos.y * static_cast<float>(outputH) / static_cast<float>(logicalHeight)
+    );
+}
+
 void S2DRenderContext::clearTextureCache() {
     textureCache.clear();
 }
