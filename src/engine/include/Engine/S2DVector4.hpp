@@ -5,7 +5,7 @@
 #ifndef ENGINE_S2DVECTOR4_HPP
 #define ENGINE_S2DVECTOR4_HPP
 
-// #include "S2DVector2.hpp"
+#include "S2DVector2.hpp"
 
 template <VectorType targetType>
 struct S2DVector4 {

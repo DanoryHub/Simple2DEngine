@@ -9,6 +9,7 @@
 #include "Engine/S2DGameObject.hpp"
 #include "Engine/S2DVector2.hpp"
 #include "Engine/S2DVector4.hpp"
+#include "Engine/S2DLabel.hpp"
 
 #include "imgui.h"
 
@@ -36,9 +37,7 @@ public:
     void setButtonFont(const std::string& fontPath, float fontSize);
 
 protected:
-    std::string buttonLabel;
-    std::string buttonFontPath;
-    float buttonFontSize;
+    S2DLabel buttonLabel;
     S2DVector2<float> windowPos = S2DVector2<float>(0, 0);
     S2DVector2<float> buttonSize = S2DVector2<float>(0, 0);
     S2DVector4<float> buttonColorIdle = S2DVector4<float>(0.2f, 0.6f, 0.4f, 1.f);

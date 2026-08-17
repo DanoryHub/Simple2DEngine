@@ -11,22 +11,22 @@
 
 
 S2DButton::S2DButton(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize):
-    buttonLabel(newLabel),
     buttonSize(newSize),
-    windowPos(newPos)
-{}
+    windowPos(newPos) {
+    buttonLabel.text = newLabel;
+}
 
 S2DButton::S2DButton(const std::string& newLabel, const ImGuiWindowFlags &newFlags):
-    buttonLabel(newLabel),
-    windowFlags(newFlags)
-{}
+    windowFlags(newFlags) {
+    buttonLabel.text = newLabel;
+}
 
 S2DButton::S2DButton(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize, const ImGuiWindowFlags &newFlags):
-    buttonLabel(newLabel),
     windowPos(newPos),
     buttonSize(newSize),
-    windowFlags(newFlags)
-{}
+    windowFlags(newFlags) {
+    buttonLabel.text = newLabel;
+}
 
 void S2DButton::setButtonColorIdle(const S2DVector4<float> &newColor) {
     buttonColorIdle = newColor;
@@ -41,14 +41,14 @@ void S2DButton::setButtonColorPressed(const S2DVector4<float> &newColor) {
 }
 
 void S2DButton::setButtonFont(const std::string& fontPath, float fontSize) {
-    buttonFontPath = fontPath;
-    buttonFontSize = fontSize;
+    buttonLabel.fontSource = fontPath;
+    buttonLabel.textSize = fontSize;
 }
 
 void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     auto convertedPos = renderContext->logicalToWindow(windowPos);
     auto convertedSize = renderContext->logicalToWindow(buttonSize);
-    float convertedFontSize = renderContext->logicalToWindow(S2DVector2<float>(0, buttonFontSize)).y;
+    float convertedFontSize = renderContext->logicalToWindow(S2DVector2<float>(0, buttonLabel.textSize)).y;
 
     ImGui::SetNextWindowPos(ImVec2(convertedPos.x, convertedPos.y));
     ImGui::SetNextWindowSize(ImVec2(convertedSize.x, convertedSize.y));
@@ -59,14 +59,14 @@ void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(buttonColorPressed.x, buttonColorPressed.y, buttonColorPressed.z, buttonColorPressed.w));
 
     ImFont* buttonFont = nullptr;
-    if (!buttonFontPath.empty() && convertedFontSize != 0) {
-        buttonFont = ImGui::GetIO().Fonts->AddFontFromFileTTF(buttonFontPath.c_str(), convertedFontSize);
+    if (!buttonLabel.fontSource.empty() && convertedFontSize != 0) {
+        buttonFont = ImGui::GetIO().Fonts->AddFontFromFileTTF(buttonLabel.fontSource.c_str(), convertedFontSize);
         ImGui::PushFont(buttonFont);
     }
 
-    ImGui::Begin(buttonLabel.c_str(), nullptr, windowFlags);
+    ImGui::Begin(buttonLabel.fontSource.c_str(), nullptr, windowFlags);
 
-    if (ImGui::Button(buttonLabel.c_str(), ImVec2(convertedSize.x, convertedSize.y)) && onClickCallback) {
+    if (ImGui::Button(buttonLabel.text.c_str(), ImVec2(convertedSize.x, convertedSize.y)) && onClickCallback) {
         onClickCallback();
     }
 
