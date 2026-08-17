@@ -2,6 +2,7 @@
 // Created by IvanMiatselski on 02.07.2026.
 //
 
+#include "Engine/S2DText.hpp"
 #include "Engine/S2DButton.hpp"
 #include "Engine/S2DCamera.hpp"
 #include "Engine/S2DVector4.hpp"
@@ -26,8 +27,13 @@ ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     testButton->setButtonFont("./assets/chintzy.ttf", 24.f);
     testButton->setOnClickCallback(methodCallback(buttonCallback));
 
+    testText = std::make_shared<S2DText>("Test text", S2DVector2<float>(1920/2, 1080/4), 100);
+    testText->setTextFont("./assets/chintzy.ttf", 100);
+    testText->setTextColor(S2DVector4<float>(1, 1, 1, 1));
+
     registerGameObject(testPlaceable);
     registerGameObject(testButton);
+    registerGameObject(testText);
 
     mainSceneCamera = std::make_shared<S2DCamera>();
 }

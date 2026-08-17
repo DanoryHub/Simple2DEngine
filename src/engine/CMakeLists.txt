@@ -81,6 +81,7 @@ add_library(
         src/Engine/S2DTexture.cpp
         src/Engine/S2DCamera.cpp
         src/Engine/S2DButton.cpp
+        src/Engine/S2DText.cpp
 )
 target_include_directories(
         Engine PUBLIC

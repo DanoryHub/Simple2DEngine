@@ -8,6 +8,8 @@
 #include "SDL3/SDL.h"
 
 #include <iostream>
+#include <string>
+#include <cstdint>
 
 
 S2DButton::S2DButton(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize):
@@ -46,6 +48,8 @@ void S2DButton::setButtonFont(const std::string& fontPath, float fontSize) {
 }
 
 void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
+    std::string windowName = "S2DButton_" + std::to_string(reinterpret_cast<uintptr_t>(this));
+
     auto convertedPos = renderContext->logicalToWindow(windowPos);
     auto convertedSize = renderContext->logicalToWindow(buttonSize);
     float convertedFontSize = renderContext->logicalToWindow(S2DVector2<float>(0, buttonLabel.textSize)).y;
@@ -64,7 +68,7 @@ void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
         ImGui::PushFont(buttonFont);
     }
 
-    ImGui::Begin(buttonLabel.fontSource.c_str(), nullptr, windowFlags);
+    ImGui::Begin(windowName.c_str(), nullptr, windowFlags);
 
     if (ImGui::Button(buttonLabel.text.c_str(), ImVec2(convertedSize.x, convertedSize.y)) && onClickCallback) {
         onClickCallback();
