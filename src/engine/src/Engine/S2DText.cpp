@@ -53,6 +53,7 @@ void S2DText::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
 
     if (loadedFont != nullptr) {
         ImGui::PushFont(loadedFont);
+        loadedFont->Scale = renderContext->logicalToWindow(S2DVector2<float>(0, 1)).y;
     }
 
     ImGui::Begin(windowName.c_str(), nullptr, windowFlags);
