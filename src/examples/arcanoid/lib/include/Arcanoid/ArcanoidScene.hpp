@@ -11,14 +11,19 @@
 
 struct SDL_Renderer;
 class ArcanoidPlaceable;
+class S2DButton;
+class S2DText;
 
 class ArcanoidScene: public S2DGameScene {
 protected:
     std::shared_ptr<ArcanoidPlaceable> testPlaceable;
+    std::shared_ptr<S2DButton> testButton;
+    std::shared_ptr<S2DText> testText;
 
 public:
     ArcanoidScene();
 
+    void buttonCallback();
     void Iterate(float deltaTime) override;
 };
 

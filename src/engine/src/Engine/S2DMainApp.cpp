@@ -10,6 +10,10 @@
 
 #include "SDL3/SDL.h"
 
+#include "imgui.h"
+#include "imgui_impl_sdl3.h"
+#include "imgui_impl_sdlrenderer3.h"
+
 
 MainApp::MainApp(
     std::string name, std::string version,
@@ -50,6 +54,11 @@ MainApp::~MainApp() {
 SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
     SDL_SetAppMetadata(appName.c_str(), appVersion.c_str(), appIdentifier.c_str());
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("SDL: Cant initialize video subsystem with error: %s", SDL_GetError());
         return SDL_APP_FAILURE;
@@ -60,10 +69,16 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
+    SDL_SetWindowMinimumSize(mainWindow, minAppScreenWidth, minAppScreenHeight);
+
+    ImGui::StyleColorsLight();
+    ImGui_ImplSDL3_InitForSDLRenderer(mainWindow, renderer);
+    ImGui_ImplSDLRenderer3_Init(renderer);
+
     currentContext = std::make_shared<S2DRenderContext>();
     currentContext->registerRenderer(renderer);
+    currentContext->setLogicalSize(appScreenWidth, appScreenHeight);
 
-    SDL_SetRenderLogicalPresentation(renderer, appScreenWidth, appScreenHeight, SDL_LOGICAL_PRESENTATION_LETTERBOX);
     currentTime = std::chrono::steady_clock::now();
 
     SetScenes(InitializeScenes());
@@ -72,6 +87,7 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
 }
 
 SDL_AppResult MainApp::ProcessEvent(void *appstate, SDL_Event *event) {
+    ImGui_ImplSDL3_ProcessEvent(event);
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
     }
@@ -84,11 +100,21 @@ SDL_AppResult MainApp::Iterate(void *appstate) {
     currentTime = newTime;
     SDL_RenderClear(renderer);
 
+    ImGui_ImplSDLRenderer3_NewFrame();
+    ImGui_ImplSDL3_NewFrame();
+    ImGui::NewFrame();
+
     currScene->Iterate(deltaTime.count());
     currScene->Render(currentContext);
+    ImGui::Render();
 
+    ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
     SDL_RenderPresent(renderer);
     return SDL_APP_CONTINUE;
 }
 
-void MainApp::Quit(void *appstate, SDL_AppResult result) {}
+void MainApp::Quit(void *appstate, SDL_AppResult result) {
+    ImGui_ImplSDLRenderer3_Shutdown();
+    ImGui_ImplSDL3_Shutdown();
+    ImGui::DestroyContext();
+}

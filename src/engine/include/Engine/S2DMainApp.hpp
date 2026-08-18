@@ -33,8 +33,9 @@ public:
 
         void UpdateCurrScene(const std::string &nextSceneName);
 private:
-        int appScreenWidth;
-        int appScreenHeight;
+        int appScreenWidth, appScreenHeight;
+        int minAppScreenWidth = 1280;
+        int minAppScreenHeight = 720;
 
         SDL_Window *mainWindow = nullptr;
         SDL_Renderer *renderer = nullptr;
@@ -48,7 +49,6 @@ private:
         std::string appVersion, appName, appIdentifier;
         std::string windowTitle;
 
-        // Main loop persistent variables
         std::chrono::time_point<std::chrono::steady_clock> currentTime;
         double physSimDeltaTime = .01;
 

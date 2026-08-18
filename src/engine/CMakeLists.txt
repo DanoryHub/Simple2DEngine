@@ -40,8 +40,36 @@ FetchContent_Declare(
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(gtest)
-
 add_subdirectory(tests)
+
+set(IMGUI_LOCAL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui")
+FetchContent_Declare(
+        imgui
+        GIT_REPOSITORY https://github.com/ocornut/imgui.git
+        GIT_TAG v1.92.9
+        SOURCE_DIR "${IMGUI_LOCAL_PATH}"
+)
+FetchContent_MakeAvailable(imgui)
+
+file(GLOB IMGUI_SOURCE
+        ${IMGUI_LOCAL_PATH}/*.cpp
+)
+set(IMGUI_SDL_BACKEND
+        ${IMGUI_LOCAL_PATH}/backends/imgui_impl_sdl3.cpp
+        ${IMGUI_LOCAL_PATH}/backends/imgui_impl_sdlrenderer3.cpp
+)
+
+add_library(
+        imgui STATIC
+        ${IMGUI_SOURCE} ${IMGUI_SDL_BACKEND}
+)
+target_include_directories(imgui PUBLIC
+        ${IMGUI_LOCAL_PATH}
+        ${IMGUI_LOCAL_PATH}/backends
+)
+target_link_libraries(imgui PUBLIC
+        SDL3::SDL3-static
+)
 
 add_library(
         Engine STATIC
@@ -52,6 +80,8 @@ add_library(
         src/Engine/S2DPlaceable.cpp
         src/Engine/S2DTexture.cpp
         src/Engine/S2DCamera.cpp
+        src/Engine/S2DButton.cpp
+        src/Engine/S2DText.cpp
 )
 target_include_directories(
         Engine PUBLIC
@@ -60,5 +90,5 @@ target_include_directories(
 target_link_libraries(
         Engine PUBLIC
         SDL3_image::SDL3_image-static
-        SDL3::SDL3-static
+        imgui
 )
