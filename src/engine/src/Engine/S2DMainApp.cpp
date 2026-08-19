@@ -91,6 +91,9 @@ SDL_AppResult MainApp::ProcessEvent(void *appstate, SDL_Event *event) {
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
     }
+
+    currScene->receiveInput(event);
+
     return SDL_APP_CONTINUE;
 }
 

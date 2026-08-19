@@ -4,11 +4,23 @@
 
 #include "Arcanoid/ArcanoidPlaceable.hpp"
 
+#include <iostream>
 #include <chrono>
 #include <cmath>
 
 #include "Engine/S2DVector2.hpp"
+#include "Engine/S2DMacros.hpp"
 #include "Engine/S2DMatrix.hpp"
+
+#include "SDL3/SDL_events.h"
+
+ArcanoidPlaceable::ArcanoidPlaceable(const std::string &newTexturePath): S2DMovable(newTexturePath) {
+    registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_W, methodCallback(moveForward));
+}
+
+void ArcanoidPlaceable::moveForward() {
+    std::cout << "Move forward" << std::endl;
+}
 
 void ArcanoidPlaceable::Iterate(float deltaTime) {
     S2DPlaceable::Iterate(deltaTime);

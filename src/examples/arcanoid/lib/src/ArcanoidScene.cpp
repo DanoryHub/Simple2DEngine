@@ -5,6 +5,7 @@
 #include "Engine/S2DText.hpp"
 #include "Engine/S2DButton.hpp"
 #include "Engine/S2DCamera.hpp"
+#include "Engine/S2DMacros.hpp"
 #include "Engine/S2DVector4.hpp"
 
 #include "Arcanoid/ArcanoidScene.hpp"

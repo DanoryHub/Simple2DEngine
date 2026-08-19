@@ -4,17 +4,20 @@
 
 #ifndef ARCANOID_ARCANOIDPLACEABLE_HPP
 #define ARCANOID_ARCANOIDPLACEABLE_HPP
+
 #include "Engine/S2DPlaceable.hpp"
+#include "Engine/S2DMovable.hpp"
 
 
-class ArcanoidPlaceable: public S2DPlaceable {
+class ArcanoidPlaceable: public S2DMovable{
 protected:
     float speed = 90.f;
 
 public:
-    using S2DPlaceable::S2DPlaceable;
+    ArcanoidPlaceable(const std::string& newTexturePath);
 
     void Iterate(float deltaTime) override;
+    void moveForward();
 };
 
 

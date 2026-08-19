@@ -45,4 +45,13 @@ void S2DGameScene::Render(const std::shared_ptr<S2DRenderContext>& renderContext
     }
 }
 
+void S2DGameScene::receiveInput(const SDL_Event *event) {
+    for (auto gameObject: gameObjects) {
+        auto inputReceiver = std::dynamic_pointer_cast<S2DIInputReceiver>(gameObject);
+        if (inputReceiver != nullptr) {
+            inputReceiver->receiveInput(event);
+        }
+    }
+}
+
 S2DGameScene::~S2DGameScene() {}

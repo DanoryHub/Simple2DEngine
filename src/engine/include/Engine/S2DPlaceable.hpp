@@ -27,7 +27,7 @@ protected:
 
 public:
     S2DPlaceable();
-    explicit S2DPlaceable(const std::string &newTexturePath);
+    S2DPlaceable(const std::string &newTexturePath);
     ~S2DPlaceable() override;
 
     S2DVector2<float> GetPosition() const;
