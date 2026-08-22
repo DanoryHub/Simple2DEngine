@@ -12,10 +12,13 @@
 class ArcanoidPlaceable: public S2DMovable{
 protected:
     float speedMax = 90.f;
-    float currForwardSpeed = 0.f;
 
     float rotationSpeedMax = 30.f;
     float currentRotationDeg = 0.f;
+    float currMovingSpeed = 0.f;
+
+    bool movingForward = false;
+    bool movingBackward = false;
     bool rotatingLeft = false;
     bool rotatingRight = false;
 
@@ -31,7 +34,8 @@ public:
     void rotateLeft();
     void stopRotatingLeft();
     void stopRotatingRight();
-    void stopMoving();
+    void stopMovingFwd();
+    void stopMovingBckwd();
 };
 
 

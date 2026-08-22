@@ -19,26 +19,18 @@ ArcanoidPlaceable::ArcanoidPlaceable(const std::string &newTexturePath): S2DMova
     registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_S, methodCallback(moveBackward));
     registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_D, methodCallback(rotateRight));
     registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_A, methodCallback(rotateLeft));
-    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_W, methodCallback(stopMoving));
-    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_S, methodCallback(stopMoving));
+    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_W, methodCallback(stopMovingFwd));
+    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_S, methodCallback(stopMovingBckwd));
     registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_A, methodCallback(stopRotatingLeft));
     registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_D, methodCallback(stopRotatingRight));
 }
 
 void ArcanoidPlaceable::moveForward() {
-    if (currForwardSpeed >= speedMax){
-        currForwardSpeed = speedMax;
-        return;
-    }
-    currForwardSpeed += speedMax;
+    movingForward = true;
 }
 
 void ArcanoidPlaceable::moveBackward() {
-    if (currForwardSpeed <= -speedMax){
-        currForwardSpeed = -speedMax;
-        return;
-    }
-    currForwardSpeed += speedMax * -1;
+    movingBackward = true;
 }
 
 void ArcanoidPlaceable::rotateRight() {
@@ -57,8 +49,12 @@ void ArcanoidPlaceable::stopRotatingRight() {
     rotatingRight = false;
 }
 
-void ArcanoidPlaceable::stopMoving() {
-    currForwardSpeed = 0.f;
+void ArcanoidPlaceable::stopMovingFwd() {
+    movingForward = false;
+}
+
+void ArcanoidPlaceable::stopMovingBckwd() {
+    movingBackward = false;
 }
 
 void ArcanoidPlaceable::Iterate(float deltaTime) {
@@ -71,5 +67,9 @@ void ArcanoidPlaceable::Iterate(float deltaTime) {
     float deltaRotation = currentRotationDeg * deltaTime;
     rotation += deltaRotation;
     fwdVec = S2DMatrix<float>::Rotation(deltaRotation) * fwdVec;
-    position += fwdVec * currForwardSpeed * deltaTime;
+
+    currMovingSpeed = 0.f;
+    if (movingForward) currMovingSpeed += speedMax;
+    if (movingBackward) currMovingSpeed -= speedMax;
+    position += fwdVec * currMovingSpeed * deltaTime;
 }
