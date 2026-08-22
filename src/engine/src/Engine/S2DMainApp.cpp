@@ -87,12 +87,12 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
 }
 
 SDL_AppResult MainApp::ProcessEvent(void *appstate, SDL_Event *event) {
-    ImGui_ImplSDL3_ProcessEvent(event);
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
     }
 
     currScene->receiveInput(event);
+    ImGui_ImplSDL3_ProcessEvent(event);
 
     return SDL_APP_CONTINUE;
 }

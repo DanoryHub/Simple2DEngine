@@ -11,13 +11,24 @@
 
 class ArcanoidPlaceable: public S2DMovable{
 protected:
-    float speed = 90.f;
+    float speedMax = 90.f;
+    float currForwardSpeed = 0.f;
+
+    float rotationSpeedMax = 30.f;
+    float currentRotationDeg = 0.f;
+
+    S2DVector2<float> fwdVec = S2DVector2<float>(0, -1);
 
 public:
     ArcanoidPlaceable(const std::string& newTexturePath);
 
     void Iterate(float deltaTime) override;
     void moveForward();
+    void moveBackward();
+    void rotateRight();
+    void rotateLeft();
+    void stopRotating();
+    void stopMoving();
 };
 
 
