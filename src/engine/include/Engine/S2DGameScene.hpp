@@ -5,6 +5,7 @@
 #ifndef ENGINE_S2DGAMESCENE_HPP
 #define ENGINE_S2DGAMESCENE_HPP
 
+#include "Engine/S2DIInputReceiver.hpp"
 #include "Engine/S2DIRenderable.hpp"
 #include "Engine/S2DIIterable.hpp"
 #include "Engine/S2DMainApp.hpp"
@@ -16,7 +17,7 @@ class S2DRenderContext;
 class S2DGameObject;
 class S2DCamera;
 
-class S2DGameScene: public S2DIRenderable, public S2DIIterable{
+class S2DGameScene: public S2DIInputReceiver, public S2DIRenderable, public S2DIIterable{
 protected:
     std::weak_ptr<MainApp> mainApp;
     std::shared_ptr<S2DCamera> mainSceneCamera;
@@ -33,6 +34,8 @@ public:
 
     std::shared_ptr<S2DCamera> getSceneCamera() const;
     void setSceneCamera(const std::shared_ptr<S2DCamera>& newCamera);
+
+    void receiveInput(const SDL_Event *event) override;
 };
 
 

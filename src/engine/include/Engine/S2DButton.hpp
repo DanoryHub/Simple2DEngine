@@ -16,8 +16,6 @@
 #include <functional>
 #include <string>
 
-#define methodCallback(methodName) ([this]() { this->methodName(); })
-
 
 class S2DButton: public S2DGameObject, public S2DIRenderable{
 public:

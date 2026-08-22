@@ -78,6 +78,7 @@ add_library(
         src/Engine/S2DGameObject.cpp
         src/Engine/S2DGameScene.cpp
         src/Engine/S2DPlaceable.cpp
+        src/Engine/S2DMovable.cpp
         src/Engine/S2DTexture.cpp
         src/Engine/S2DCamera.cpp
         src/Engine/S2DButton.cpp
