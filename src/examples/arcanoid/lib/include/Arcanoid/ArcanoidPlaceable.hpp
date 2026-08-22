@@ -28,6 +28,11 @@ public:
     ArcanoidPlaceable(const std::string& newTexturePath);
 
     void Iterate(float deltaTime) override;
+
+    void registerMovingActions();
+    void processMoving(float deltaTime);
+
+    // Moving callbacks
     void moveForward();
     void moveBackward();
     void rotateRight();

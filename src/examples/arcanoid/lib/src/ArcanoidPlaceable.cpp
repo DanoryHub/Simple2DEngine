@@ -15,6 +15,10 @@
 #include "SDL3/SDL_events.h"
 
 ArcanoidPlaceable::ArcanoidPlaceable(const std::string &newTexturePath): S2DMovable(newTexturePath) {
+   registerMovingActions();
+}
+
+void ArcanoidPlaceable::registerMovingActions() {
     registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_W, methodCallback(moveForward));
     registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_S, methodCallback(moveBackward));
     registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_D, methodCallback(rotateRight));
@@ -57,9 +61,7 @@ void ArcanoidPlaceable::stopMovingBckwd() {
     movingBackward = false;
 }
 
-void ArcanoidPlaceable::Iterate(float deltaTime) {
-    S2DPlaceable::Iterate(deltaTime);
-
+void ArcanoidPlaceable::processMoving(float deltaTime) {
     currentRotationDeg = 0.f;
     if (rotatingLeft) currentRotationDeg -= rotationSpeedMax;
     if (rotatingRight) currentRotationDeg += rotationSpeedMax;
@@ -72,4 +74,10 @@ void ArcanoidPlaceable::Iterate(float deltaTime) {
     if (movingForward) currMovingSpeed += speedMax;
     if (movingBackward) currMovingSpeed -= speedMax;
     position += fwdVec * currMovingSpeed * deltaTime;
+}
+
+void ArcanoidPlaceable::Iterate(float deltaTime) {
+    S2DPlaceable::Iterate(deltaTime);
+
+    processMoving(deltaTime);
 }
