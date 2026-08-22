@@ -21,8 +21,8 @@ ArcanoidPlaceable::ArcanoidPlaceable(const std::string &newTexturePath): S2DMova
     registerKeyEvent(SDL_EVENT_KEY_DOWN, SDL_SCANCODE_A, methodCallback(rotateLeft));
     registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_W, methodCallback(stopMoving));
     registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_S, methodCallback(stopMoving));
-    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_A, methodCallback(stopRotating));
-    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_D, methodCallback(stopRotating));
+    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_A, methodCallback(stopRotatingLeft));
+    registerKeyEvent(SDL_EVENT_KEY_UP, SDL_SCANCODE_D, methodCallback(stopRotatingRight));
 }
 
 void ArcanoidPlaceable::moveForward() {
@@ -42,23 +42,19 @@ void ArcanoidPlaceable::moveBackward() {
 }
 
 void ArcanoidPlaceable::rotateRight() {
-    if (currentRotationDeg >= rotationSpeedMax){
-        currentRotationDeg = rotationSpeedMax;
-        return;
-    }
-    currentRotationDeg += rotationSpeedMax;
+    rotatingRight = true;
 }
 
 void ArcanoidPlaceable::rotateLeft() {
-    if (currentRotationDeg <= -rotationSpeedMax){
-        currentRotationDeg = -rotationSpeedMax;
-        return;
-    }
-    currentRotationDeg += rotationSpeedMax * -1;
+    rotatingLeft = true;
 }
 
-void ArcanoidPlaceable::stopRotating() {
-    currentRotationDeg = 0.f;
+void ArcanoidPlaceable::stopRotatingLeft() {
+    rotatingLeft = false;
+}
+
+void ArcanoidPlaceable::stopRotatingRight() {
+    rotatingRight = false;
 }
 
 void ArcanoidPlaceable::stopMoving() {
@@ -67,6 +63,10 @@ void ArcanoidPlaceable::stopMoving() {
 
 void ArcanoidPlaceable::Iterate(float deltaTime) {
     S2DPlaceable::Iterate(deltaTime);
+
+    currentRotationDeg = 0.f;
+    if (rotatingLeft) currentRotationDeg -= rotationSpeedMax;
+    if (rotatingRight) currentRotationDeg += rotationSpeedMax;
 
     float deltaRotation = currentRotationDeg * deltaTime;
     rotation += deltaRotation;

@@ -16,6 +16,8 @@ protected:
 
     float rotationSpeedMax = 30.f;
     float currentRotationDeg = 0.f;
+    bool rotatingLeft = false;
+    bool rotatingRight = false;
 
     S2DVector2<float> fwdVec = S2DVector2<float>(0, -1);
 
@@ -27,7 +29,8 @@ public:
     void moveBackward();
     void rotateRight();
     void rotateLeft();
-    void stopRotating();
+    void stopRotatingLeft();
+    void stopRotatingRight();
     void stopMoving();
 };
 
