@@ -9,6 +9,7 @@
 #include <utility>
 
 #include "SDL3/SDL.h"
+#include "SDL3_mixer/SDL_mixer.h"
 
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
@@ -38,6 +39,9 @@ void MainApp::SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2
 void MainApp::UpdateCurrScene(const std::string &nextSceneName) {
     if (!scenes.empty()) {
         currScene = scenes[nextSceneName];
+        if (soundMixer != nullptr){
+            currScene->passDeviceAudioMixer(soundMixer);
+        }
     }
 }
 
@@ -66,6 +70,22 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
 
     if (!SDL_CreateWindowAndRenderer(windowTitle.c_str(), appScreenWidth, appScreenHeight, SDL_WINDOW_RESIZABLE, &mainWindow, &renderer)) {
         SDL_Log("SDL: Cant create window or renderer with error: %s", SDL_GetError());
+        return SDL_APP_FAILURE;
+    }
+
+    if (!MIX_Init()){
+        SDL_Log("SDL: Cant initialize SDL mixer: %s", SDL_GetError());
+        return SDL_APP_FAILURE;
+    }
+
+    SDL_AudioSpec audioSpec;
+    audioSpec.freq = 44100;
+    audioSpec.format = SDL_AUDIO_S16LE;
+    audioSpec.channels = 2;
+
+    soundMixer = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, &audioSpec);
+    if (!soundMixer){
+        SDL_Log("SDL: Cant create mixer device: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 

@@ -6,15 +6,11 @@
 #include "Engine/S2DGameObject.hpp"
 #include "Engine/S2DCamera.hpp"
 #include "Engine/S2DRenderContext.hpp"
+#include "Engine/S2DSound.hpp"
 
 S2DGameScene::S2DGameScene() {
     mainSceneCamera = std::make_shared<S2DCamera>();
 }
-
-void S2DGameScene::registerMainApp(const std::shared_ptr<MainApp>& app) {
-    mainApp = app;
-}
-
 
 void S2DGameScene::registerGameObject(const std::shared_ptr<S2DGameObject>& gameObject) {
     gameObjects.push_back(gameObject);
@@ -22,6 +18,15 @@ void S2DGameScene::registerGameObject(const std::shared_ptr<S2DGameObject>& game
 
 void S2DGameScene::setSceneCamera(const std::shared_ptr<S2DCamera>& newCamera) {
     mainSceneCamera = newCamera;
+}
+
+void S2DGameScene::passDeviceAudioMixer(MIX_Mixer *newMixer) {
+    for (auto gameObject: gameObjects) {
+        auto audioObject = std::dynamic_pointer_cast<S2DSound>(gameObject);
+        if (audioObject != nullptr) {
+            audioObject->registerSoundDeviceMixer(newMixer);
+        }
+    }
 }
 
 std::shared_ptr<S2DCamera> S2DGameScene::getSceneCamera() const {

@@ -29,6 +29,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SDL3_image)
 
+FetchContent_Declare(
+        SDL_mixer
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
+        GIT_TAG release-3.2.4
+        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/SDL_mixer"
+)
+FetchContent_MakeAvailable(SDL_mixer)
+
 include(CTest)
 enable_testing()
 
@@ -73,16 +81,18 @@ target_link_libraries(imgui PUBLIC
 
 add_library(
         Engine STATIC
-        src/Engine/S2DMainApp.cpp
         src/Engine/S2DRenderContext.cpp
         src/Engine/S2DGameObject.cpp
         src/Engine/S2DGameScene.cpp
         src/Engine/S2DPlaceable.cpp
         src/Engine/S2DMovable.cpp
+        src/Engine/S2DMainApp.cpp
         src/Engine/S2DTexture.cpp
         src/Engine/S2DCamera.cpp
         src/Engine/S2DButton.cpp
         src/Engine/S2DText.cpp
+        src/Engine/S2DSound.cpp
+        src/Engine/S2DSound.cpp
 )
 target_include_directories(
         Engine PUBLIC
@@ -91,5 +101,6 @@ target_include_directories(
 target_link_libraries(
         Engine PUBLIC
         SDL3_image::SDL3_image-static
+        SDL3_mixer::SDL3_mixer
         imgui
 )

@@ -11,6 +11,7 @@
 
 #include "Engine/S2DVector2.hpp"
 
+struct SDL_AudioSpec;
 struct SDL_Renderer;
 class S2DTexture;
 class S2DCamera;
@@ -23,6 +24,7 @@ public:
     void clearTextureCache();
     void registerRenderer(SDL_Renderer* newRenderer);
     void registerCamera(const std::shared_ptr<S2DCamera>& newCamera);
+    void registerAudioSpec(SDL_AudioSpec* newAudioSpec);
     void setLogicalSize(int width, int height);
     S2DVector2<float> logicalToWindow(const S2DVector2<float>& logicalPos) const;
     void drawTexture(const std::string &tPath,  const S2DVector2<float> &position, const S2DVector2<float> &scale, float rotation);
@@ -30,6 +32,7 @@ public:
 
 protected:
     SDL_Renderer* renderer;
+    SDL_AudioSpec* audioSpec;
     std::weak_ptr<S2DCamera> currCamera;
     int logicalWidth = 1920;
     int logicalHeight = 1080;
