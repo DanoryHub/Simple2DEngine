@@ -11,7 +11,17 @@ S2DSound::S2DSound(const std::string& soundSourcePath){
 }
 
 void S2DSound::playSound() {
-    if (sound == nullptr && deviceMixer != nullptr && !sourcePath.empty()){
+    if (sourcePath.empty()){
+        SDL_LogError(SDL_LOG_CATEGORY_AUDIO, "Sound source path is empty");
+        return;
+    }
+
+    if (deviceMixer == nullptr){
+        SDL_LogError(SDL_LOG_CATEGORY_AUDIO, "Sound device mixer is not registered");
+        return;
+    }
+
+    if (sound == nullptr){
         sound = MIX_LoadAudio(deviceMixer, sourcePath.c_str(), true);
     }
 

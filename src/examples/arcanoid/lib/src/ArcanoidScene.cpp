@@ -39,7 +39,6 @@ ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     registerGameObject(testButton);
     registerGameObject(testText);
     registerGameObject(testSound);
-    testSound->playSound(); // Will not execute since device mixer is not passed until scene is not set in MainApp
 
     mainSceneCamera = std::make_shared<S2DCamera>();
 }
