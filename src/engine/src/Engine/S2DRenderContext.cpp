@@ -31,6 +31,10 @@ void S2DRenderContext::registerCamera(const std::shared_ptr<S2DCamera>& newCamer
     currCamera = newCamera;
 }
 
+void S2DRenderContext::registerAudioSpec(SDL_AudioSpec *newAudioSpec) {
+    audioSpec = newAudioSpec;
+}
+
 void S2DRenderContext::setLogicalSize(int width, int height) {
     logicalWidth = width;
     logicalHeight = height;

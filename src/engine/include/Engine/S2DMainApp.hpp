@@ -14,6 +14,7 @@
 
 class S2DGameScene;
 class S2DRenderContext;
+struct MIX_Mixer;
 
 class MainApp {
 public:
@@ -39,6 +40,7 @@ private:
 
         SDL_Window *mainWindow = nullptr;
         SDL_Renderer *renderer = nullptr;
+        MIX_Mixer* soundMixer = nullptr;
 
         std::shared_ptr<S2DGameScene> currScene = nullptr;
 

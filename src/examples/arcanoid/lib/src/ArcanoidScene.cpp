@@ -7,6 +7,7 @@
 #include "Engine/S2DCamera.hpp"
 #include "Engine/S2DMacros.hpp"
 #include "Engine/S2DVector4.hpp"
+#include "Engine/S2DSound.hpp"
 
 #include "Arcanoid/ArcanoidScene.hpp"
 #include "Arcanoid/ArcanoidPlaceable.hpp"
@@ -32,13 +33,22 @@ ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     testText->setTextFont("./assets/chintzy.ttf", 100);
     testText->setTextColor(S2DVector4<float>(1, 1, 1, 1));
 
+    testSound = std::make_shared<S2DSound>("./assets/test.wav");
+
     registerGameObject(testPlaceable);
     registerGameObject(testButton);
     registerGameObject(testText);
+    registerGameObject(testSound);
+    testSound->playSound(); // Will not execute since device mixer is not passed until scene is not set in MainApp
 
     mainSceneCamera = std::make_shared<S2DCamera>();
 }
 
 void ArcanoidScene::Iterate(float deltaTime) {
+    deltaSoundTime += deltaTime;
+    if (deltaSoundTime >= 10.f){
+        testSound->playSound();
+        deltaSoundTime = 0.f;
+    }
     S2DGameScene::Iterate(deltaTime);
 }
