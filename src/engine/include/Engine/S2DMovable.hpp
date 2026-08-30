@@ -9,12 +9,11 @@
 #include <unordered_map>
 
 #include "Engine/S2DIInputReceiver.hpp"
-#include "Engine/S2DPlaceable.hpp"
+#include "Engine/S2DRenderable.hpp"
 
-class S2DMovable: public S2DPlaceable, public S2DIInputReceiver  {
+class S2DMovable: public S2DRenderable, public S2DIInputReceiver  {
 public:
-    using S2DPlaceable::S2DPlaceable;
-
+    using S2DRenderable::S2DRenderable;
 
     void receiveInput(const SDL_Event *event) override;
     void registerKeyEvent(Uint32 eventType, const SDL_Scancode& scancode, const std::function<void()>& callback);

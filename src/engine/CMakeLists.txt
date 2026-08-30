@@ -82,6 +82,7 @@ target_link_libraries(imgui PUBLIC
 add_library(
         Engine STATIC
         src/Engine/S2DRenderContext.cpp
+        src/Engine/S2DRenderable.cpp
         src/Engine/S2DGameObject.cpp
         src/Engine/S2DGameScene.cpp
         src/Engine/S2DPlaceable.cpp
