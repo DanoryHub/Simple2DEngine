@@ -14,12 +14,15 @@ class S2DCollidable;
 
 class S2DCollisionDetectionSystem {
 public:
+    S2DCollisionDetectionSystem(int windowHeight, int windowWidth);
+    void registerCollidable(std::shared_ptr<S2DCollidable> &collidableObj);
+    void checkAllCollisions();
+    void clearCollidables();
+
+protected:
     S2DVector2<int> windowSize;
     std::vector<std::shared_ptr<S2DCollidable>> collidableObjs;
-protected:
-    S2DCollisionDetectionSystem(int windowHeight, int windowWidth);
-    void registerCollidable(std::shared_ptr<S2DCollidable>& collidableObj);
-    void checkAllCollisions();
+
 };
 
 

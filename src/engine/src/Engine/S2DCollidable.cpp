@@ -5,6 +5,7 @@
 #include "Engine/S2DCollidable.hpp"
 #include "Engine/S2DHelpers.hpp"
 
+#include <iostream>
 
 S2DVector4<float> BoundingBox::getPoints() {
     return S2DVector4<float>(pos.x, pos.y, pos.x + size.x, pos.y + size.y);
@@ -23,4 +24,8 @@ void S2DCollidable::setCallback(const CollisionCallbackType callbackType,
 
 void S2DCollidable::executeCallback(CollisionCallbackType callbackType, std::shared_ptr<S2DGameObject>& otherObject) {
     callbacks[callbackType](otherObject);
+}
+
+void S2DCollidable::testLog() {
+    std::cout << "One Collidable check" << std::endl;
 }

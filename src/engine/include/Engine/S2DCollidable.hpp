@@ -28,6 +28,8 @@ public:
     S2DVector4<float> getBoundingBoxDimensions();
     void setCallback(CollisionCallbackType callbackType, std::function<void(std::shared_ptr<S2DGameObject>& )> callback);
     void executeCallback(CollisionCallbackType callbackType, std::shared_ptr<S2DGameObject>& otherObject);
+
+    void testLog();
 protected:
     BoundingBox boundingBox;
     std::map<CollisionCallbackType, std::function<void(std::shared_ptr<S2DGameObject>&)>> callbacks;

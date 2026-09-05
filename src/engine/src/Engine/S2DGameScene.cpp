@@ -4,6 +4,7 @@
 
 #include "Engine/S2DGameScene.hpp"
 #include "Engine/S2DGameObject.hpp"
+#include "Engine/S2DCollidable.hpp"
 #include "Engine/S2DCamera.hpp"
 #include "Engine/S2DRenderContext.hpp"
 #include "Engine/S2DSound.hpp"
@@ -57,6 +58,19 @@ void S2DGameScene::receiveInput(const SDL_Event *event) {
             inputReceiver->receiveInput(event);
         }
     }
+}
+
+std::vector<std::shared_ptr<S2DCollidable>> S2DGameScene::getAllCollidables() {
+    std::vector<std::shared_ptr<S2DCollidable>> res;
+
+    for (auto gameObject: gameObjects) {
+        auto collidableObject = std::dynamic_pointer_cast<S2DCollidable>(gameObject);
+        if (collidableObject != nullptr) {
+            res.push_back(collidableObject);
+        }
+    }
+
+    return res;
 }
 
 S2DGameScene::~S2DGameScene() {}

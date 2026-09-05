@@ -5,6 +5,7 @@
 #include "Engine/S2DMainApp.hpp"
 #include "Engine/S2DGameScene.hpp"
 #include "Engine/S2DRenderContext.hpp"
+#include "Engine/S2DCollisionDetectionSystem.hpp"
 
 #include <utility>
 
@@ -39,6 +40,12 @@ void MainApp::SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2
 void MainApp::UpdateCurrScene(const std::string &nextSceneName) {
     if (!scenes.empty()) {
         currScene = scenes[nextSceneName];
+
+        collisionSystem->clearCollidables();
+        for (auto collidable: currScene->getAllCollidables()){
+            collisionSystem->registerCollidable(collidable);
+        }
+
         if (soundMixer != nullptr){
             currScene->passDeviceAudioMixer(soundMixer);
         }
@@ -91,6 +98,8 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
 
     SDL_SetWindowMinimumSize(mainWindow, minAppScreenWidth, minAppScreenHeight);
 
+    collisionSystem = std::make_shared<S2DCollisionDetectionSystem>(appScreenHeight, appScreenWidth);
+
     ImGui::StyleColorsLight();
     ImGui_ImplSDL3_InitForSDLRenderer(mainWindow, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
@@ -127,6 +136,7 @@ SDL_AppResult MainApp::Iterate(void *appstate) {
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
 
+    collisionSystem->checkAllCollisions();
     currScene->Iterate(deltaTime.count());
     currScene->Render(currentContext);
     ImGui::Render();
