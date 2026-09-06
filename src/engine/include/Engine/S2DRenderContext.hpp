@@ -29,7 +29,11 @@ public:
     S2DVector2<float> logicalToWindow(const S2DVector2<float>& logicalPos) const;
     void drawTexture(const std::string &tPath,  const S2DVector2<float> &position, const S2DVector2<float> &scale, float rotation);
     S2DTexture* getTexture(const std::string &tPath);
-
+    SDL_Renderer* getRenderer();
+    S2DVector2<float> getCameraPosition();
+    S2DVector2<float> getCameraScale();
+    int getLogicalWidth() const;
+    int getLogicalHeight() const;
 protected:
     SDL_Renderer* renderer;
     SDL_AudioSpec* audioSpec;

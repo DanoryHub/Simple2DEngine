@@ -15,6 +15,7 @@
 
 class S2DRenderContext;
 class S2DGameObject;
+class S2DCollidable;
 class S2DCamera;
 struct MIX_Mixer;
 
@@ -37,6 +38,7 @@ public:
     void setSceneCamera(const std::shared_ptr<S2DCamera>& newCamera);
 
     void receiveInput(const SDL_Event *event) override;
+    std::vector<std::shared_ptr<S2DCollidable>> getAllCollidables();
 };
 
 

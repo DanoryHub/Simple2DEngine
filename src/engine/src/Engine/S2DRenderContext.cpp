@@ -62,6 +62,30 @@ S2DTexture* S2DRenderContext::getTexture(const std::string &tPath) {
     return textureCache[tPath].get();
 }
 
+SDL_Renderer* S2DRenderContext::getRenderer() {
+    return renderer;
+}
+
+S2DVector2<float> S2DRenderContext::getCameraPosition() {
+    auto cam = currCamera.lock();
+    if (!cam) return S2DVector2<float>(0.f, 0.f);
+    return cam->getPosition();
+}
+
+S2DVector2<float> S2DRenderContext::getCameraScale() {
+    auto cam = currCamera.lock();
+    if (!cam) return S2DVector2<float>(1.f, 1.f);
+    return cam->getScale();
+}
+
+int S2DRenderContext::getLogicalWidth() const {
+    return logicalWidth;
+}
+
+int S2DRenderContext::getLogicalHeight() const {
+    return logicalHeight;
+}
+
 void S2DRenderContext::drawTexture(const std::string &tPath,  const S2DVector2<float> &position, const S2DVector2<float> &scale, float rotation) {
     if (renderer == nullptr) {
         std::cerr << "No renderer set in renderContext" << std::endl;

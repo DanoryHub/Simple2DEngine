@@ -13,7 +13,6 @@
 #include "SDL3/SDL.h"
 
 S2DPlaceable::S2DPlaceable() = default;
-S2DPlaceable::~S2DPlaceable() = default;
 
 S2DVector2<float> S2DPlaceable::GetPosition() const {
     return position;
@@ -38,12 +37,3 @@ float S2DPlaceable::GetRotation() const {
 void S2DPlaceable::SetRotation(const float newRotation) {
     rotation = newRotation;
 }
-
-S2DPlaceable::S2DPlaceable(const std::string& newTexturePath) {
-    texturePath = newTexturePath;
-}
-
-void S2DPlaceable::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
-    renderContext->drawTexture(texturePath, position, scale, rotation);
-}
-

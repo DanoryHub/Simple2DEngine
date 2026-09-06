@@ -15,7 +15,7 @@
 #include "SDL3/SDL_events.h"
 
 ArcanoidPlaceable::ArcanoidPlaceable(const std::string &newTexturePath): S2DMovable(newTexturePath) {
-   registerMovingActions();
+    registerMovingActions();
 }
 
 void ArcanoidPlaceable::registerMovingActions() {

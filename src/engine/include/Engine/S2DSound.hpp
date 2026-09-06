@@ -12,7 +12,7 @@
 struct MIX_Mixer;
 struct MIX_Audio;
 
-class S2DSound: public S2DGameObject {
+class S2DSound: virtual public S2DGameObject {
 public:
     S2DSound(const std::string& soundSourcePath);
     void playSound();
