@@ -46,6 +46,8 @@ void MainApp::UpdateCurrScene(const std::string &nextSceneName) {
             collisionSystem->registerCollidable(collidable);
         }
 
+        currentContext->registerCamera(currScene->getSceneCamera());
+
         if (soundMixer != nullptr){
             currScene->passDeviceAudioMixer(soundMixer);
         }
@@ -136,7 +138,7 @@ SDL_AppResult MainApp::Iterate(void *appstate) {
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
 
-    collisionSystem->checkAllCollisions();
+    collisionSystem->checkAllCollisions(currentContext->getRenderer(), currentContext->getCameraPosition(), currentContext->getCameraScale());
     currScene->Iterate(deltaTime.count());
     currScene->Render(currentContext);
     ImGui::Render();

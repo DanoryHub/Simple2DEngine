@@ -17,7 +17,7 @@ struct SDL_Renderer;
 class S2DRenderContext;
 class S2DTexture;
 
-class S2DPlaceable: public S2DGameObject{
+class S2DPlaceable: virtual public S2DGameObject{
 protected:
     S2DVector2<float> position = S2DVector2<float>(0.f, 0.f);
     S2DVector2<float> scale = S2DVector2<float>(1.f, 1.f);

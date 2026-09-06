@@ -20,8 +20,7 @@ void ArcanoidScene::buttonCallback() {
 }
 
 ArcanoidScene::ArcanoidScene(): S2DGameScene() {
-    testPlaceable1 = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
-    testPlaceable2 = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
+    testPlaceable = std::make_shared<ArcanoidPlaceable>("./assets/Bug.png");
 
     testButton = std::make_shared<S2DButton>("Quit", S2DVector2<float>(1920/4, 1080/4), S2DVector2<float>(100, 100));
     testButton->setButtonColorIdle(S2DVector4<float>(1, 0, 0, 1));
@@ -36,8 +35,7 @@ ArcanoidScene::ArcanoidScene(): S2DGameScene() {
 
     testSound = std::make_shared<S2DSound>("./assets/test.wav");
 
-    registerGameObject(testPlaceable1);
-    registerGameObject(testPlaceable2);
+    registerGameObject(testPlaceable);
     registerGameObject(testButton);
     registerGameObject(testText);
     registerGameObject(testSound);

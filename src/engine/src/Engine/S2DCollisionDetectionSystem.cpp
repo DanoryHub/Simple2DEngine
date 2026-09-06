@@ -3,6 +3,9 @@
 //
 #include "Engine/S2DCollisionDetectionSystem.hpp"
 #include "Engine/S2DCollidable.hpp"
+#include "Engine/S2DPlaceable.hpp"
+
+#include "SDL3/SDL.h"
 
 #include <iostream>
 
@@ -18,9 +21,13 @@ void S2DCollisionDetectionSystem::clearCollidables() {
     collidableObjs.clear();
 }
 
-void S2DCollisionDetectionSystem::checkAllCollisions() {
-    std::cout << "Checking collisions" << std::endl;
+void S2DCollisionDetectionSystem::checkAllCollisions(SDL_Renderer* renderer, const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale) {
     for(auto collidable: collidableObjs){
-        collidable->testLog();
+        if (auto placeable = std::dynamic_pointer_cast<S2DPlaceable>(collidable)){
+            collidable->updateBBPos(placeable->GetPosition());
+        }
+        if (isDebug && renderer != nullptr){
+            collidable->drawDebugBox(renderer, cameraPos, cameraScale);
+        }
     }
 }

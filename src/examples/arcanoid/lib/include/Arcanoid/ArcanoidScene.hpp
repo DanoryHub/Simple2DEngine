@@ -17,8 +17,7 @@ class S2DSound;
 
 class ArcanoidScene: public S2DGameScene {
 protected:
-    std::shared_ptr<ArcanoidPlaceable> testPlaceable1;
-    std::shared_ptr<ArcanoidPlaceable> testPlaceable2;
+    std::shared_ptr<ArcanoidPlaceable> testPlaceable;
     std::shared_ptr<S2DButton> testButton;
     std::shared_ptr<S2DText> testText;
     std::shared_ptr<S2DSound> testSound;
