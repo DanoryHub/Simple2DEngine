@@ -30,7 +30,8 @@ public:
     S2DVector4<float> getBoundingBoxDimensions();
     void setCallback(CollisionCallbackType callbackType, std::function<void(std::shared_ptr<S2DGameObject>& )> callback);
     void executeCallback(CollisionCallbackType callbackType, std::shared_ptr<S2DGameObject>& otherObject);
-    void updateBBPos(const S2DVector2<float>& newPos);
+    void setBBPos(const S2DVector2<float>& newPos);
+    void setBBSize(const S2DVector2<float>& newSize);
     void drawDebugBox(SDL_Renderer* renderer, const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale);
 protected:
     BoundingBox boundingBox;

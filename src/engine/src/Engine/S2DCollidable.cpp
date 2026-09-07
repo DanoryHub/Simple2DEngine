@@ -38,8 +38,12 @@ void S2DCollidable::executeCallback(CollisionCallbackType callbackType, std::sha
     callbacks[callbackType](otherObject);
 }
 
-void S2DCollidable::updateBBPos(const S2DVector2<float>& newPos) {
+void S2DCollidable::setBBPos(const S2DVector2<float>& newPos) {
     boundingBox.pos = newPos;
+}
+
+void S2DCollidable::setBBSize(const S2DVector2<float> &newSize) {
+    boundingBox.size = newSize;
 }
 
 void S2DCollidable::drawDebugBox(SDL_Renderer* renderer, const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale) {
