@@ -35,23 +35,40 @@ void S2DCollidable::setCallback(const CollisionCallbackType callbackType,
 }
 
 void S2DCollidable::executeCallback(CollisionCallbackType callbackType, std::shared_ptr<S2DGameObject>& otherObject) {
-    callbacks[callbackType](otherObject);
+    auto it = callbacks.find(callbackType);
+    if (it != callbacks.end() && it->second) {
+        it->second(otherObject);
+    }
 }
 
 void S2DCollidable::setBBPos(const S2DVector2<float>& newPos) {
     boundingBox.pos = newPos;
 }
 
+S2DVector2<float> S2DCollidable::getBBPos() {
+    return boundingBox.pos;
+}
+
+bool S2DCollidable::checkCollidableAgainstThisBB(const std::shared_ptr<S2DCollidable> &collidable) {
+    S2DVector4<float> a = boundingBox.getWorldPoints();
+    S2DVector4<float> b = collidable->boundingBox.getWorldPoints();
+
+    return a.x <= b.z && a.z >= b.x &&
+           a.y <= b.w && a.w >= b.y;
+}
+
 void S2DCollidable::setBBSize(const S2DVector2<float> &newSize) {
     boundingBox.size = newSize;
 }
 
-void S2DCollidable::drawDebugBox(SDL_Renderer* renderer, const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale) {
-    int windowWidth = 0;
-    int windowHeight = 0;
-    SDL_GetCurrentRenderOutputSize(renderer, &windowWidth, &windowHeight);
+void S2DCollidable::transformBBToScreenSpace(const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale, float screenWidth, float screenHeight) {
+    S2DVector4<float> screen = boundingBox.getPoints(cameraPos, cameraScale, screenWidth, screenHeight);
+    boundingBox.pos = S2DVector2<float>((screen.x + screen.z) / 2.f, (screen.y + screen.w) / 2.f);
+    boundingBox.size = S2DVector2<float>(screen.z - screen.x, screen.w - screen.y);
+}
 
-    S2DVector4<float> screen = boundingBox.getPoints(cameraPos, cameraScale, static_cast<float>(windowWidth), static_cast<float>(windowHeight));
+void S2DCollidable::drawDebugBox(SDL_Renderer* renderer) {
+    S2DVector4<float> screen = boundingBox.getWorldPoints();
     SDL_FRect redRect{ screen.x, screen.y, screen.z - screen.x, screen.w - screen.y };
 
     Uint8 oldR, oldG, oldB, oldA;

@@ -31,8 +31,11 @@ public:
     void setCallback(CollisionCallbackType callbackType, std::function<void(std::shared_ptr<S2DGameObject>& )> callback);
     void executeCallback(CollisionCallbackType callbackType, std::shared_ptr<S2DGameObject>& otherObject);
     void setBBPos(const S2DVector2<float>& newPos);
+    S2DVector2<float> getBBPos();
+    bool checkCollidableAgainstThisBB(const std::shared_ptr<S2DCollidable>& collidable);
     void setBBSize(const S2DVector2<float>& newSize);
-    void drawDebugBox(SDL_Renderer* renderer, const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale);
+    void transformBBToScreenSpace(const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale, float screenWidth, float screenHeight);
+    void drawDebugBox(SDL_Renderer* renderer);
 protected:
     BoundingBox boundingBox;
     std::map<CollisionCallbackType, std::function<void(std::shared_ptr<S2DGameObject>&)>> callbacks;

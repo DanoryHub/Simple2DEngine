@@ -3,6 +3,8 @@ project(Arcanoid VERSION 0.0.1)
 
 set(CMAKE_CXX_STANDARD 20)
 
+enable_testing()
+
 # Setup project build options
 set(SDL_STATIC ON)
 set(SDL_SHARED OFF)
