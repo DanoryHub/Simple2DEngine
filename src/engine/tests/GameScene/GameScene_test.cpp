@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-class IterateTracker : public S2DGameObject {
+class IterateTracker : virtual public S2DGameObject {
 public:
     int iterateCount = 0;
 

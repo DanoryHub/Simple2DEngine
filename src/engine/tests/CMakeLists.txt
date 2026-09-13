@@ -4,6 +4,9 @@
         GameObject/GameObject_test.cpp
         GameScene/GameScene_test.cpp
         Placeable/Placeable_test.cpp
+        Collision/BoundingBox_test.cpp
+        Collision/Collidable_test.cpp
+        Collision/CollisionDetectionSystem_test.cpp
 )
 
 target_link_libraries(

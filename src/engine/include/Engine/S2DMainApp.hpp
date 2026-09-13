@@ -14,6 +14,7 @@
 
 class S2DGameScene;
 class S2DRenderContext;
+class S2DCollisionDetectionSystem;
 struct MIX_Mixer;
 
 class MainApp {
@@ -55,6 +56,7 @@ private:
         double physSimDeltaTime = .01;
 
         std::shared_ptr<S2DRenderContext> currentContext;
+        std::shared_ptr<S2DCollisionDetectionSystem> collisionSystem;
 
 };
 

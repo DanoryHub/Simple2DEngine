@@ -6,10 +6,11 @@
 #define ARCANOID_ARCANOIDPLACEABLE_HPP
 
 #include "Engine/S2DPlaceable.hpp"
+#include "Engine/S2DCollidable.hpp"
 #include "Engine/S2DMovable.hpp"
 
 
-class ArcanoidPlaceable: public S2DMovable{
+class ArcanoidPlaceable: public S2DMovable, public S2DCollidable{
 protected:
     float speedMax = 90.f;
 

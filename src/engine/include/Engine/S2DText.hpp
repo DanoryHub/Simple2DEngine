@@ -12,7 +12,7 @@
 
 #include "imgui.h"
 
-class S2DText: public S2DGameObject, public S2DIRenderable {
+class S2DText: virtual public S2DGameObject, public S2DIRenderable {
 public:
     S2DText() = default;
     S2DText(const std::string& newLabel, const ImGuiWindowFlags& newFlags);

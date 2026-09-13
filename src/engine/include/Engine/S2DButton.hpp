@@ -17,7 +17,7 @@
 #include <string>
 
 
-class S2DButton: public S2DGameObject, public S2DIRenderable{
+class S2DButton: virtual public S2DGameObject, public S2DIRenderable{
 public:
     S2DButton() = default;
     S2DButton(const std::string& newLabel, const ImGuiWindowFlags& newFlags);
