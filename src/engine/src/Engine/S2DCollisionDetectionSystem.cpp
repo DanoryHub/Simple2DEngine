@@ -6,10 +6,9 @@
 #include "Engine/S2DPlaceable.hpp"
 #include "Engine/S2DHelpers.hpp"
 
-#include <thread>
 #include <iostream>
 
-ScreenSegment::ScreenSegment(const S2DVector2<float> &pos, const S2DVector2<float> &size) {
+ScreenSegment::ScreenSegment(const S2DVector2<float>& pos, const S2DVector2<float>& size, std::mutex& globalMutex): dataLock(globalMutex) {
     setBBPos(pos);
     setBBSize(size);
     setName("Segment[" + std::to_string(static_cast<int>(pos.x)) + "," + std::to_string(static_cast<int>(pos.y)) + "]");
@@ -27,43 +26,57 @@ void ScreenSegment::drawScreenSpace(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 }
 
+std::thread ScreenSegment::spawnCollisionsCheckingThread(std::set<std::pair<const S2DCollidable*, const S2DCollidable*>>& processedPairs){
+    return std::thread([this, &processedPairs] { this->checkCollisionsInSegment(processedPairs); } );
+}
+
 bool ScreenSegment::registerCollidable(const std::shared_ptr<S2DCollidable>& collidable) {
+    std::lock_guard<std::mutex> lock(dataLock);
     if (!checkCollidableAgainstThisBB(collidable)) {
-        if (collidablesInSegment.contains(collidable)) {
-            removeCollidableFromSegment(collidable);
-        }
+        collidablesInSegment.erase(collidable);
         return false;
     }
 
-    if (collidablesInSegment.contains(collidable) &&
-        collidablesInSegment[collidable] == collidable->getBBPos()) {
+    auto it = collidablesInSegment.find(collidable);
+    if (it != collidablesInSegment.end() && it->second == collidable->getBBPos()) {
         return true;
     }
 
-    addCollidableToSegment(collidable);
+    collidablesInSegment[collidable] = collidable->getBBPos();
     return true;
 }
 
 bool ScreenSegment::containsCollidable(const std::shared_ptr<S2DCollidable>& collidable) const {
+    std::lock_guard<std::mutex> lock(dataLock);
     return collidablesInSegment.contains(collidable);
 }
 
 void ScreenSegment::addCollidableToSegment(const std::shared_ptr<S2DCollidable>& collidable) {
+    std::lock_guard<std::mutex> lock(dataLock);
     collidablesInSegment[collidable] = collidable->getBBPos();
 }
 
 void ScreenSegment::removeCollidableFromSegment(const std::shared_ptr<S2DCollidable>& collidable) {
+    std::lock_guard<std::mutex> lock(dataLock);
     collidablesInSegment.erase(collidable);
 }
 
 void ScreenSegment::clearCollidablesInSegment() {
+    std::lock_guard<std::mutex> lock(dataLock);
     collidablesInSegment.clear();
 }
 
 void ScreenSegment::checkCollisionsInSegment(std::set<std::pair<const S2DCollidable*, const S2DCollidable*>>& processedPairs) {
-    for (auto it1 = collidablesInSegment.begin(); it1 != collidablesInSegment.end(); ++it1) {
+    std::map<std::shared_ptr<S2DCollidable>, S2DVector2<float>> collidablesSnapshot;
+    {
+        std::unique_lock<std::mutex> lock(dataLock);
+        collidablesSnapshot = collidablesInSegment;
+        lock.unlock();
+    }
+
+    for (auto it1 = collidablesSnapshot.begin(); it1 != collidablesSnapshot.end(); ++it1) {
         auto it2 = std::next(it1);
-        for (; it2 != collidablesInSegment.end(); ++it2) {
+        for (; it2 != collidablesSnapshot.end(); ++it2) {
             if (!it1->first->checkCollidableAgainstThisBB(it2->first)) {
                 continue;
             }
@@ -71,8 +84,11 @@ void ScreenSegment::checkCollisionsInSegment(std::set<std::pair<const S2DCollida
             const S2DCollidable* key1 = it1->first.get();
             const S2DCollidable* key2 = it2->first.get();
             auto pairKey = (key1 < key2) ? std::make_pair(key1, key2) : std::make_pair(key2, key1);
-            if (!processedPairs.insert(pairKey).second) {
-                continue;
+            {
+                std::scoped_lock lock(dataLock);
+                if (!processedPairs.insert(pairKey).second) {
+                    continue;
+                }
             }
 
             std::shared_ptr<S2DGameObject> obj1 = it1->first;
@@ -123,7 +139,7 @@ void S2DCollisionDetectionSystem::initScreenSegments() {
                 segmentSize.x * posInLine + segmentSize.x / 2.f,
                 segmentSize.y * line + segmentSize.y / 2.f
         };
-        screenSegments.push_back(std::make_shared<ScreenSegment>(newSectorPos, segmentSize));
+        screenSegments.push_back(std::make_shared<ScreenSegment>(newSectorPos, segmentSize, globalCollisionMutex));
     }
 }
 
@@ -143,18 +159,30 @@ unsigned int S2DCollisionDetectionSystem::getSegmentsHardwareNum() const {
 }
 
 void S2DCollisionDetectionSystem::registerCollidable(std::shared_ptr<S2DCollidable> &collidableObj) {
+    std::lock_guard<std::mutex> lock(collidablesMutex);
     collidableObjs.push_back(collidableObj);
 }
 
 void S2DCollisionDetectionSystem::clearCollidables() {
-    collidableObjs.clear();
+    {
+        std::lock_guard<std::mutex> lock(collidablesMutex);
+        collidableObjs.clear();
+    }
     for (const auto& segment: screenSegments){
         segment->clearCollidablesInSegment();
     }
 }
 
 void S2DCollisionDetectionSystem::checkAllCollisions(SDL_Renderer* renderer, const S2DVector2<float>& cameraPos, const S2DVector2<float>& cameraScale) {
-    for(const auto& collidable: collidableObjs){
+    // Snapshot under the lock so register/clear cannot invalidate the vector
+    // while this frame is being processed.
+    std::vector<std::shared_ptr<S2DCollidable>> collidables;
+    {
+        std::scoped_lock lock(collidablesMutex);
+        collidables = collidableObjs;
+    }
+
+    for(const auto& collidable: collidables){
         if (auto placeable = std::dynamic_pointer_cast<S2DPlaceable>(collidable)){
             collidable->setBBPos(placeable->GetPosition());
         }
@@ -165,16 +193,19 @@ void S2DCollisionDetectionSystem::checkAllCollisions(SDL_Renderer* renderer, con
     }
 
     std::set<std::pair<const S2DCollidable*, const S2DCollidable*>> processedPairs;
+    std::vector<std::thread> threads;
     for(const auto& screenSegment: screenSegments) {
         if (isDebug && renderer != nullptr){
             screenSegment->drawScreenSpace(renderer);
         }
 
-        for (const auto& collidable: collidableObjs){
-            // ScreenSegment caches and checks if it has collidables itself, dont need to optimize here
-            // so just register (maybe only cut off additional jumps and checks, but not for now)
+        for (const auto& collidable: collidables){
             screenSegment->registerCollidable(collidable);
         }
-        screenSegment->checkCollisionsInSegment(processedPairs);
+        threads.push_back(screenSegment->spawnCollisionsCheckingThread(processedPairs));
+    }
+
+    for(auto &thread: threads){
+        thread.join();
     }
 }

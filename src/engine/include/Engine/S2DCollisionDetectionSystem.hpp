@@ -12,6 +12,8 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include <thread>
+#include <mutex>
 #include <set>
 
 struct SDL_Renderer;
@@ -19,14 +21,16 @@ struct SDL_Renderer;
 class ScreenSegment: public S2DPlaceable, public S2DCollidable{
 private:
     std::map<std::shared_ptr<S2DCollidable>, S2DVector2<float>> collidablesInSegment;
+    std::mutex& dataLock;
 public:
-    ScreenSegment(const S2DVector2<float>& pos, const S2DVector2<float>& size);
+    ScreenSegment(const S2DVector2<float>& pos, const S2DVector2<float>& size, std::mutex& globalMutex);
     void drawScreenSpace(SDL_Renderer* renderer);
     bool registerCollidable(const std::shared_ptr<S2DCollidable>& collidable);
     bool containsCollidable(const std::shared_ptr<S2DCollidable>& collidable) const;
     void addCollidableToSegment(const std::shared_ptr<S2DCollidable>& collidable);
     void removeCollidableFromSegment(const std::shared_ptr<S2DCollidable>& collidable);
     void clearCollidablesInSegment();
+    std::thread spawnCollisionsCheckingThread(std::set<std::pair<const S2DCollidable*, const S2DCollidable*>>& processedPairs);
     void checkCollisionsInSegment(std::set<std::pair<const S2DCollidable*, const S2DCollidable*>>& processedPairs);
 };
 
@@ -46,8 +50,10 @@ protected:
     unsigned const int maxSegmentsInLine = 3;
     unsigned const int leftHardwareCores = 2;
     S2DVector2<int> windowSize;
+    mutable std::mutex collidablesMutex;
     std::vector<std::shared_ptr<S2DCollidable>> collidableObjs;
     std::vector<std::shared_ptr<ScreenSegment>> screenSegments;
+    std::mutex globalCollisionMutex;
 };
 
 

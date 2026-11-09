@@ -19,7 +19,8 @@ std::shared_ptr<S2DCollidable> makeCollidable(const S2DVector2<float>& pos, cons
 }
 
 TEST(ScreenSegmentTest, ConstructorSetsNameAndBox) {
-    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f));
+    std::mutex mutex;
+    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
     EXPECT_EQ(segment.getBBPos(), S2DVector2<float>(480.f, 270.f));
     EXPECT_NE(segment.getName().find("Segment["), std::string::npos);
 
@@ -31,7 +32,8 @@ TEST(ScreenSegmentTest, ConstructorSetsNameAndBox) {
 }
 
 TEST(ScreenSegmentTest, RegisterCollidableOnlyWhenOverlapping) {
-    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f));
+    std::mutex mutex;
+    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
 
     auto inside = makeCollidable(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(100.f, 100.f));
     auto outside = makeCollidable(S2DVector2<float>(5000.f, 5000.f), S2DVector2<float>(100.f, 100.f));
@@ -44,7 +46,8 @@ TEST(ScreenSegmentTest, RegisterCollidableOnlyWhenOverlapping) {
 }
 
 TEST(ScreenSegmentTest, RegisterIsIdempotentWhenStationary) {
-    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f));
+    std::mutex mutex;
+    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
     auto collidable = makeCollidable(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(100.f, 100.f));
 
     EXPECT_TRUE(segment.registerCollidable(collidable));
@@ -52,7 +55,8 @@ TEST(ScreenSegmentTest, RegisterIsIdempotentWhenStationary) {
 }
 
 TEST(ScreenSegmentTest, MovingOutOfSegmentRemovesCollidable) {
-    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f));
+    std::mutex mutex;
+    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
     auto collidable = makeCollidable(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(100.f, 100.f));
 
     EXPECT_TRUE(segment.registerCollidable(collidable));
@@ -64,8 +68,9 @@ TEST(ScreenSegmentTest, MovingOutOfSegmentRemovesCollidable) {
 }
 
 TEST(ScreenSegmentTest, CollidableSpanningBoundaryRegistersInBoth) {
-    ScreenSegment left(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f));
-    ScreenSegment right(S2DVector2<float>(1440.f, 270.f), S2DVector2<float>(960.f, 540.f));
+    std::mutex mutex;
+    ScreenSegment left(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
+    ScreenSegment right(S2DVector2<float>(1440.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
 
     auto collidable = makeCollidable(S2DVector2<float>(960.f, 270.f), S2DVector2<float>(100.f, 100.f));
 
@@ -76,8 +81,9 @@ TEST(ScreenSegmentTest, CollidableSpanningBoundaryRegistersInBoth) {
 }
 
 TEST(ScreenSegmentTest, CallbackFiresOncePerPairAcrossSegments) {
-    ScreenSegment left(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f));
-    ScreenSegment right(S2DVector2<float>(1440.f, 270.f), S2DVector2<float>(960.f, 540.f));
+    std::mutex mutex;
+    ScreenSegment left(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
+    ScreenSegment right(S2DVector2<float>(1440.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
 
     auto a = makeCollidable(S2DVector2<float>(960.f, 270.f), S2DVector2<float>(100.f, 100.f));
     auto b = makeCollidable(S2DVector2<float>(970.f, 270.f), S2DVector2<float>(100.f, 100.f));
@@ -103,7 +109,8 @@ TEST(ScreenSegmentTest, CallbackFiresOncePerPairAcrossSegments) {
 }
 
 TEST(ScreenSegmentTest, ClearRemovesAllCollidables) {
-    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f));
+    std::mutex mutex;
+    ScreenSegment segment(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(960.f, 540.f), mutex);
     auto collidable = makeCollidable(S2DVector2<float>(480.f, 270.f), S2DVector2<float>(100.f, 100.f));
 
     segment.registerCollidable(collidable);
