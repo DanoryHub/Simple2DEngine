@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 02.07.2026.
 //
 
@@ -7,7 +7,7 @@
 
 #include "Engine/S2DGameObject.hpp"
 
-class ArcanoidObject: public S2DGameObject {
+class ArcanoidObject: public S2D::GameObject {
 public:
     void Iterate(float deltaTime) override;
 };

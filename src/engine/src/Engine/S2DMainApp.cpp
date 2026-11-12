@@ -32,7 +32,7 @@ MainApp::MainApp(
     UpdateCurrScene(currSceneName);
 }
 
-void MainApp::SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> &newScenes) {
+void MainApp::SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2D::GameScene>> &newScenes) {
     scenes = newScenes;
     UpdateCurrScene(currSceneName);
 }
@@ -100,13 +100,13 @@ SDL_AppResult MainApp::Init(void **appstate, int argc, char *argv[]) {
 
     SDL_SetWindowMinimumSize(mainWindow, minAppScreenWidth, minAppScreenHeight);
 
-    collisionSystem = std::make_shared<S2DCollisionDetectionSystem>(appScreenHeight, appScreenWidth);
+    collisionSystem = std::make_shared<S2D::CollisionDetectionSystem>(appScreenHeight, appScreenWidth);
 
     ImGui::StyleColorsLight();
     ImGui_ImplSDL3_InitForSDLRenderer(mainWindow, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
 
-    currentContext = std::make_shared<S2DRenderContext>();
+    currentContext = std::make_shared<S2D::RenderContext>();
     currentContext->registerRenderer(renderer);
     currentContext->setLogicalSize(appScreenWidth, appScreenHeight);
 

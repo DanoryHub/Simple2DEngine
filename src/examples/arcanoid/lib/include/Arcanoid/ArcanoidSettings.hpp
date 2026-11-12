@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 30.06.2026.
 //
 
@@ -8,9 +8,7 @@
 
 #include "Engine/S2DGameSettings.hpp"
 
-class S2DGameScene;
-
-class ArcanoidSettings: public S2DGameSettings{
+class ArcanoidSettings: public S2D::GameSettings{
 public:
     ~ArcanoidSettings() override {};
     std::string GetName() const override;

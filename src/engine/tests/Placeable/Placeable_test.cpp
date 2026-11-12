@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 19.07.2026.
 //
 
@@ -8,10 +8,10 @@
 #include "gtest/gtest.h"
 
 TEST(PlaceableTest, TestDefaultConstructor) {
-    S2DPlaceable *testObj = new S2DPlaceable();
+    S2D::Placeable *testObj = new S2D::Placeable();
 
-    EXPECT_EQ(testObj->GetPosition(), S2DVector2<float>(0.f, 0.f));
-    EXPECT_EQ(testObj->GetScale(), S2DVector2<float>(1.f, 1.f));
+    EXPECT_EQ(testObj->GetPosition(), S2D::Vector2<float>(0.f, 0.f));
+    EXPECT_EQ(testObj->GetScale(), S2D::Vector2<float>(1.f, 1.f));
     EXPECT_EQ(testObj->GetRotation(), 0.f);
     delete testObj;
 }

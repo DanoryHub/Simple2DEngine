@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 19.07.2026.
 //
 
@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-class IterateTracker : virtual public S2DGameObject {
+class IterateTracker : virtual public S2D::GameObject {
 public:
     int iterateCount = 0;
 
@@ -18,10 +18,10 @@ public:
 
 class GameSceneTest : public testing::Test {
 protected:
-    S2DGameScene* scene = nullptr;
+    S2D::GameScene* scene = nullptr;
 
     void SetUp() override {
-        scene = new S2DGameScene();
+        scene = new S2D::GameScene();
     }
 
     void TearDown() override {
@@ -34,7 +34,7 @@ TEST_F(GameSceneTest, DefaultConstruction) {
 }
 
 TEST_F(GameSceneTest, ConstructorWithNullptrRenderer) {
-    S2DGameScene* nullRendererScene = new S2DGameScene();
+    S2D::GameScene* nullRendererScene = new S2D::GameScene();
     EXPECT_NE(nullRendererScene, nullptr);
     delete nullRendererScene;
 }

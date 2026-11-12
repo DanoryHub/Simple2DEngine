@@ -4,13 +4,16 @@
 
 #include "Engine/S2DGameObject.hpp"
 
-void S2DGameObject::setName(const std::string& name) {
+S2DENGINE_NAMESPACE_BEGIN
+
+void GameObject::setName(const std::string& name) {
     objectName = name;
 }
 
-const std::string& S2DGameObject::getName() const {
+const std::string& GameObject::getName() const {
     return objectName;
 }
 
-void S2DGameObject::Iterate(float deltaTime) {}
+void GameObject::Iterate(float deltaTime) {}
 
+S2DENGINE_NAMESPACE_END

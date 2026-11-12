@@ -7,25 +7,25 @@
 S2DENGINE_NAMESPACE_BEGIN
 
 Camera::Camera() {
-    cameraPosition = S2DVector2<float>(0.f, 0.f);
+    cameraPosition = S2D::Vector2<float>(0.f, 0.f);
 }
 
 Camera::~Camera() {}
 
-S2DVector2<float> Camera::getPosition() const {
+S2D::Vector2<float> Camera::getPosition() const {
     return cameraPosition;
 }
 
-void Camera::setPosition(const S2DVector2<float>& value) {
+void Camera::setPosition(const S2D::Vector2<float>& value) {
     cameraPosition.x = value.x;
     cameraPosition.y = value.y;
 }
 
-S2DVector2<float> Camera::getScale() const {
+S2D::Vector2<float> Camera::getScale() const {
     return cameraScale;
 }
 
-void Camera::setScale(const S2DVector2<float>& value) {
+void Camera::setScale(const S2D::Vector2<float>& value) {
     cameraScale.x = value.x;
     cameraScale.y = value.y;
 }

@@ -12,7 +12,7 @@
 #include <cstdint>
 
 S2DENGINE_NAMESPACE_BEGIN
-Button::Button(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize):
+Button::Button(const std::string& newLabel, const S2D::Vector2<float> &newPos, const S2D::Vector2<float>& newSize):
     buttonSize(newSize),
     windowPos(newPos) {
     buttonLabel.text = newLabel;
@@ -23,22 +23,22 @@ Button::Button(const std::string& newLabel, const ImGuiWindowFlags &newFlags):
     buttonLabel.text = newLabel;
 }
 
-Button::Button(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize, const ImGuiWindowFlags &newFlags):
+Button::Button(const std::string& newLabel, const S2D::Vector2<float> &newPos, const S2D::Vector2<float>& newSize, const ImGuiWindowFlags &newFlags):
     windowPos(newPos),
     buttonSize(newSize),
     windowFlags(newFlags) {
     buttonLabel.text = newLabel;
 }
 
-void Button::setButtonColorIdle(const S2DVector4<float> &newColor) {
+void Button::setButtonColorIdle(const S2D::Vector4<float> &newColor) {
     buttonColorIdle = newColor;
 }
 
-void Button::setButtonColorHovered(const S2DVector4<float> &newColor) {
+void Button::setButtonColorHovered(const S2D::Vector4<float> &newColor) {
     buttonColorHovered = newColor;
 }
 
-void Button::setButtonColorPressed(const S2DVector4<float> &newColor) {
+void Button::setButtonColorPressed(const S2D::Vector4<float> &newColor) {
     buttonColorPressed = newColor;
 }
 
@@ -47,12 +47,12 @@ void Button::setButtonFont(const std::string& fontPath, float fontSize) {
     buttonLabel.textSize = fontSize;
 }
 
-void Button::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
+void Button::Render(const std::shared_ptr<S2D::RenderContext>& renderContext) {
     std::string windowName = "S2D::Button_" + std::to_string(reinterpret_cast<uintptr_t>(this));
 
     auto convertedPos = renderContext->logicalToWindow(windowPos);
     auto convertedSize = renderContext->logicalToWindow(buttonSize);
-    float convertedFontSize = renderContext->logicalToWindow(S2DVector2<float>(0, buttonLabel.textSize)).y;
+    float convertedFontSize = renderContext->logicalToWindow(S2D::Vector2<float>(0, buttonLabel.textSize)).y;
 
     ImGui::SetNextWindowPos(ImVec2(convertedPos.x, convertedPos.y));
     ImGui::SetNextWindowSize(ImVec2(convertedSize.x, convertedSize.y));

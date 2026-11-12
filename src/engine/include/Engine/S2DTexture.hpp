@@ -5,12 +5,16 @@
 #ifndef ENGINE_S2DTEXTURE_HPP
 #define ENGINE_S2DTEXTURE_HPP
 
+#include "Engine/S2DHelpers.hpp"
+
 #include <string>
 
 struct SDL_Texture;
 struct SDL_Renderer;
 
-class S2DTexture {
+S2DENGINE_NAMESPACE_BEGIN
+
+class Texture {
 protected:
     SDL_Texture *texture;
     std::string texturePath;
@@ -19,13 +23,14 @@ protected:
     int textureHeight;
 
 public:
-    S2DTexture(SDL_Renderer* renderer, const std::string& tPath);
-    ~S2DTexture();
+    Texture(SDL_Renderer* renderer, const std::string& tPath);
+    ~Texture();
 
     void Draw(SDL_Renderer* renderer, float x, float y,
         float scaleX = 1, float scaleY = 1,
         float rotation = 0) const;
 };
 
+S2DENGINE_NAMESPACE_END
 
 #endif //ENGINE_S2DTEXTURE_HPP

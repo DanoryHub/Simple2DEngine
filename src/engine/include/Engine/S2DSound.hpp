@@ -5,6 +5,7 @@
 #ifndef ENGINE_S2DSOUND_HPP
 #define ENGINE_S2DSOUND_HPP
 
+#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DGameObject.hpp"
 
 #include <string>
@@ -12,9 +13,11 @@
 struct MIX_Mixer;
 struct MIX_Audio;
 
-class S2DSound: virtual public S2DGameObject {
+S2DENGINE_NAMESPACE_BEGIN
+
+class Sound: virtual public S2D::GameObject {
 public:
-    S2DSound(const std::string& soundSourcePath);
+    Sound(const std::string& soundSourcePath);
     void playSound();
     void registerSoundDeviceMixer(MIX_Mixer* newDeviceMixer);
 
@@ -24,5 +27,6 @@ protected:
     MIX_Audio* sound = nullptr;
 };
 
+S2DENGINE_NAMESPACE_END
 
 #endif //ENGINE_S2DSOUND_HPP

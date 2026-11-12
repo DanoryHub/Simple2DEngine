@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 19.07.2026.
 //
 
@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 TEST(GameObjectTest, NameGetterSetter) {
-    S2DGameObject* pGameObject = new S2DGameObject();
+    S2D::GameObject* pGameObject = new S2D::GameObject();
     EXPECT_EQ(pGameObject->getName(), "");
 
     pGameObject->setName("TestName");
@@ -15,7 +15,7 @@ TEST(GameObjectTest, NameGetterSetter) {
 }
 
 TEST(GameObjectTest, IterateCallTest) {
-    S2DGameObject* pGameObject = new S2DGameObject();
+    S2D::GameObject* pGameObject = new S2D::GameObject();
     // Just check Iterate dont crash
     pGameObject->Iterate(0.f);
     EXPECT_TRUE(true);

@@ -7,7 +7,7 @@
 #include "Engine/S2DGameSettings.hpp"
 
 struct AppState {
-    std::shared_ptr<S2DGameSettings> gameSettings;
+    std::shared_ptr<S2D::GameSettings> gameSettings;
     std::shared_ptr<MainApp> mainApp;
 };
 

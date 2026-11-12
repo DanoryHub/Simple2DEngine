@@ -5,6 +5,8 @@
 #ifndef ENGINE_S2DMAINAPP_HPP
 #define ENGINE_S2DMAINAPP_HPP
 
+#include "Engine/S2DHelpers.hpp"
+
 #include "SDL3/SDL.h"
 
 #include <unordered_map>
@@ -12,10 +14,15 @@
 #include <chrono>
 #include <memory>
 
-class S2DGameScene;
-class S2DRenderContext;
-class S2DCollisionDetectionSystem;
 struct MIX_Mixer;
+
+S2DENGINE_NAMESPACE_BEGIN
+
+class GameScene;
+class RenderContext;
+class CollisionDetectionSystem;
+
+S2DENGINE_NAMESPACE_END
 
 class MainApp {
 public:
@@ -26,7 +33,7 @@ public:
 
         ~MainApp();
         void operator=(MainApp const&) = delete;
-        void SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> &newScenes);
+        void SetScenes(const std::unordered_map<std::string, std::shared_ptr<S2D::GameScene>> &newScenes);
 
         SDL_AppResult Init(void **appstate, int argc, char *argv[]);
         SDL_AppResult ProcessEvent(void *appstate, SDL_Event *event);
@@ -43,11 +50,11 @@ private:
         SDL_Renderer *renderer = nullptr;
         MIX_Mixer* soundMixer = nullptr;
 
-        std::shared_ptr<S2DGameScene> currScene = nullptr;
+        std::shared_ptr<S2D::GameScene> currScene = nullptr;
 
         std::string startSceneName;
         std::string currSceneName;
-        std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> scenes;
+        std::unordered_map<std::string, std::shared_ptr<S2D::GameScene>> scenes;
 
         std::string appVersion, appName, appIdentifier;
         std::string windowTitle;
@@ -55,11 +62,11 @@ private:
         std::chrono::time_point<std::chrono::steady_clock> currentTime;
         double physSimDeltaTime = .01;
 
-        std::shared_ptr<S2DRenderContext> currentContext;
-        std::shared_ptr<S2DCollisionDetectionSystem> collisionSystem;
+        std::shared_ptr<S2D::RenderContext> currentContext;
+        std::shared_ptr<S2D::CollisionDetectionSystem> collisionSystem;
 
 };
 
-extern std::unordered_map<std::string, std::shared_ptr<S2DGameScene>> InitializeScenes();
+extern std::unordered_map<std::string, std::shared_ptr<S2D::GameScene>> InitializeScenes();
 
 #endif //ENGINE_S2DMAINAPP_HPP

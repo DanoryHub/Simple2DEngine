@@ -13,80 +13,81 @@
 
 #include "SDL3/SDL.h"
 
+S2DENGINE_NAMESPACE_BEGIN
 
-S2DRenderContext::S2DRenderContext() {
+RenderContext::RenderContext() {
     renderer = nullptr;
 }
 
-S2DRenderContext::~S2DRenderContext() {
+RenderContext::~RenderContext() {
     clearTextureCache();
 }
 
-void S2DRenderContext::registerRenderer(SDL_Renderer* newRenderer) {
+void RenderContext::registerRenderer(SDL_Renderer* newRenderer) {
     renderer = newRenderer;
     clearTextureCache();
 }
 
-void S2DRenderContext::registerCamera(const std::shared_ptr<S2D::Camera>& newCamera) {
+void RenderContext::registerCamera(const std::shared_ptr<S2D::Camera>& newCamera) {
     currCamera = newCamera;
 }
 
-void S2DRenderContext::registerAudioSpec(SDL_AudioSpec *newAudioSpec) {
+void RenderContext::registerAudioSpec(SDL_AudioSpec *newAudioSpec) {
     audioSpec = newAudioSpec;
 }
 
-void S2DRenderContext::setLogicalSize(int width, int height) {
+void RenderContext::setLogicalSize(int width, int height) {
     logicalWidth = width;
     logicalHeight = height;
 }
 
-S2DVector2<float> S2DRenderContext::logicalToWindow(const S2DVector2<float>& logicalPos) const {
+S2D::Vector2<float> RenderContext::logicalToWindow(const S2D::Vector2<float>& logicalPos) const {
     int outputW = 0;
     int outputH = 0;
     SDL_GetCurrentRenderOutputSize(renderer, &outputW, &outputH);
-    return S2DVector2<float>(
+    return S2D::Vector2<float>(
         logicalPos.x * static_cast<float>(outputW) / static_cast<float>(logicalWidth),
         logicalPos.y * static_cast<float>(outputH) / static_cast<float>(logicalHeight)
     );
 }
 
-void S2DRenderContext::clearTextureCache() {
+void RenderContext::clearTextureCache() {
     textureCache.clear();
 }
 
-S2DTexture* S2DRenderContext::getTexture(const std::string &tPath) {
+S2D::Texture* RenderContext::getTexture(const std::string &tPath) {
     if (!textureCache.contains(tPath)) {
-        textureCache[tPath] = std::move(std::make_unique<S2DTexture>(renderer, tPath));
+        textureCache[tPath] = std::move(std::make_unique<S2D::Texture>(renderer, tPath));
     }
 
     return textureCache[tPath].get();
 }
 
-SDL_Renderer* S2DRenderContext::getRenderer() {
+SDL_Renderer* RenderContext::getRenderer() {
     return renderer;
 }
 
-S2DVector2<float> S2DRenderContext::getCameraPosition() {
+S2D::Vector2<float> RenderContext::getCameraPosition() {
     auto cam = currCamera.lock();
-    if (!cam) return S2DVector2<float>(0.f, 0.f);
+    if (!cam) return S2D::Vector2<float>(0.f, 0.f);
     return cam->getPosition();
 }
 
-S2DVector2<float> S2DRenderContext::getCameraScale() {
+S2D::Vector2<float> RenderContext::getCameraScale() {
     auto cam = currCamera.lock();
-    if (!cam) return S2DVector2<float>(1.f, 1.f);
+    if (!cam) return S2D::Vector2<float>(1.f, 1.f);
     return cam->getScale();
 }
 
-int S2DRenderContext::getLogicalWidth() const {
+int RenderContext::getLogicalWidth() const {
     return logicalWidth;
 }
 
-int S2DRenderContext::getLogicalHeight() const {
+int RenderContext::getLogicalHeight() const {
     return logicalHeight;
 }
 
-void S2DRenderContext::drawTexture(const std::string &tPath,  const S2DVector2<float> &position, const S2DVector2<float> &scale, float rotation) {
+void RenderContext::drawTexture(const std::string &tPath,  const S2D::Vector2<float> &position, const S2D::Vector2<float> &scale, float rotation) {
     if (renderer == nullptr) {
         std::cerr << "No renderer set in renderContext" << std::endl;
         return;
@@ -98,8 +99,8 @@ void S2DRenderContext::drawTexture(const std::string &tPath,  const S2DVector2<f
         return;
     }
 
-    S2DVector2<float> camPos = cam->getPosition();
-    S2DVector2<float> camScale = cam->getScale();
+    S2D::Vector2<float> camPos = cam->getPosition();
+    S2D::Vector2<float> camScale = cam->getScale();
     float camRot = cam->getRotation();
 
     int windowWidth = 0;
@@ -109,17 +110,19 @@ void S2DRenderContext::drawTexture(const std::string &tPath,  const S2DVector2<f
     auto screenWidth = static_cast<float>(windowWidth);
     auto screenHeight = static_cast<float>(windowHeight);
 
-    auto T_screen= S2DMatrix<float>::Translation(screenWidth / 2.0f, screenHeight / 2.0f);
-    auto S_zoom = S2DMatrix<float>::Scaling(camScale.x, camScale.y);
-    auto R_rot= S2DMatrix<float>::Rotation(camRot);
-    auto T_world= S2DMatrix<float>::Translation(-camPos.x, -camPos.y);
+    auto T_screen= S2D::Matrix<float>::Translation(screenWidth / 2.0f, screenHeight / 2.0f);
+    auto S_zoom = S2D::Matrix<float>::Scaling(camScale.x, camScale.y);
+    auto R_rot= S2D::Matrix<float>::Rotation(camRot);
+    auto T_world= S2D::Matrix<float>::Translation(-camPos.x, -camPos.y);
 
-    S2DMatrix<float> cameraMatrix = T_screen * S_zoom * R_rot * T_world;
+    S2D::Matrix<float> cameraMatrix = T_screen * S_zoom * R_rot * T_world;
 
-    S2DVector2<float> screenPosition = cameraMatrix * position;
-    S2DVector2<float> screenScale(scale.x * camScale.x, scale.y * camScale.y);
+    S2D::Vector2<float> screenPosition = cameraMatrix * position;
+    S2D::Vector2<float> screenScale(scale.x * camScale.x, scale.y * camScale.y);
 
     float screenRotation = rotation + camRot;
 
     getTexture(tPath)->Draw(renderer, screenPosition.x, screenPosition.y, screenScale.x, screenScale.y, screenRotation);
 }
+
+S2DENGINE_NAMESPACE_END

@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 02.07.2026.
 //
 
@@ -15,16 +15,16 @@ class ArcanoidPlaceable;
 
 S2DENGINE_NAMESPACE_BEGIN
 class Button;
+class Text;
+class Sound;
 S2DENGINE_NAMESPACE_END
-class S2DText;
-class S2DSound;
 
-class ArcanoidScene: public S2DGameScene {
+class ArcanoidScene: public S2D::GameScene {
 protected:
     std::shared_ptr<ArcanoidPlaceable> testPlaceable;
     std::shared_ptr<S2D::Button> testButton;
-    std::shared_ptr<S2DText> testText;
-    std::shared_ptr<S2DSound> testSound;
+    std::shared_ptr<S2D::Text> testText;
+    std::shared_ptr<S2D::Sound> testSound;
 
     float deltaSoundTime = 9.f;
 
