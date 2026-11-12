@@ -4,9 +4,14 @@
         GameObject/GameObject_test.cpp
         GameScene/GameScene_test.cpp
         Placeable/Placeable_test.cpp
+        Camera/Camera_test.cpp
+        Input/InputSystem_test.cpp
+        RenderContext/RenderContext_test.cpp
+        UI/UI_test.cpp
         Collision/BoundingBox_test.cpp
         Collision/Collidable_test.cpp
         Collision/CollisionDetectionSystem_test.cpp
+        Collision/CollisionSystem_test.cpp
 )
 
 target_link_libraries(
