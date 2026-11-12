@@ -5,6 +5,9 @@
 #ifndef ENGINE_S2DHELPERS_HPP
 #define ENGINE_S2DHELPERS_HPP
 
+#define S2DENGINE_NAMESPACE_BEGIN namespace S2D {
+#define S2DENGINE_NAMESPACE_END }
+
 enum class CollisionCallbackType{
     ON_COLLISION_START,
     ON_COLLISION_END,

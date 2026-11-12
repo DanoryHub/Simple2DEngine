@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 30.06.2026.
 //
 
@@ -10,7 +10,7 @@
 #include <string>
 #include <memory>
 
-std::shared_ptr<S2DGameSettings> CreateGameSettings() {
+std::shared_ptr<S2D::GameSettings> CreateGameSettings() {
     return std::make_shared<ArcanoidSettings>();
 }
 

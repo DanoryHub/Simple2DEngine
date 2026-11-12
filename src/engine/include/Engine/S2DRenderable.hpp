@@ -5,23 +5,27 @@
 #ifndef ENGINE_S2DRENDERABLE_HPP
 #define ENGINE_S2DRENDERABLE_HPP
 
+#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DPlaceable.hpp"
 #include "Engine/S2DIRenderable.hpp"
 
 #include <string>
 
-class S2DRenderContext;
+S2DENGINE_NAMESPACE_BEGIN
 
-class S2DRenderable: public S2DPlaceable, public S2DIRenderable{
+class RenderContext;
+
+class Renderable: public S2D::Placeable, public S2D::IRenderable {
 protected:
     std::string texturePath;
 
 public:
-    S2DRenderable(const std::string &newTexturePath);
-    ~S2DRenderable() override;
+    Renderable(const std::string &newTexturePath);
+    ~Renderable() override;
 
-    void Render(const std::shared_ptr<S2DRenderContext>& renderContext) override;
+    void Render(const std::shared_ptr<S2D::RenderContext>& renderContext) override;
 };
 
+S2DENGINE_NAMESPACE_END
 
 #endif //ENGINE_S2DRENDERABLE_HPP

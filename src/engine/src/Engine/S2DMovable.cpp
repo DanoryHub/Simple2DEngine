@@ -6,7 +6,9 @@
 
 #include "SDL3/SDL.h"
 
-void S2DMovable::receiveInput(const SDL_Event *event) {
+S2DENGINE_NAMESPACE_BEGIN
+
+void Movable::receiveInput(const SDL_Event *event) {
     if (event->type == SDL_EVENT_KEY_DOWN) {
         if (keyDownEvents.contains(event->key.scancode)) {
             keyDownEvents[event->key.scancode]();
@@ -19,7 +21,7 @@ void S2DMovable::receiveInput(const SDL_Event *event) {
     }
 }
 
-void S2DMovable::registerKeyEvent(Uint32 eventType, const SDL_Scancode &scancode, const std::function<void()>& callback) {
+void Movable::registerKeyEvent(Uint32 eventType, const SDL_Scancode &scancode, const std::function<void()>& callback) {
     if (eventType == SDL_EVENT_KEY_DOWN) {
         keyDownEvents[scancode] = callback;
     }
@@ -27,3 +29,5 @@ void S2DMovable::registerKeyEvent(Uint32 eventType, const SDL_Scancode &scancode
         keyUpEvents[scancode] = callback;
     }
 }
+
+S2DENGINE_NAMESPACE_END

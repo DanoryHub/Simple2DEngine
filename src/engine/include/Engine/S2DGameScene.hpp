@@ -5,6 +5,7 @@
 #ifndef ENGINE_S2DGAMESCENE_HPP
 #define ENGINE_S2DGAMESCENE_HPP
 
+#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DIInputReceiver.hpp"
 #include "Engine/S2DIRenderable.hpp"
 #include "Engine/S2DIIterable.hpp"
@@ -13,33 +14,37 @@
 #include <vector>
 #include <memory>
 
-class S2DRenderContext;
-class S2DGameObject;
-class S2DCollidable;
-class S2DCamera;
 struct MIX_Mixer;
 
-class S2DGameScene: public S2DIInputReceiver, public S2DIRenderable, public S2DIIterable{
+S2DENGINE_NAMESPACE_BEGIN
+
+class RenderContext;
+class GameObject;
+class Collidable;
+class Camera;
+
+class GameScene: public S2D::IInputReceiver, public S2D::IRenderable, public S2D::IIterable{
 protected:
     std::weak_ptr<MainApp> mainApp;
-    std::shared_ptr<S2DCamera> mainSceneCamera;
-    std::vector<std::shared_ptr<S2DGameObject>> gameObjects;
+    std::shared_ptr<S2D::Camera> mainSceneCamera;
+    std::vector<std::shared_ptr<S2D::GameObject>> gameObjects;
 
 public:
-    S2DGameScene();
-    ~S2DGameScene() override;
-    void registerGameObject(const std::shared_ptr<S2DGameObject>& gameObject);
+    GameScene();
+    ~GameScene() override;
+    void registerGameObject(const std::shared_ptr<S2D::GameObject>& gameObject);
     void passDeviceAudioMixer(MIX_Mixer* newMixer);
 
-    void Render(const std::shared_ptr<S2DRenderContext>& renderContext) override;
+    void Render(const std::shared_ptr<S2D::RenderContext>& renderContext) override;
     void Iterate(float deltaTime) override;
 
-    std::shared_ptr<S2DCamera> getSceneCamera() const;
-    void setSceneCamera(const std::shared_ptr<S2DCamera>& newCamera);
+    std::shared_ptr<S2D::Camera> getSceneCamera() const;
+    void setSceneCamera(const std::shared_ptr<S2D::Camera>& newCamera);
 
     void receiveInput(const SDL_Event *event) override;
-    std::vector<std::shared_ptr<S2DCollidable>> getAllCollidables();
+    std::vector<std::shared_ptr<S2D::Collidable>> getAllCollidables();
 };
 
+S2DENGINE_NAMESPACE_END
 
 #endif //ENGINE_S2DGAMESCENE_HPP

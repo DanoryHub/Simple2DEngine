@@ -5,12 +5,16 @@
 #include "Engine/S2DRenderable.hpp"
 #include "Engine/S2DRenderContext.hpp"
 
-S2DRenderable::~S2DRenderable() = default;
+S2DENGINE_NAMESPACE_BEGIN
 
-S2DRenderable::S2DRenderable(const std::string& newTexturePath) {
+Renderable::~Renderable() = default;
+
+Renderable::Renderable(const std::string& newTexturePath) {
     texturePath = newTexturePath;
 }
 
-void S2DRenderable::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
+void Renderable::Render(const std::shared_ptr<S2D::RenderContext>& renderContext) {
     renderContext->drawTexture(texturePath, position, scale, rotation);
 }
+
+S2DENGINE_NAMESPACE_END

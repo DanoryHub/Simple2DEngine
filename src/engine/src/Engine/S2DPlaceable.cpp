@@ -12,28 +12,32 @@
 
 #include "SDL3/SDL.h"
 
-S2DPlaceable::S2DPlaceable() = default;
+S2DENGINE_NAMESPACE_BEGIN
 
-S2DVector2<float> S2DPlaceable::GetPosition() const {
+Placeable::Placeable() = default;
+
+S2D::Vector2<float> Placeable::GetPosition() const {
     return position;
 }
 
-void S2DPlaceable::SetPosition(const S2DVector2<float> &newPosition) {
+void Placeable::SetPosition(const S2D::Vector2<float> &newPosition) {
     position = newPosition;
 }
 
-S2DVector2<float> S2DPlaceable::GetScale() const {
+S2D::Vector2<float> Placeable::GetScale() const {
     return scale;
 }
 
-void S2DPlaceable::SetScale(const S2DVector2<float> &newScale) {
+void Placeable::SetScale(const S2D::Vector2<float> &newScale) {
     scale = newScale;
 }
 
-float S2DPlaceable::GetRotation() const {
+float Placeable::GetRotation() const {
     return rotation;
 }
 
-void S2DPlaceable::SetRotation(const float newRotation) {
+void Placeable::SetRotation(const float newRotation) {
     rotation = newRotation;
 }
+
+S2DENGINE_NAMESPACE_END

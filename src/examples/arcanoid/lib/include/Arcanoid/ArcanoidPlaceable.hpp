@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 09.07.2026.
 //
 
@@ -10,7 +10,7 @@
 #include "Engine/S2DMovable.hpp"
 
 
-class ArcanoidPlaceable: public S2DMovable, public S2DCollidable{
+class ArcanoidPlaceable: public S2D::Movable, public S2D::Collidable{
 protected:
     float speedMax = 90.f;
 
@@ -23,7 +23,7 @@ protected:
     bool rotatingLeft = false;
     bool rotatingRight = false;
 
-    S2DVector2<float> fwdVec = S2DVector2<float>(0, -1);
+    S2D::Vector2<float> fwdVec = S2D::Vector2<float>(0, -1);
 
 public:
     ArcanoidPlaceable(const std::string& newTexturePath);

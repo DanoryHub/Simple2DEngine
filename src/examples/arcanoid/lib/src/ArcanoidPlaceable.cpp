@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 09.07.2026.
 //
 
@@ -14,7 +14,7 @@
 
 #include "SDL3/SDL_events.h"
 
-ArcanoidPlaceable::ArcanoidPlaceable(const std::string &newTexturePath): S2DMovable(newTexturePath) {
+ArcanoidPlaceable::ArcanoidPlaceable(const std::string &newTexturePath): S2D::Movable(newTexturePath) {
     registerMovingActions();
 }
 
@@ -68,7 +68,7 @@ void ArcanoidPlaceable::processMoving(float deltaTime) {
 
     float deltaRotation = currentRotationDeg * deltaTime;
     rotation += deltaRotation;
-    fwdVec = S2DMatrix<float>::Rotation(deltaRotation) * fwdVec;
+    fwdVec = S2D::Matrix<float>::Rotation(deltaRotation) * fwdVec;
 
     currMovingSpeed = 0.f;
     if (movingForward) currMovingSpeed += speedMax;
@@ -77,7 +77,7 @@ void ArcanoidPlaceable::processMoving(float deltaTime) {
 }
 
 void ArcanoidPlaceable::Iterate(float deltaTime) {
-    S2DPlaceable::Iterate(deltaTime);
+    S2D::Placeable::Iterate(deltaTime);
 
     processMoving(deltaTime);
 }

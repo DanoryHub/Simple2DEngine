@@ -6,11 +6,13 @@
 
 #include "SDL3_mixer/SDL_mixer.h"
 
-S2DSound::S2DSound(const std::string& soundSourcePath){
+S2DENGINE_NAMESPACE_BEGIN
+
+Sound::Sound(const std::string& soundSourcePath){
     sourcePath = soundSourcePath;
 }
 
-void S2DSound::playSound() {
+void Sound::playSound() {
     if (sourcePath.empty()){
         SDL_LogError(SDL_LOG_CATEGORY_AUDIO, "Sound source path is empty");
         return;
@@ -28,6 +30,8 @@ void S2DSound::playSound() {
     MIX_PlayAudio(deviceMixer, sound);
 }
 
-void S2DSound::registerSoundDeviceMixer(MIX_Mixer *newDeviceMixer) {
+void Sound::registerSoundDeviceMixer(MIX_Mixer *newDeviceMixer) {
     deviceMixer = newDeviceMixer;
 }
+
+S2DENGINE_NAMESPACE_END

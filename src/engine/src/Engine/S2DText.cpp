@@ -8,43 +8,45 @@
 #include <string>
 #include <cstdint>
 
-S2DText::S2DText(const std::string& newLabel, const S2DVector2<float> &newPos, float newSize):
+S2DENGINE_NAMESPACE_BEGIN
+
+Text::Text(const std::string& newLabel, const S2D::Vector2<float> &newPos, float newSize):
     windowPos(newPos) {
     textLabel.text = newLabel;
     textLabel.textSize = newSize;
 }
 
-S2DText::S2DText(const std::string& newLabel, const ImGuiWindowFlags &newFlags):
+Text::Text(const std::string& newLabel, const ImGuiWindowFlags &newFlags):
     windowFlags(newFlags) {
     textLabel.text = newLabel;
 }
 
-S2DText::S2DText(const std::string& newLabel, const S2DVector2<float> &newPos, float newSize, const ImGuiWindowFlags &newFlags):
+Text::Text(const std::string& newLabel, const S2D::Vector2<float> &newPos, float newSize, const ImGuiWindowFlags &newFlags):
     windowPos(newPos),
     windowFlags(newFlags) {
     textLabel.text = newLabel;
     textLabel.textSize = newSize;
 }
 
-void S2DText::setTextColor(const S2DVector4<float> &newColor) {
+void Text::setTextColor(const S2D::Vector4<float> &newColor) {
     textLabel.textColor = newColor;
 }
 
-void S2DText::setTextFont(const std::string& fontPath, float fontSize) {
+void Text::setTextFont(const std::string& fontPath, float fontSize) {
     textLabel.textSize = fontSize;
     textLabel.fontSource = fontPath;
     loadFont();
 }
 
-void S2DText::loadFont() {
+void Text::loadFont() {
     if (loadedFont != nullptr || textLabel.fontSource.empty()) {
         return;
     }
     loadedFont = ImGui::GetIO().Fonts->AddFontFromFileTTF(textLabel.fontSource.c_str(), textLabel.textSize);
 }
 
-void S2DText::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
-    std::string windowName = "S2DText_" + std::to_string(reinterpret_cast<uintptr_t>(this));
+void Text::Render(const std::shared_ptr<S2D::RenderContext>& renderContext) {
+    std::string windowName = "S2D::Text_" + std::to_string(reinterpret_cast<uintptr_t>(this));
 
     auto convertedPos = renderContext->logicalToWindow(windowPos);
 
@@ -53,7 +55,7 @@ void S2DText::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
 
     if (loadedFont != nullptr) {
         ImGui::PushFont(loadedFont);
-        loadedFont->Scale = renderContext->logicalToWindow(S2DVector2<float>(0, 1)).y;
+        loadedFont->Scale = renderContext->logicalToWindow(S2D::Vector2<float>(0, 1)).y;
     }
 
     ImGui::Begin(windowName.c_str(), nullptr, windowFlags);
@@ -69,3 +71,5 @@ void S2DText::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     }
     ImGui::PopStyleVar();
 }
+
+S2DENGINE_NAMESPACE_END

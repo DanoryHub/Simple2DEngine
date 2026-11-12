@@ -11,29 +11,35 @@
 #include <stdexcept>
 #include <type_traits>
 
+#include "Engine/S2DHelpers.hpp"
+#include "Engine/S2DVector2.hpp"
+
+S2DENGINE_NAMESPACE_BEGIN
+
 template <typename targetType>
 concept MatrixType = std::is_arithmetic_v<targetType>;
+
 template <MatrixType targetType>
-class S2DMatrix {
+class Matrix {
 public:
 
-    S2DMatrix();
-    S2DMatrix(size_t xy);
-    S2DMatrix(size_t x, size_t y);
+    Matrix();
+    Matrix(size_t xy);
+    Matrix(size_t x, size_t y);
 
     targetType& operator()(size_t x, size_t y);
     const targetType& operator()(size_t x, size_t y) const;
-    S2DMatrix<targetType> operator*(const S2DMatrix<targetType>& other) const;
-    S2DVector2<targetType> operator*(const S2DVector2<targetType>& other) const;
+    Matrix<targetType> operator*(const Matrix<targetType>& other) const;
+    S2D::Vector2<targetType> operator*(const S2D::Vector2<targetType>& other) const;
 
     void populate(const std::vector<targetType>& otherData);
-    S2DMatrix<targetType> copySelf();
+    Matrix<targetType> copySelf();
     std::array<size_t, 2> getSize() const;
 
-    static S2DMatrix<targetType> Identity(size_t iSize);
-    static S2DMatrix<targetType> Translation(targetType x, targetType y);
-    static S2DMatrix<targetType> Scaling(targetType xScale, targetType yScale);
-    static S2DMatrix<targetType> Rotation(float angle);
+    static Matrix<targetType> Identity(size_t iSize);
+    static Matrix<targetType> Translation(targetType x, targetType y);
+    static Matrix<targetType> Scaling(targetType xScale, targetType yScale);
+    static Matrix<targetType> Rotation(float angle);
 
 protected:
     size_t rowLength = 0;
@@ -44,6 +50,8 @@ protected:
     static bool isSafeMatrixSize(size_t xy);
     static bool isSafeMatrixSize(size_t x, size_t y);
 };
+
+S2DENGINE_NAMESPACE_END
 
 #include "S2DMatrix.ipp"
 

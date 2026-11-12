@@ -9,39 +9,45 @@
 #include <memory>
 #include <unordered_map>
 
+#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DVector2.hpp"
 
 struct SDL_AudioSpec;
 struct SDL_Renderer;
-class S2DTexture;
-class S2DCamera;
 
-class S2DRenderContext {
+S2DENGINE_NAMESPACE_BEGIN
+
+class Texture;
+class Camera;
+
+class RenderContext {
 public:
-    S2DRenderContext();
-    ~S2DRenderContext();
+    RenderContext();
+    ~RenderContext();
 
     void clearTextureCache();
     void registerRenderer(SDL_Renderer* newRenderer);
-    void registerCamera(const std::shared_ptr<S2DCamera>& newCamera);
+    void registerCamera(const std::shared_ptr<S2D::Camera>& newCamera);
     void registerAudioSpec(SDL_AudioSpec* newAudioSpec);
     void setLogicalSize(int width, int height);
-    S2DVector2<float> logicalToWindow(const S2DVector2<float>& logicalPos) const;
-    void drawTexture(const std::string &tPath,  const S2DVector2<float> &position, const S2DVector2<float> &scale, float rotation);
-    S2DTexture* getTexture(const std::string &tPath);
+    S2D::Vector2<float> logicalToWindow(const S2D::Vector2<float>& logicalPos) const;
+    void drawTexture(const std::string &tPath,  const S2D::Vector2<float> &position, const S2D::Vector2<float> &scale, float rotation);
+    S2D::Texture* getTexture(const std::string &tPath);
     SDL_Renderer* getRenderer();
-    S2DVector2<float> getCameraPosition();
-    S2DVector2<float> getCameraScale();
+    S2D::Vector2<float> getCameraPosition();
+    S2D::Vector2<float> getCameraScale();
     int getLogicalWidth() const;
     int getLogicalHeight() const;
 protected:
     SDL_Renderer* renderer;
     SDL_AudioSpec* audioSpec;
-    std::weak_ptr<S2DCamera> currCamera;
+    std::weak_ptr<S2D::Camera> currCamera;
     int logicalWidth = 1920;
     int logicalHeight = 1080;
 
-    std::unordered_map<std::string, std::unique_ptr<S2DTexture>> textureCache;
+    std::unordered_map<std::string, std::unique_ptr<S2D::Texture>> textureCache;
 };
+
+S2DENGINE_NAMESPACE_END
 
 #endif //ARCANOID_S2DRENDERCONTEXT_HPP

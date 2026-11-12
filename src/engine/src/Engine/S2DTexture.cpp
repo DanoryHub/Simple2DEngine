@@ -9,8 +9,9 @@
 
 #include <iostream>
 
+S2DENGINE_NAMESPACE_BEGIN
 
-S2DTexture::S2DTexture(SDL_Renderer* renderer, const std::string &tPath):
+Texture::Texture(SDL_Renderer* renderer, const std::string &tPath):
     texturePath(tPath)
 {
     if (renderer == nullptr) {
@@ -34,7 +35,7 @@ S2DTexture::S2DTexture(SDL_Renderer* renderer, const std::string &tPath):
     SDL_DestroySurface(surface);
 }
 
-void S2DTexture::Draw(SDL_Renderer* renderer, const float x, const float y,
+void Texture::Draw(SDL_Renderer* renderer, const float x, const float y,
     const float scaleX, const float scaleY,
     const float rotation) const {
 
@@ -50,6 +51,8 @@ void S2DTexture::Draw(SDL_Renderer* renderer, const float x, const float y,
     SDL_RenderTextureRotated(renderer, texture, nullptr, &dstRect, rotation, &center, SDL_FLIP_NONE);
 }
 
-S2DTexture::~S2DTexture() {
+Texture::~Texture() {
     SDL_DestroyTexture(texture);
 }
+
+S2DENGINE_NAMESPACE_END

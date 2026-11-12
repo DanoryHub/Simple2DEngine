@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by IvanMiatselski on 19.07.2026.
 //
 
@@ -9,15 +9,15 @@ class VectorTest: public testing::Test {
 protected:
     VectorTest() {}
 
-    S2DVector2<int> Vec1{1, 1};
-    S2DVector2<int> Vec2{2, 2};
-    S2DVector2<int> Vec3{3, 3};
-    S2DVector2<int> Vec4{4, 4};
-    S2DVector2<int> Vec6{6, 6};
+    S2D::Vector2<int> Vec1{1, 1};
+    S2D::Vector2<int> Vec2{2, 2};
+    S2D::Vector2<int> Vec3{3, 3};
+    S2D::Vector2<int> Vec4{4, 4};
+    S2D::Vector2<int> Vec6{6, 6};
 };
 
 TEST_F(VectorTest, VectorAddition) {
-    S2DVector2<int> VecTemp = Vec1 + Vec2;
+    S2D::Vector2<int> VecTemp = Vec1 + Vec2;
     EXPECT_EQ(Vec3, VecTemp);
 
     VecTemp = Vec2 + 1;
@@ -30,7 +30,7 @@ TEST_F(VectorTest, VectorAddition) {
 }
 
 TEST_F(VectorTest, VectorSubtraction) {
-    S2DVector2<int> VecTemp = Vec3 - Vec1;
+    S2D::Vector2<int> VecTemp = Vec3 - Vec1;
     EXPECT_EQ(Vec2, VecTemp);
 
     VecTemp = Vec3 - 1;
@@ -43,9 +43,9 @@ TEST_F(VectorTest, VectorSubtraction) {
 }
 
 TEST_F(VectorTest, VectorMultiplication) {
-    S2DVector2<int> VecExp = S2DVector2<int>(6, 6);
+    S2D::Vector2<int> VecExp = S2D::Vector2<int>(6, 6);
 
-    S2DVector2<int> VecTemp = Vec3 * Vec2;
+    S2D::Vector2<int> VecTemp = Vec3 * Vec2;
     EXPECT_EQ(VecExp, VecTemp);
 
     VecTemp = Vec3 * 2;
@@ -58,7 +58,7 @@ TEST_F(VectorTest, VectorMultiplication) {
 }
 
 TEST_F(VectorTest, VectorDivision) {
-    S2DVector2<int> VecTemp = Vec6 / Vec3;
+    S2D::Vector2<int> VecTemp = Vec6 / Vec3;
     EXPECT_EQ(VecTemp, Vec2);
 
     VecTemp = Vec6 / 3;
