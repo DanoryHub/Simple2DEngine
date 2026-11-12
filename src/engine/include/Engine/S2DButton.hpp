@@ -7,6 +7,7 @@
 
 #include "Engine/S2DIRenderable.hpp"
 #include "Engine/S2DGameObject.hpp"
+#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DVector2.hpp"
 #include "Engine/S2DVector4.hpp"
 #include "Engine/S2DLabel.hpp"
@@ -16,14 +17,14 @@
 #include <functional>
 #include <string>
 
-
-class S2DButton: virtual public S2DGameObject, public S2DIRenderable{
+S2DENGINE_NAMESPACE_BEGIN
+class Button: virtual public S2DGameObject, public S2DIRenderable{
 public:
-    S2DButton() = default;
-    S2DButton(const std::string& newLabel, const ImGuiWindowFlags& newFlags);
-    S2DButton(const std::string& newLabel, const S2DVector2<float>& newPos, const S2DVector2<float>& newSize);
-    S2DButton(const std::string& newLabel, const S2DVector2<float>& newPos, const S2DVector2<float>& newSize, const ImGuiWindowFlags& newFlags);
-    ~S2DButton() override = default;
+    Button() = default;
+    Button(const std::string& newLabel, const ImGuiWindowFlags& newFlags);
+    Button(const std::string& newLabel, const S2DVector2<float>& newPos, const S2DVector2<float>& newSize);
+    Button(const std::string& newLabel, const S2DVector2<float>& newPos, const S2DVector2<float>& newSize, const ImGuiWindowFlags& newFlags);
+    ~Button() override = default;
 
     void Render(const std::shared_ptr<S2DRenderContext> &renderContext) override;
     void setOnClickCallback(const std::function<void()> &newCallback);
@@ -50,5 +51,5 @@ protected:
     std::function<void()> onClickCallback;
 };
 
-
+S2DENGINE_NAMESPACE_END
 #endif //ENGINE_S2DBUTTON_HPP

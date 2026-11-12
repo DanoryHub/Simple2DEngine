@@ -11,44 +11,44 @@
 #include <string>
 #include <cstdint>
 
-
-S2DButton::S2DButton(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize):
+S2DENGINE_NAMESPACE_BEGIN
+Button::Button(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize):
     buttonSize(newSize),
     windowPos(newPos) {
     buttonLabel.text = newLabel;
 }
 
-S2DButton::S2DButton(const std::string& newLabel, const ImGuiWindowFlags &newFlags):
+Button::Button(const std::string& newLabel, const ImGuiWindowFlags &newFlags):
     windowFlags(newFlags) {
     buttonLabel.text = newLabel;
 }
 
-S2DButton::S2DButton(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize, const ImGuiWindowFlags &newFlags):
+Button::Button(const std::string& newLabel, const S2DVector2<float> &newPos, const S2DVector2<float>& newSize, const ImGuiWindowFlags &newFlags):
     windowPos(newPos),
     buttonSize(newSize),
     windowFlags(newFlags) {
     buttonLabel.text = newLabel;
 }
 
-void S2DButton::setButtonColorIdle(const S2DVector4<float> &newColor) {
+void Button::setButtonColorIdle(const S2DVector4<float> &newColor) {
     buttonColorIdle = newColor;
 }
 
-void S2DButton::setButtonColorHovered(const S2DVector4<float> &newColor) {
+void Button::setButtonColorHovered(const S2DVector4<float> &newColor) {
     buttonColorHovered = newColor;
 }
 
-void S2DButton::setButtonColorPressed(const S2DVector4<float> &newColor) {
+void Button::setButtonColorPressed(const S2DVector4<float> &newColor) {
     buttonColorPressed = newColor;
 }
 
-void S2DButton::setButtonFont(const std::string& fontPath, float fontSize) {
+void Button::setButtonFont(const std::string& fontPath, float fontSize) {
     buttonLabel.fontSource = fontPath;
     buttonLabel.textSize = fontSize;
 }
 
-void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
-    std::string windowName = "S2DButton_" + std::to_string(reinterpret_cast<uintptr_t>(this));
+void Button::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
+    std::string windowName = "S2D::Button_" + std::to_string(reinterpret_cast<uintptr_t>(this));
 
     auto convertedPos = renderContext->logicalToWindow(windowPos);
     auto convertedSize = renderContext->logicalToWindow(buttonSize);
@@ -82,6 +82,7 @@ void S2DButton::Render(const std::shared_ptr<S2DRenderContext>& renderContext) {
     ImGui::PopStyleVar();
 }
 
-void S2DButton::setOnClickCallback(const std::function<void()> &newCallback) {
+void Button::setOnClickCallback(const std::function<void()> &newCallback) {
     onClickCallback = newCallback;
 }
+S2DENGINE_NAMESPACE_END
