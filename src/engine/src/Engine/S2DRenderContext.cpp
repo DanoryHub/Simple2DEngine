@@ -27,7 +27,7 @@ void S2DRenderContext::registerRenderer(SDL_Renderer* newRenderer) {
     clearTextureCache();
 }
 
-void S2DRenderContext::registerCamera(const std::shared_ptr<S2DCamera>& newCamera) {
+void S2DRenderContext::registerCamera(const std::shared_ptr<S2D::Camera>& newCamera) {
     currCamera = newCamera;
 }
 

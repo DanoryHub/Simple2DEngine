@@ -40,7 +40,7 @@ ArcanoidScene::ArcanoidScene(): S2DGameScene() {
     registerGameObject(testText);
     registerGameObject(testSound);
 
-    mainSceneCamera = std::make_shared<S2DCamera>();
+    mainSceneCamera = std::make_shared<S2D::Camera>();
 }
 
 void ArcanoidScene::Iterate(float deltaTime) {

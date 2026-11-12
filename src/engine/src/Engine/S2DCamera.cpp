@@ -4,35 +4,38 @@
 
 #include "Engine/S2DCamera.hpp"
 
+S2DENGINE_NAMESPACE_BEGIN
 
-S2DCamera::S2DCamera() {
+Camera::Camera() {
     cameraPosition = S2DVector2<float>(0.f, 0.f);
 }
 
-S2DCamera::~S2DCamera() {}
+Camera::~Camera() {}
 
-S2DVector2<float> S2DCamera::getPosition() const {
+S2DVector2<float> Camera::getPosition() const {
     return cameraPosition;
 }
 
-void S2DCamera::setPosition(const S2DVector2<float>& value) {
+void Camera::setPosition(const S2DVector2<float>& value) {
     cameraPosition.x = value.x;
     cameraPosition.y = value.y;
 }
 
-S2DVector2<float> S2DCamera::getScale() const {
+S2DVector2<float> Camera::getScale() const {
     return cameraScale;
 }
 
-void S2DCamera::setScale(const S2DVector2<float>& value) {
+void Camera::setScale(const S2DVector2<float>& value) {
     cameraScale.x = value.x;
     cameraScale.y = value.y;
 }
 
-float S2DCamera::getRotation() const {
+float Camera::getRotation() const {
     return cameraRotation;
 }
 
-void S2DCamera::setRotation(float value) {
+void Camera::setRotation(float value) {
     cameraRotation = value;
 }
+
+S2DENGINE_NAMESPACE_END

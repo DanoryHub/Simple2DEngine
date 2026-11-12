@@ -9,6 +9,7 @@
 #include "Engine/S2DIRenderable.hpp"
 #include "Engine/S2DIIterable.hpp"
 #include "Engine/S2DMainApp.hpp"
+#include "Engine/S2DHelpers.hpp"
 
 #include <vector>
 #include <memory>
@@ -16,13 +17,15 @@
 class S2DRenderContext;
 class S2DGameObject;
 class S2DCollidable;
-class S2DCamera;
+S2DENGINE_NAMESPACE_BEGIN
+class Camera;
+S2DENGINE_NAMESPACE_END
 struct MIX_Mixer;
 
 class S2DGameScene: public S2DIInputReceiver, public S2DIRenderable, public S2DIIterable{
 protected:
     std::weak_ptr<MainApp> mainApp;
-    std::shared_ptr<S2DCamera> mainSceneCamera;
+    std::shared_ptr<S2D::Camera> mainSceneCamera;
     std::vector<std::shared_ptr<S2DGameObject>> gameObjects;
 
 public:
@@ -34,8 +37,8 @@ public:
     void Render(const std::shared_ptr<S2DRenderContext>& renderContext) override;
     void Iterate(float deltaTime) override;
 
-    std::shared_ptr<S2DCamera> getSceneCamera() const;
-    void setSceneCamera(const std::shared_ptr<S2DCamera>& newCamera);
+    std::shared_ptr<S2D::Camera> getSceneCamera() const;
+    void setSceneCamera(const std::shared_ptr<S2D::Camera>& newCamera);
 
     void receiveInput(const SDL_Event *event) override;
     std::vector<std::shared_ptr<S2DCollidable>> getAllCollidables();

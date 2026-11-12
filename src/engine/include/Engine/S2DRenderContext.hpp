@@ -10,11 +10,14 @@
 #include <unordered_map>
 
 #include "Engine/S2DVector2.hpp"
+#include "Engine/S2DHelpers.hpp"
 
 struct SDL_AudioSpec;
 struct SDL_Renderer;
 class S2DTexture;
-class S2DCamera;
+S2DENGINE_NAMESPACE_BEGIN
+class Camera;
+S2DENGINE_NAMESPACE_END
 
 class S2DRenderContext {
 public:
@@ -23,7 +26,7 @@ public:
 
     void clearTextureCache();
     void registerRenderer(SDL_Renderer* newRenderer);
-    void registerCamera(const std::shared_ptr<S2DCamera>& newCamera);
+    void registerCamera(const std::shared_ptr<S2D::Camera>& newCamera);
     void registerAudioSpec(SDL_AudioSpec* newAudioSpec);
     void setLogicalSize(int width, int height);
     S2DVector2<float> logicalToWindow(const S2DVector2<float>& logicalPos) const;
@@ -37,7 +40,7 @@ public:
 protected:
     SDL_Renderer* renderer;
     SDL_AudioSpec* audioSpec;
-    std::weak_ptr<S2DCamera> currCamera;
+    std::weak_ptr<S2D::Camera> currCamera;
     int logicalWidth = 1920;
     int logicalHeight = 1080;
 
