@@ -5,13 +5,12 @@
 #ifndef ENGINE_S2DRENDERABLE_HPP
 #define ENGINE_S2DRENDERABLE_HPP
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DPlaceable.hpp"
 #include "Engine/S2DIRenderable.hpp"
 
 #include <string>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class RenderContext;
 
@@ -26,6 +25,6 @@ public:
     void Render(const std::shared_ptr<S2D::RenderContext>& renderContext) override;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DRENDERABLE_HPP

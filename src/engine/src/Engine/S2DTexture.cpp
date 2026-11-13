@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 Texture::Texture(SDL_Renderer* renderer, const std::string &tPath):
     texturePath(tPath)
@@ -55,4 +55,4 @@ Texture::~Texture() {
     SDL_DestroyTexture(texture);
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

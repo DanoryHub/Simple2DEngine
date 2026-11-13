@@ -5,7 +5,6 @@
 #ifndef ENGINE_S2DTEXT_H
 #define ENGINE_S2DTEXT_H
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DLabel.hpp"
 #include "Engine/S2DVector2.hpp"
 #include "Engine/S2DVector4.hpp"
@@ -14,7 +13,7 @@
 
 #include "imgui.h"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class RenderContext;
 
@@ -43,6 +42,6 @@ protected:
                                 ImGuiWindowFlags_NoScrollbar;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DTEXT_H

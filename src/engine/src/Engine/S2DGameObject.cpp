@@ -4,7 +4,7 @@
 
 #include "Engine/S2DGameObject.hpp"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 void GameObject::setName(const std::string& name) {
     objectName = name;
@@ -16,4 +16,4 @@ const std::string& GameObject::getName() const {
 
 void GameObject::Iterate(float deltaTime) {}
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

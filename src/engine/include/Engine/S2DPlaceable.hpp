@@ -8,7 +8,6 @@
 #include <memory>
 #include <string>
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DVector2.hpp"
 #include "Engine/S2DGameObject.hpp"
 #include "Engine/S2DIRenderable.hpp"
@@ -16,7 +15,7 @@
 
 struct SDL_Renderer;
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class RenderContext;
 class Texture;
@@ -40,6 +39,6 @@ public:
     void SetRotation(float newRotation);
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DPLACEABLE_HPP

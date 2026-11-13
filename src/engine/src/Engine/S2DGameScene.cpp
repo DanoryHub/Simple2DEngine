@@ -9,7 +9,7 @@
 #include "Engine/S2DRenderContext.hpp"
 #include "Engine/S2DSound.hpp"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 GameScene::GameScene() {
     mainSceneCamera = std::make_shared<S2D::Camera>();
@@ -76,4 +76,4 @@ std::vector<std::shared_ptr<S2D::Collidable>> GameScene::getAllCollidables() {
 
 GameScene::~GameScene() {}
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

@@ -11,10 +11,9 @@
 #include <stdexcept>
 #include <type_traits>
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DVector2.hpp"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 template <typename targetType>
 concept MatrixType = std::is_arithmetic_v<targetType>;
@@ -51,7 +50,7 @@ protected:
     static bool isSafeMatrixSize(size_t x, size_t y);
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #include "S2DMatrix.ipp"
 

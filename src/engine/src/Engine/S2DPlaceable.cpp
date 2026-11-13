@@ -12,7 +12,7 @@
 
 #include "SDL3/SDL.h"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 Placeable::Placeable() = default;
 
@@ -40,4 +40,4 @@ void Placeable::SetRotation(const float newRotation) {
     rotation = newRotation;
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

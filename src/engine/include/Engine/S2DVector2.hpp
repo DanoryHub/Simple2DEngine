@@ -8,9 +8,7 @@
 #include <cmath>
 #include <type_traits>
 
-#include "Engine/S2DHelpers.hpp"
-
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 template <typename targetType>
 concept VectorType = std::is_arithmetic_v<targetType>;
@@ -143,6 +141,6 @@ struct Vector2 {
     }
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DVECTOR2_HPP

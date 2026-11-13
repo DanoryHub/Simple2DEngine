@@ -13,7 +13,7 @@
 
 #include "SDL3/SDL.h"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 RenderContext::RenderContext() {
     renderer = nullptr;
@@ -125,4 +125,4 @@ void RenderContext::drawTexture(const std::string &tPath,  const S2D::Vector2<fl
     getTexture(tPath)->Draw(renderer, screenPosition.x, screenPosition.y, screenScale.x, screenScale.y, screenRotation);
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

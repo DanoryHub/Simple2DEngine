@@ -8,7 +8,7 @@
 #include <string>
 #include <cstdint>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 Text::Text(const std::string& newLabel, const S2D::Vector2<float> &newPos, float newSize):
     windowPos(newPos) {
@@ -72,4 +72,4 @@ void Text::Render(const std::shared_ptr<S2D::RenderContext>& renderContext) {
     ImGui::PopStyleVar();
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

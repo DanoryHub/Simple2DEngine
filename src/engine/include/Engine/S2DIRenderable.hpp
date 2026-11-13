@@ -5,11 +5,9 @@
 #ifndef ARCANOID_S2DIRENDERABLE_HPP
 #define ARCANOID_S2DIRENDERABLE_HPP
 
-#include "Engine/S2DHelpers.hpp"
-
 #include <memory>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class RenderContext;
 
@@ -19,6 +17,6 @@ public:
     virtual void Render(const std::shared_ptr<S2D::RenderContext>& renderContext) = 0;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ARCANOID_S2DIRENDERABLE_HPP

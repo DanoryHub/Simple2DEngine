@@ -5,14 +5,12 @@
 #ifndef ENGINE_S2DTEXTURE_HPP
 #define ENGINE_S2DTEXTURE_HPP
 
-#include "Engine/S2DHelpers.hpp"
-
 #include <string>
 
 struct SDL_Texture;
 struct SDL_Renderer;
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class Texture {
 protected:
@@ -31,6 +29,6 @@ public:
         float rotation = 0) const;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DTEXTURE_HPP

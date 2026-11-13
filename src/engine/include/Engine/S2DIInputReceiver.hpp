@@ -5,11 +5,9 @@
 #ifndef ENGINE_S2DIINPUTRECEIVER_HPP
 #define ENGINE_S2DIINPUTRECEIVER_HPP
 
-#include "Engine/S2DHelpers.hpp"
-
 #include "SDL3/SDL.h"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class IInputReceiver {
 public:
@@ -17,6 +15,6 @@ public:
     virtual void receiveInput(const SDL_Event* event) = 0;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DIINPUTRECEIVER_HPP

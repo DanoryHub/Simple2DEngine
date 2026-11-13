@@ -11,7 +11,7 @@
 #include <vector>
 #include <array>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 template<MatrixType targetType>
 Matrix<targetType>::Matrix(): matrixSize({0, 0}) {}
@@ -177,6 +177,6 @@ bool Matrix<targetType>::isSafeMatrixSize(const size_t x, const size_t y) {
     return (SIZE_MAX / x) >= y;
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif // ENGINE_S2DMATRIX_IPP

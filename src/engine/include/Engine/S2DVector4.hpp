@@ -5,16 +5,15 @@
 #ifndef ENGINE_S2DVECTOR4_HPP
 #define ENGINE_S2DVECTOR4_HPP
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DVector2.hpp"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 template <VectorType targetType>
 struct Vector4 {
     targetType x, y, z, w;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DVECTOR4_HPP

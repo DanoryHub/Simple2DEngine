@@ -11,7 +11,7 @@
 #include <string>
 #include <cstdint>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 Button::Button(const std::string& newLabel, const S2D::Vector2<float> &newPos, const S2D::Vector2<float>& newSize):
     buttonSize(newSize),
     windowPos(newPos) {
@@ -85,4 +85,4 @@ void Button::Render(const std::shared_ptr<S2D::RenderContext>& renderContext) {
 void Button::setOnClickCallback(const std::function<void()> &newCallback) {
     onClickCallback = newCallback;
 }
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

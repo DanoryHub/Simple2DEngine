@@ -9,13 +9,12 @@
 #include <memory>
 #include <unordered_map>
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DVector2.hpp"
 
 struct SDL_AudioSpec;
 struct SDL_Renderer;
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class Texture;
 class Camera;
@@ -48,6 +47,6 @@ protected:
     std::unordered_map<std::string, std::unique_ptr<S2D::Texture>> textureCache;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ARCANOID_S2DRENDERCONTEXT_HPP

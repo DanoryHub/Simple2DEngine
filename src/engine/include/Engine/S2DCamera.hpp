@@ -5,10 +5,9 @@
 #ifndef ENGINE_S2DCAMERA_HPP
 #define ENGINE_S2DCAMERA_HPP
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DVector2.hpp"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class Camera {
 protected:
@@ -30,6 +29,6 @@ public:
     void setRotation(float cameraRotation);
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DCAMERA_HPP

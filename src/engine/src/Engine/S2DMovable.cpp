@@ -6,7 +6,7 @@
 
 #include "SDL3/SDL.h"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 void Movable::receiveInput(const SDL_Event *event) {
     if (event->type == SDL_EVENT_KEY_DOWN) {
@@ -30,4 +30,4 @@ void Movable::registerKeyEvent(Uint32 eventType, const SDL_Scancode &scancode, c
     }
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

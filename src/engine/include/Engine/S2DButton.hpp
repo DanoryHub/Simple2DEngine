@@ -5,7 +5,6 @@
 #ifndef ENGINE_S2DBUTTON_HPP
 #define ENGINE_S2DBUTTON_HPP
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DIRenderable.hpp"
 #include "Engine/S2DGameObject.hpp"
 #include "Engine/S2DVector2.hpp"
@@ -17,7 +16,7 @@
 #include <functional>
 #include <string>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class RenderContext;
 
@@ -54,6 +53,6 @@ protected:
     std::function<void()> onClickCallback;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DBUTTON_HPP

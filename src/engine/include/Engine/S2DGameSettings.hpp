@@ -5,12 +5,10 @@
 #ifndef ENGINE_S2DGAMESETTINGS_HPP
 #define ENGINE_S2DGAMESETTINGS_HPP
 
-#include "Engine/S2DHelpers.hpp"
-
 #include <string>
 #include <memory>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class GameScene;
 
@@ -26,7 +24,7 @@ public:
     virtual std::string GetInitialSceneName() const = 0;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 extern std::shared_ptr<S2D::GameSettings> CreateGameSettings();
 

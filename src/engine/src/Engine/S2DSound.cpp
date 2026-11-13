@@ -6,7 +6,7 @@
 
 #include "SDL3_mixer/SDL_mixer.h"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 Sound::Sound(const std::string& soundSourcePath){
     sourcePath = soundSourcePath;
@@ -34,4 +34,4 @@ void Sound::registerSoundDeviceMixer(MIX_Mixer *newDeviceMixer) {
     deviceMixer = newDeviceMixer;
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

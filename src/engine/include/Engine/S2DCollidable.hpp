@@ -17,7 +17,7 @@
 struct SDL_Renderer;
 enum class CollisionCallbackType;
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 struct BoundingBox{
     S2D::Vector2<float> pos{0.f, 0.f};
@@ -44,6 +44,6 @@ protected:
     std::map<CollisionCallbackType, std::function<void(std::shared_ptr<S2D::GameObject>&)>> callbacks;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DCOLLIDABLE_HPP

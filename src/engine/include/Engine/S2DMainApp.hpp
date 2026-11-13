@@ -5,8 +5,6 @@
 #ifndef ENGINE_S2DMAINAPP_HPP
 #define ENGINE_S2DMAINAPP_HPP
 
-#include "Engine/S2DHelpers.hpp"
-
 #include "SDL3/SDL.h"
 
 #include <unordered_map>
@@ -16,13 +14,13 @@
 
 struct MIX_Mixer;
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class GameScene;
 class RenderContext;
 class CollisionDetectionSystem;
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 class MainApp {
 public:

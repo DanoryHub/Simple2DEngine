@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 ScreenSegment::ScreenSegment(const S2D::Vector2<float>& pos, const S2D::Vector2<float>& size, std::mutex& globalMutex): dataLock(globalMutex) {
     setBBPos(pos);
@@ -212,4 +212,4 @@ void CollisionDetectionSystem::checkAllCollisions(SDL_Renderer* renderer, const 
     }
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

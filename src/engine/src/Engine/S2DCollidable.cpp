@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 S2D::Vector4<float> BoundingBox::getWorldPoints() const {
     return S2D::Vector4<float>(pos.x - size.x / 2 , pos.y - size.y / 2, pos.x + size.x / 2, pos.y + size.y / 2);
@@ -82,4 +82,4 @@ void Collidable::drawDebugBox(SDL_Renderer* renderer) {
 
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

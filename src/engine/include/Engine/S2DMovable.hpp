@@ -8,11 +8,10 @@
 #include <functional>
 #include <unordered_map>
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DIInputReceiver.hpp"
 #include "Engine/S2DRenderable.hpp"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class Movable: public S2D::Renderable, public S2D::IInputReceiver {
 public:
@@ -25,6 +24,6 @@ protected:
     std::unordered_map<SDL_Scancode, std::function<void()>> keyUpEvents;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DMOVABLE_HPP

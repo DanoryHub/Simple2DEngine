@@ -5,9 +5,7 @@
 #ifndef ARCANOID_S2DIITERABLE_HPP
 #define ARCANOID_S2DIITERABLE_HPP
 
-#include "Engine/S2DHelpers.hpp"
-
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class IIterable {
 public:
@@ -15,6 +13,6 @@ public:
     virtual void Iterate(float deltaTime) = 0;
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ARCANOID_S2DIITERABLE_HPP

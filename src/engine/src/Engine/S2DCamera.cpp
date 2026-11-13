@@ -4,7 +4,7 @@
 
 #include "Engine/S2DCamera.hpp"
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 Camera::Camera() {
     cameraPosition = S2D::Vector2<float>(0.f, 0.f);
@@ -38,4 +38,4 @@ void Camera::setRotation(float value) {
     cameraRotation = value;
 }
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D

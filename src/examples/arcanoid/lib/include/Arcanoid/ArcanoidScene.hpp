@@ -6,18 +6,17 @@
 #define ARCANOID_ARCANOIDSCENE_HPP
 
 #include "Engine/S2DGameScene.hpp"
-#include "Engine/S2DHelpers.hpp"
 
 #include <memory>
 
 struct SDL_Renderer;
 class ArcanoidPlaceable;
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 class Button;
 class Text;
 class Sound;
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 class ArcanoidScene: public S2D::GameScene {
 protected:

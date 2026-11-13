@@ -5,7 +5,6 @@
 #ifndef ENGINE_S2DGAMESCENE_HPP
 #define ENGINE_S2DGAMESCENE_HPP
 
-#include "Engine/S2DHelpers.hpp"
 #include "Engine/S2DIInputReceiver.hpp"
 #include "Engine/S2DIRenderable.hpp"
 #include "Engine/S2DIIterable.hpp"
@@ -16,7 +15,7 @@
 
 struct MIX_Mixer;
 
-S2DENGINE_NAMESPACE_BEGIN
+namespace S2D {
 
 class RenderContext;
 class GameObject;
@@ -45,6 +44,6 @@ public:
     std::vector<std::shared_ptr<S2D::Collidable>> getAllCollidables();
 };
 
-S2DENGINE_NAMESPACE_END
+} // namespace S2D
 
 #endif //ENGINE_S2DGAMESCENE_HPP
