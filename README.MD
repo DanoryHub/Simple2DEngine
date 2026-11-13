@@ -8,10 +8,6 @@ UI widgets, and sound playback.
 The repository also contains a playable **Arcanoid** example that doubles as the
 reference application for the engine.
 
-> **AI disclosure:** The unit tests under `src/engine/tests` for the Camera, Input,
-> RenderContext, UI and Collision systems, as well as this README, were written with
-> the help of an AI assistant. See [AI-assisted work](#ai-assisted-work).
-
 ## Features
 
 - Scene management with generated scene registration from JSON
