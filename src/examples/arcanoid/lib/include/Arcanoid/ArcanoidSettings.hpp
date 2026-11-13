@@ -4,20 +4,12 @@
 
 #ifndef ARCANOID_ARCANOIDSETTINGS_HPP
 #define ARCANOID_ARCANOIDSETTINGS_HPP
-#include <string>
 
 #include "Engine/S2DGameSettings.hpp"
 
 class ArcanoidSettings: public S2D::GameSettings{
 public:
-    ~ArcanoidSettings() override {};
-    std::string GetName() const override;
-    std::string GetTitle() const override;
-    std::string GetVersion() const override;
-    std::string GetIdentifier() const override;
-    int GetWindowWidth() const override;
-    int GetWindowHeight() const override;
-    std::string GetInitialSceneName() const override;
+    ArcanoidSettings();
 };
 
 #endif //ARCANOID_ARCANOIDSETTINGS_HPP

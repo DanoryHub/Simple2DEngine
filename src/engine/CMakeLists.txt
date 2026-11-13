@@ -50,6 +50,25 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(gtest)
 add_subdirectory(tests)
 
+FetchContent_Declare(
+        tinyjson
+        GIT_REPOSITORY https://github.com/FFMG/TinyJSON.git
+        GIT_TAG v0.2.8
+        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/tinyjson"
+        # TinyJSON's own CMakeLists pulls in its test suite and a second googletest.
+        # Point SOURCE_SUBDIR at a non-existent directory so no add_subdirectory() happens.
+        SOURCE_SUBDIR "cmake/disabled"
+)
+FetchContent_MakeAvailable(tinyjson)
+
+add_library(
+        TinyJSON STATIC
+        ${tinyjson_SOURCE_DIR}/src/TinyJSON.cpp
+)
+target_include_directories(TinyJSON PUBLIC
+        ${tinyjson_SOURCE_DIR}/src
+)
+
 set(IMGUI_LOCAL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui")
 FetchContent_Declare(
         imgui
@@ -87,6 +106,7 @@ add_library(
         src/Engine/S2DRenderable.cpp
         src/Engine/S2DGameObject.cpp
         src/Engine/S2DGameScene.cpp
+        src/Engine/S2DGameSettings.cpp
         src/Engine/S2DPlaceable.cpp
         src/Engine/S2DMovable.cpp
         src/Engine/S2DMainApp.cpp
@@ -106,4 +126,5 @@ target_link_libraries(
         SDL3_image::SDL3_image-static
         SDL3_mixer::SDL3_mixer
         imgui
+        TinyJSON
 )

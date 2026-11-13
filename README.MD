@@ -101,24 +101,36 @@ placement, camera, input, render context, UI and collision detection.
 ### 1. Provide game settings
 
 `main.cpp` calls the global `CreateGameSettings()` factory and reads the application
-metadata from the returned `S2D::GameSettings`.
+metadata from the returned `S2D::GameSettings`. `GameSettings` handles reading and
+parsing the JSON configuration; the game only tells it which file to load and
+exposes the factory:
 
 ```cpp
 #include "Engine/S2DGameSettings.hpp"
 
 class MySettings : public S2D::GameSettings {
 public:
-    std::string GetName() const override { return "MyGame"; }
-    std::string GetTitle() const override { return "My Game"; }
-    std::string GetVersion() const override { return "0.1.0"; }
-    std::string GetIdentifier() const override { return "mygame"; }
-    int GetWindowWidth() const override { return 1280; }
-    int GetWindowHeight() const override { return 720; }
-    std::string GetInitialSceneName() const override { return "MainScene"; }
+    MySettings() : S2D::GameSettings("assets/scenes.json") {}
 };
 
 std::shared_ptr<S2D::GameSettings> CreateGameSettings() {
     return std::make_shared<MySettings>();
+}
+```
+
+The file contains a `settings` object next to the scene definitions:
+
+```json
+{
+  "settings": {
+    "name": "Arcanoid",
+    "title": "Arcanoid Game",
+    "version": "0.0.1",
+    "identifier": "arcanoid",
+    "windowWidth": 1920,
+    "windowHeight": 1080,
+    "initialSceneName": "MainScene"
+  }
 }
 ```
 
@@ -171,16 +183,16 @@ public:
 
 ## Engine API overview
 
-All engine types live in the `S2D` namespace. Headers use the
-`S2DENGINE_NAMESPACE_BEGIN` / `S2DENGINE_NAMESPACE_END` macros, and
-`Engine/S2DHelpers.hpp` also defines the global `CollisionCallbackType` enum.
+All engine types live in the `S2D` namespace. Headers use regular
+`namespace S2D { ... }` blocks, and `Engine/S2DHelpers.hpp` also defines the
+global `CollisionCallbackType` enum.
 
 ### Application and scenes
 
 | Type | Purpose |
 | --- | --- |
 | `MainApp` | Owns the SDL window/renderer, ImGui context, mixer, current scene, render context and collision system. Its `Init`, `ProcessEvent`, `Iterate` and `Quit` methods are called by SDL3's callback-style entry point. |
-| `S2D::GameSettings` | Interface describing application name, title, version, identifier, window size and initial scene. Implemented by the game through `CreateGameSettings()`. |
+| `S2D::GameSettings` | Loads application name, title, version, identifier, window size and initial scene from a JSON file. Games supply the file path through a subclass and create it via `CreateGameSettings()`. |
 | `S2D::GameScene` | Holds game objects and the scene camera. Dispatches `Iterate`, `Render` and `receiveInput` to registered objects and exposes all `Collidable` objects. |
 | `S2D::GameObject` | Base object with a name and an `Iterate(float deltaTime)` override. |
 

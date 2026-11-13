@@ -1,4 +1,13 @@
 ﻿{
+  "settings": {
+    "name": "Arcanoid",
+    "title": "Arcanoid Game",
+    "version": "0.0.1",
+    "identifier": "arcanoid",
+    "windowWidth": 1920,
+    "windowHeight": 1080,
+    "initialSceneName": "MainScene"
+  },
   "scenes": [
     {
       "id": "MainScene",
