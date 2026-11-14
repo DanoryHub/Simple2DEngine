@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.0)
-project(Arcanoid VERSION 0.0.1)
+project(Arkanoid VERSION 0.0.1)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -17,7 +17,7 @@ execute_process(
         COMMAND ${Python3_EXECUTABLE}
         ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/tools/ScenesCreationGenerator.py
         ${CMAKE_CURRENT_SOURCE_DIR}/assets/scenes.json
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/src/ArcanoidScenesInit_gen.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/src/ArkanoidScenesInit_gen.cpp
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND_ERROR_IS_FATAL ANY
 )
@@ -29,21 +29,21 @@ add_subdirectory(
 )
 add_subdirectory(
         ${CMAKE_CURRENT_SOURCE_DIR}/lib
-        ${CMAKE_CURRENT_BINARY_DIR}/ArcanoidSrc
+        ${CMAKE_CURRENT_BINARY_DIR}/ArkanoidSrc
 )
 
 # Build executable
-add_executable(Arcanoid ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/main.cpp)
+add_executable(Arkanoid ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/main.cpp)
 
 target_link_libraries(
-        Arcanoid PRIVATE
-        ArcanoidSrc
+        Arkanoid PRIVATE
+        ArkanoidSrc
 )
 
 # Custom target to copy media directory to the output directory of the executable
 add_custom_target(
         copy_assets
-        COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different "${CMAKE_CURRENT_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:Arcanoid>/assets"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different "${CMAKE_CURRENT_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:Arkanoid>/assets"
         COMMENT "Copying media dir"
 )
-add_dependencies(Arcanoid copy_assets)
+add_dependencies(Arkanoid copy_assets)

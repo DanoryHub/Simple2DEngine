@@ -5,7 +5,7 @@ SDL_image, SDL_mixer and TinyJSON. It provides a scene/object model, sprite rend
 with a camera, keyboard input bindings, a segmented collision-detection system,
 ImGui-based UI widgets, JSON-backed configuration, and sound playback.
 
-The repository also contains a playable **Arcanoid** example that doubles as the
+The repository also contains a playable **Arkanoid** example that doubles as the
 reference application for the engine.
 
 ## Features
@@ -70,11 +70,11 @@ cd src/examples/arcanoid
 cmake -S . -B cmake-build-debug
 cmake --build cmake-build-debug -j 4
 cd cmake-build-debug
-./Arcanoid
+./Arkanoid
 ```
 
 The build copies `assets/` next to the executable, and the example loads assets with
-relative paths such as `./assets/Bug.png`, so run the binary from its build
+relative paths such as `./assets/sprites/ball.png`, so run the binary from its build
 directory.
 
 ## Running the tests
@@ -122,10 +122,10 @@ The file contains a `settings` object next to the scene definitions:
 ```json
 {
   "settings": {
-    "name": "Arcanoid",
-    "title": "Arcanoid Game",
+    "name": "Arkanoid",
+    "title": "Arkanoid Game",
     "version": "0.0.1",
-    "identifier": "arcanoid",
+    "identifier": "arkanoid",
     "windowWidth": 1920,
     "windowHeight": 1080,
     "initialSceneName": "MainScene"
@@ -166,7 +166,7 @@ rendering, input dispatch and collision collection.
 class MyScene : public S2D::GameScene {
 public:
     MyScene() {
-        auto sprite = std::make_shared<S2D::Renderable>("./assets/Bug.png");
+        auto sprite = std::make_shared<S2D::Renderable>("./assets/sprites/ball.png");
         sprite->SetPosition(S2D::Vector2<float>(100.f, 100.f));
         sprite->SetScale(S2D::Vector2<float>(2.f, 2.f));
 
@@ -246,7 +246,7 @@ context->setLogicalSize(1280, 720);
 context->registerCamera(camera);
 
 context->drawTexture(
-    "./assets/Bug.png",
+    "./assets/sprites/ball.png",
     S2D::Vector2<float>(100.f, 100.f),
     S2D::Vector2<float>(1.f, 1.f),
     0.f);

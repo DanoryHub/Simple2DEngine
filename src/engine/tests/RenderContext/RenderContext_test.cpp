@@ -1,7 +1,3 @@
-//
-// Tests for the RenderContext system.
-//
-
 #include "Engine/S2DCamera.hpp"
 #include "Engine/S2DRenderContext.hpp"
 
@@ -9,16 +5,18 @@
 
 #include "gtest/gtest.h"
 
+#include <atomic>
 #include <filesystem>
 #include <memory>
 #include <string>
 
 namespace {
 
-std::filesystem::path assetPath(const std::string& fileName) {
-    const std::filesystem::path sourceFile(__FILE__);
-    return (sourceFile.parent_path() / "../../../examples/arcanoid/assets" / fileName)
-        .lexically_normal();
+std::filesystem::path temporaryTexturePath() {
+    static std::atomic<int> counter{0};
+    const int index = counter.fetch_add(1);
+    return std::filesystem::temp_directory_path() /
+           ("s2d_rendercontext_test_" + std::to_string(index) + ".bmp");
 }
 
 // Exposes the texture cache size so cache behaviour can be asserted.
@@ -34,6 +32,12 @@ protected:
         ASSERT_NE(surface, nullptr);
         renderer = SDL_CreateSoftwareRenderer(surface);
         ASSERT_NE(renderer, nullptr);
+
+        ASSERT_TRUE(SDL_FillSurfaceRect(
+            surface, nullptr, SDL_MapSurfaceRGBA(surface, 0x40, 0xC8, 0xFF, 0xFF)));
+
+        texturePath = temporaryTexturePath();
+        ASSERT_TRUE(SDL_SaveBMP(surface, texturePath.string().c_str()));
     }
 
     void TearDown() override {
@@ -45,10 +49,13 @@ protected:
             SDL_DestroySurface(surface);
             surface = nullptr;
         }
+        std::error_code error;
+        std::filesystem::remove(texturePath, error);
     }
 
     SDL_Surface* surface = nullptr;
     SDL_Renderer* renderer = nullptr;
+    std::filesystem::path texturePath;
 };
 
 } // namespace
@@ -148,27 +155,22 @@ TEST_F(RenderContextFixture, LogicalToWindowUsesCurrentLogicalSize) {
 }
 
 TEST_F(RenderContextFixture, TextureCacheReusesEntriesAndCanBeCleared) {
-    const auto bugPath = assetPath("Bug.png");
-    if (!std::filesystem::exists(bugPath)) {
-        GTEST_SKIP() << "Image asset not found: " << bugPath;
-    }
-
     RenderContextAccess context;
     context.registerRenderer(renderer);
 
     EXPECT_EQ(context.textureCount(), 0u);
 
-    auto* first = context.getTexture(bugPath.string());
+    auto* first = context.getTexture(texturePath.string());
     ASSERT_NE(first, nullptr);
     EXPECT_EQ(context.textureCount(), 1u);
 
-    auto* second = context.getTexture(bugPath.string());
+    auto* second = context.getTexture(texturePath.string());
     EXPECT_EQ(first, second);
     EXPECT_EQ(context.textureCount(), 1u);
 
     // A lexically different path that points at the same file is a separate cache key.
     const std::string alternatePath =
-        (bugPath.parent_path() / "." / bugPath.filename()).string();
+        (texturePath.parent_path() / "." / texturePath.filename()).string();
     auto* alternate = context.getTexture(alternatePath);
     ASSERT_NE(alternate, nullptr);
     EXPECT_EQ(context.textureCount(), 2u);
@@ -176,22 +178,17 @@ TEST_F(RenderContextFixture, TextureCacheReusesEntriesAndCanBeCleared) {
     context.clearTextureCache();
     EXPECT_EQ(context.textureCount(), 0u);
 
-    auto* afterClear = context.getTexture(bugPath.string());
+    auto* afterClear = context.getTexture(texturePath.string());
     ASSERT_NE(afterClear, nullptr);
     EXPECT_EQ(context.textureCount(), 1u);
 }
 
 TEST_F(RenderContextFixture, DrawTextureWithoutCameraDoesNothing) {
-    const auto bugPath = assetPath("Bug.png");
-    if (!std::filesystem::exists(bugPath)) {
-        GTEST_SKIP() << "Image asset not found: " << bugPath;
-    }
-
     RenderContextAccess context;
     context.registerRenderer(renderer);
 
     context.drawTexture(
-        bugPath.string(),
+        texturePath.string(),
         S2D::Vector2<float>(0.f, 0.f),
         S2D::Vector2<float>(1.f, 1.f),
         0.f);
@@ -200,18 +197,13 @@ TEST_F(RenderContextFixture, DrawTextureWithoutCameraDoesNothing) {
 }
 
 TEST_F(RenderContextFixture, DrawTextureWithCameraLoadsTexture) {
-    const auto bugPath = assetPath("Bug.png");
-    if (!std::filesystem::exists(bugPath)) {
-        GTEST_SKIP() << "Image asset not found: " << bugPath;
-    }
-
     RenderContextAccess context;
     context.registerRenderer(renderer);
     auto camera = std::make_shared<S2D::Camera>();
     context.registerCamera(camera);
 
     context.drawTexture(
-        bugPath.string(),
+        texturePath.string(),
         S2D::Vector2<float>(10.f, 20.f),
         S2D::Vector2<float>(1.f, 1.f),
         0.f);

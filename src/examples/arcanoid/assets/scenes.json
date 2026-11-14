@@ -1,9 +1,9 @@
 ﻿{
   "settings": {
-    "name": "Arcanoid",
-    "title": "Arcanoid Game",
-    "version": "0.0.1",
-    "identifier": "arcanoid",
+    "name": "Arkanoid",
+    "title": "Arkanoid Game",
+    "version": "1.0.0",
+    "identifier": "arkanoid",
     "windowWidth": 1920,
     "windowHeight": 1080,
     "initialSceneName": "MainScene"
@@ -11,8 +11,8 @@
   "scenes": [
     {
       "id": "MainScene",
-      "className": "ArcanoidScene",
-      "includePath": "Arcanoid/ArcanoidScene.hpp"
+      "className": "Arkanoid::ArkanoidGameScene",
+      "includePath": "Arkanoid/ArkanoidGameScene.hpp"
     }
   ]
 }
