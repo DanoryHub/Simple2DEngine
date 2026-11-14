@@ -1,9 +1,9 @@
 # Simple2DEngine
 
 Simple2DEngine is a small, C++20 2D game engine built on top of SDL3, Dear ImGui,
-SDL_image and SDL_mixer. It provides a scene/object model, sprite rendering with a
-camera, keyboard input bindings, a segmented collision-detection system, ImGui-based
-UI widgets, and sound playback.
+SDL_image, SDL_mixer and TinyJSON. It provides a scene/object model, sprite rendering
+with a camera, keyboard input bindings, a segmented collision-detection system,
+ImGui-based UI widgets, JSON-backed configuration, and sound playback.
 
 The repository also contains a playable **Arcanoid** example that doubles as the
 reference application for the engine.
@@ -17,6 +17,7 @@ reference application for the engine.
 - Collision detection with screen segmentation and multi-threaded pair checks
 - ImGui UI: buttons, text and labels with custom fonts/colors
 - Sound playback through SDL_mixer
+- JSON/JSON5 configuration parsing through TinyJSON
 - Vector2/Vector4 math types and a small matrix implementation
 - GoogleTest unit-test suite
 
@@ -38,6 +39,7 @@ Dependencies are downloaded and built automatically:
 | SDL_mixer | `release-3.2.4` |
 | Dear ImGui | `v1.92.9` |
 | GoogleTest | `v1.17.0` |
+| TinyJSON | `v0.2.8` |
 
 ## Project layout
 
@@ -98,8 +100,9 @@ placement, camera, input, render context, UI and collision detection.
 
 `main.cpp` calls the global `CreateGameSettings()` factory and reads the application
 metadata from the returned `S2D::GameSettings`. `GameSettings` handles reading and
-parsing the JSON configuration; the game only tells it which file to load and
-exposes the factory:
+parsing the JSON configuration with
+[TinyJSON](https://github.com/FFMG/TinyJSON); the game only tells it which file to
+load and exposes the factory:
 
 ```cpp
 #include "Engine/S2DGameSettings.hpp"
@@ -194,6 +197,14 @@ global `CollisionCallbackType` enum.
 
 `MainApp::SetScenes` / `UpdateCurrScene` switch scenes, re-register the new scene's
 collidables and camera, and pass the audio mixer to its sounds.
+
+### JSON parsing with TinyJSON
+
+JSON handling is provided by [TinyJSON](https://github.com/FFMG/TinyJSON), a
+zero-dependency C++ JSON/JSON5 parser. The engine fetches it at configure time and
+builds it as a static library. Game settings are read from `scenes.json` in strict
+RFC 8259 mode, and parse failures are reported with the config path included.
+TinyJSON also supports JSON5 input, value creation and serialization.
 
 ### Object capabilities
 
@@ -373,5 +384,6 @@ protected state and SDL's software renderer where a real window is unnecessary.
 
 ## Third-party notices
 
-SDL3, SDL_image, SDL_mixer, Dear ImGui and GoogleTest are fetched at configure time
-and retain their respective licenses.
+SDL3, SDL_image, SDL_mixer, Dear ImGui, GoogleTest and TinyJSON are fetched at
+configure time and retain their respective licenses. TinyJSON is distributed under
+the MIT license.
